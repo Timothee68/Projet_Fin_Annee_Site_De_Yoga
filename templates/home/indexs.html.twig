@@ -1,0 +1,215 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accueil{% endblock %}
+
+{% block body %}
+
+<div class="container mt-5 mb-5">
+  <div class="row">
+    <div class="swiper mySwiper mt-5 mb-5">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide"><img src="{{asset('img/slideShowImg/mass-ayu-1.jpg')}}" alt="" style="height: 750px ;"></div>
+        <div class="swiper-slide"><img src="{{asset('img/slideShowImg/mass-ayu-2.jpg')}}" alt="" style="height: 750px ;"></div>
+        <div class="swiper-slide"><img src="{{asset('img/slideShowImg/soin1.jpg')}}" alt="" style="height: 750px ;"></div>
+        <div class="swiper-slide"><img src="{{asset('img/slideShowImg/soin2.jpg')}}" alt="" style="height: 750px ;"></div>
+        <div class="swiper-slide"><img src="{{asset('img/yoga/yoga-1.jpg')}}" alt="" style="height: 750px ;"></div>
+        <div class="swiper-slide"><img src="{{asset('img/yoga/yoga-2.jpg')}}" alt="" style="height: 750px ;"></div>
+        <div class="swiper-slide"><img src="{{asset('img/sonothérapie/DSC_0029.JPG')}}" alt="" style="height: 750px ;"></div>
+        <div class="swiper-slide"><img src="{{asset('img/sonothérapie/IMG_1929 (2).jpg')}}" alt="" style="height: 750px ;"></div>
+        <div class="swiper-slide"><img src="{{asset('img/sonothérapie/S.jpg')}}" alt="" style="height: 750px ;"></div>
+      </div>
+      <div class="swiper-button-next"></div>
+      <div class="swiper-button-prev"></div>
+      <div class="swiper-pagination"></div>
+    </div>
+  </div>
+  <div class="row">
+      <h2 id="prestation" class="text-start mt-5 mb-5">Les Prestations</h2>
+        <div class="card-group d-flex justify-content-evenly">
+            {% for benefit in benefits %}
+                <div class="col-3 m-3">
+                <div class="card text-center">
+                    <h5 class="card-title">{{benefit.title}}</h5>
+                    <div class="card-body">
+                      <img src="{{benefit.img}}" class="presta-home card-img-top" alt="image représentant {{ benefit.title }} pendant ça pratique ">
+                    <hr>
+                    <button type="button" class="btn btn-dark mt-lg-2"> <a href="{{ path('detail_benefit' , {'id': benefit.id}) }}" >En savoir plus</a></button>
+                    <button type="button" class="btn btn-dark mt-lg-2"><a href="#" >Réserver une séance</a></button>
+                  </div>
+                </div>
+            </div>
+                {% endfor %}
+        </div>
+    </div>
+</div>
+
+
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <h2 id="video">Retrouver les vidéos</h2>
+      <h4><a href="">View all</a></h4>
+      <hr class="pink">
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ac augue adipiscing sed ornare enim ut etiam. Sit sit aliquet elit aliquet velit semper. Semper sit id eu adipiscing.</p>
+    </div>
+  </div>
+</div>
+
+
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <h2 id="blog">Blog et actualités</h2>
+      <h4><a href="{{ path('show_blog') }}">View all</a></h4>
+      <hr class="pink">
+        <p class="text-center">Vous pourrez voir les deux derniers posts ici même </p>
+        {% for blog in blogs %}
+          <div class="col">
+            <div class="card mb-3">
+              {% if blog.image %}
+                <img src="{{blog.image}}" class="blog-home card-img-top" alt="image corresondant a l'article de blog {{blog.title}}">
+              {% elseif blog.urlVideo %}
+                <video width="320" height="240" controls>
+                  <source src="#" type="video/mp4">
+                  <source src="#" type="video/ogg">
+                  Your browser does not support the video tag. 
+                </video>
+              {% else %}
+                <img src="{{asset('img/logo/logo.jpg')}}" class="blog-image card-img-top" alt="image du logo par défault">
+              {% endif %}
+              <div class="card-body">
+                <h5 class="card-title fs-2">{{blog.title | upper}}  </h5>
+                <p class="card-text fs-5">{{ blog.contents}}</p>
+                <p class="card-text fs-5"><small class="text-muted"> Éditer le : {{blog.publicationDate | date('d/m/Y H:m')}}</small></p>
+              </div>
+            </div>
+          </div> 
+        {% endfor %}
+    </div>
+  </div>
+</div>
+
+
+<div class="container bg-light ">
+  <div class="row">
+    <div class="col">
+      <h2 id="livreDor">Le livre d'or</h2>
+      <hr class="pink">
+      <p class="fs-3 text-center">Si vous souhaiter laisser un commentaire vous pouvez le déposer ici</p>
+    </div>
+  </div>
+  {% if app.user %}
+  <div class="row ">
+    <div class="col ">
+      {{ form_start(formAddPost) }}
+      {{ form_errors(formAddPost) }}
+           <div class="container">
+                <div class="row">
+                     <div class="col-4 mb-4 mt-4">
+                          {{ form_row(formAddPost.contents, { 'label': 'Laisser un commentaire' }) }}
+                     </div>
+                     <div class="row">
+                          <div class="col-4 mt-4">   
+                               {{ form_row(formAddPost.submit, { 'label': 'Envoyer' }) }}
+                          </div>
+                     </div>     
+                </div>   
+           </div> 
+        {{ form_end(formAddPost) }}
+    </div>
+  </div>
+  {% else %}
+    <p class="fs-3">Connecter vous pour pouvoir laisser un commentaire !</p>
+  {% endif %}
+  <div class="row">
+    <div class="col ">
+      <h2 class="mt-3 mb-5">Liste des commentaires</h2>
+        {% for post in posts %} 
+        <div class=" card mb-3 mt-3" style="max-width: 740px;">
+          <div class="row g-0">
+            {% if post.user.img %}
+            <div class="col-md-4">
+              <img src="{{ post.user.img }}" class="img-fluid rounded-start" alt="...">
+            </div>
+            {% else %}
+            <div class="col-md-4">
+              <img src="{{asset('img/avatar.jpg')}}" class="img-fluid rounded-start" alt="...">
+            </div>
+            {% endif %}
+            <div class="col-md-8">
+              <div class="card-body">
+                {% if post.user.id == null %}
+                <h5 class="card-title">Compte supprimé</h5>
+                {% else %}
+                <h5 class="card-title">{{post.user.name }}</h5>
+                {% endif %}
+                <p class="card-text">{{ post.contents}}</p>
+                <p class="card-text"><small class="text-muted">Posté le : {{ post.creationDate | date('d/m/Y H:i')}}</small></p>
+              </div>
+              <p>
+                {# ESSAIE POUR REPONSE #}
+                {% for response in post.replies %}
+                <div class=" card mb-3 mt-3" style="max-width: 740px;">
+                  <div class="row g-0">
+                    <div class="col-md-4">
+                      <img src="{{asset('img/avatar.jpg')}}" class="img-fluid rounded-start" alt="...">
+                    </div>
+                    <div class="col-md-8">
+                      <div class="card-body">
+                        {% if post.user.id == null %}
+                        <h5 class="card-title">Réponse de :{{response.sender.name }}</h5>
+                        {% else %}
+                        <h5 class="card-title">{{post.user.name }}</h5>
+                        {% endif %}
+                        <p class="card-text">{{ response.content}}</p>
+                        <p class="card-text"><small class="text-muted">Posté le : {{ post.creationDate | date('d/m/Y H:i')}}</small></p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                {% endfor %}
+                {# MODAL REPONSE #}
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">Répondre</button>
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Nouveau message</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"  value="{{ post.id }}"aria-label="Close"></button>
+                      </div>
+                      <div class="modal-body">
+                        {# {{ form(formAddReply) }} #}
+                        {# {{ form_start(formAddReply) }}
+                        {{ form_errors(formAddReply) }}
+                        <div class="row">
+                          <div class="col-4 mb-4 mt-4">
+                               {{ form_row(formAddReply.content) }}
+                          </div>
+                          <div class="row">
+                               <div class="col-4 mt-4">   
+                                    {{ form_row(formAddReply.submit, { 'label': 'Envoyer' }) }}
+                               </div>
+                          </div>     
+                        </div> 
+                        {{ form_end(formAddReply) }}   #}
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        {# juste pour pas que sa bug pour le momment je met un if ici a cheker plus tard  #}
+                        {% if app.user %}
+                        <button type="button" class="btn btn-primary"><a href="{{ path('add_post' , {'id': app.user.id}) }}">Send message</a> </button>
+                        {% endif %}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                {# fin modal #}
+            </div>
+          </div>
+        </div>
+        {%  endfor %}
+    </div>
+  </div>
+</div>
+
+{% endblock %}

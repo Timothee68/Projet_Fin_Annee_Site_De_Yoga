@@ -1,0 +1,95 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gestion calendrier{% endblock %}
+
+{% block body %}
+
+<h1>Calendar</h1>
+<button type="button" class="btn btn-lg bg-secondary mt-5  mb-5 col-3 "><a href="{{ path('add_session') }}">Ajouter une session une préstation</a></button>
+
+<table id="table_id" class="table table-striped mt-4 display">
+    <thead>
+        <tr class="table-blog">
+            <th>Id</th>
+            <th scope="col ">Préstation</th>
+            <th scope="col ">jour de prestation</th>
+            <th scope="col ">date de début</th>
+            <th scope="col ">date de fin </th>
+            <th scope="col ">nombre de place</th>
+            <th scope="col ">Couleur d'evenement</th>
+            <th scope="col ">Éditer</th>
+            <th scope="col ">Supprimer</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for session in sessions %}
+        <tr>
+            <td>{{ session.id }}</td>
+            <td>{{ session.benefit }}</td>
+            <td>{{ session.sessionDate | date('d/m/Y')  }}</td>          
+            <td>{{ session.startTime | date('H:m') }}</td>
+            <td>{{ session.endTime | date('H:m')  }}</td>
+            <td>{{ session.nbPlaceMax }}</td>
+            <td>{{ session.backgroundColor }}</td>
+            <td><a href="{{ path('edit_session', {'id': session.id}) }}">Éditer session</a></td>
+            <td><a href="{{ path('delete_session', {'id': session.id}) }}">Supprimer</a></td>
+        </tr>    
+        {% else %}
+        <tr>
+            <td colspan="10">no records found</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{# <button class="btn btn-lg btn-primary" type="submit"><a href="{{ path('add_') }}">Crée un nouvelle évenement</a></button> #}
+{{dump(data)}}
+<div class="container">
+    <div id='calendar'></div>
+</div>
+
+{% block javascripts %}
+    <script>
+         // on ajoute un evenement d'écoute sur le document charger sur cet page avec une fonction
+         document.addEventListener('DOMContentLoaded', function() {
+            // on selectionne l'élément qui a pour ID 'calendar'
+            let calendarEl = document.getElementById('calendar');
+            // calendar = nouveau calendrier et calandarEl seras composer de :
+            let calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridMonth',    // ou possible de mettre 'listWeek' ou 'dayGridMonth'
+                locale: 'fr',   // pour avoir le texte en français
+                timeZone: 'Europe/Paris', // time zone de l'europe
+                headerToolbar:  {       // modifier la disposition de la toullbar et ajouter des éléments
+                    start: 'prev,next today', // preve nexte au début 
+                    center: 'title',        //title au milieu
+                    end: 'dayGridMonth timeGridWeek'  // a la fin on a choix afficher le mois ou la semaine
+                },
+                events: {{ data | raw }},
+                editable:true,  // on permet l'edition 
+                eventResizableFromStart : true,  // on permet d'étirer l'évenement vers le haut pour ajouter du temps 
+            
+            });
+           
+            calendar.on('eventChange' , (e) => { // permet de changer l'évenement de date de le déplacer dans le calendrier
+            console.log(e);
+            let url = `/admin/calendar/${e.event.id}/edit` ;
+            let donnees = {
+                "start": e.event.startTime,
+                "end": e.event.endTime,  // extended car pas prévue donc mis sous se non par fullcalendar on doit l'utilise pour récuperer l'info
+                "title": e.event.benefit,
+                "backgroundColor": e.event.backgroundColor,
+                "sessionDate": e.event.sessionDate.extendedProps, 
+                "nbPlaceMax": e.event.nbPlaceMax.extendedProps,
+              //  "nbPlaceMax": e.event.nbPlaceMax,
+            }
+            let xhr = new XMLHttpRequest;
+            xhr.open("PUT" ,url);
+            xhr.send(JSON.stringify(donnees));
+        
+            // il faut encore traiter les données
+        })
+            calendar.render();
+        });
+    </script>
+    {% endblock %}
+{% endblock %}
+

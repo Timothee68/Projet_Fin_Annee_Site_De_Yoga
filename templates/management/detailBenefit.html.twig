@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Les préstation par catégorie{% endblock %}
+
+{% block body %}
+
+<div class="container">
+    <div class="row">
+        <h1 class="text-center"> Ajout des bénéfices pour : {{ benefit }}</h1>
+    </div>    
+    <div class="row row-cols-lg-2">  
+        <div class="col">         
+            <h2 class="mt-5 mb-5">Les bénéfice liées </h2>
+                <table id="table_id2" class="table table-striped mt-4 display">
+                    <thead>
+                        <tr class="bg-secondary">
+                            <th scope="col ">Déscription</th>
+                            <th scope="col ">Désinscrire</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for input in benefit.inputs %}
+                        <tr>
+                            <td>{{input}}</td>
+                            <td><button type="button" class="btn btn-lg bg-secondary mt-2 "><a href="{{ path('remove_input_benefit' , {'benefit_id': benefit.id , 'input_id': input.id }) }}">Désinscrire</a></button>
+                    {% endfor %}
+                    </tbody>
+                </table>
+        </div>
+        <div class="col">
+            <h2 class="mt-5 mb-5">Les bénféfices non inscrits  </h2>
+            <table id="table_id3" class="table table-striped mt-4 display">
+                <thead>
+                    <tr class="bg-secondary">
+                        <th scope="col ">Déscription</th>
+                        <th scope="col ">Désinscrire</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for input in noBenefits %}
+                    <tr>
+                        <td>{{input}}</td>
+                        <td><button type="button" class="btn btn-lg bg-secondary mt-2 "><a href="{{ path('add_input_benefit' , {'benefit_id': benefit.id , 'input_id': input.id }) }}">Inscrire</a></button>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>    
+        <button type="button" class="btn btn-lg bg-secondary mt-2 "><a href="{{ path('detail_benefit', {'id': benefit.id }) }}">détail préstation</a></button>
+    </div>
+</div>   
+{% endblock %}
+
+
+
+
+
+

@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Réservation{% endblock %}
+
+{% block body %}
+
+    <h1>Réservation</h1>
+
+    <h2>Choisissez la préstation que vous voulez faire</h2>
+
+        <nav>
+            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Préstation</a>
+            <ul class="dropdown-menu">
+                {% for benefit in benefits %}
+                    <li><a class="dropdown-item" href="#">{{benefit}}</a></li>
+                {% endfor %}
+            </ul>
+        </nav>
+
+        <table id="table_id" class="table mt-5">
+            <thead>
+                <tr class="bg-secondary">
+                    <th  class="table-blog" scope="col ">Préstation</th>
+                    <th  class="table-blog" scope="col ">jour de prestation</th>
+                    <th  class="table-blog" scope="col ">date de début</th>
+                    <th  class="table-blog" scope="col ">date de fin </th>
+                    <th  class="table-blog" scope="col ">nombre de place</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for session in sessions %}
+                <tr>
+                    <td>{{ session.benefit }}</td>
+                    <td> {{ session.sessionDate | date('d/m/Y')  }}</td>          
+                    <td>{{ session.startTime | date('H:m') }}</td>
+                    <td>{{ session.endTime | date('H:m')  }}</td>
+                    <td>{{ session.nbPlaceMax }}</td>
+                </tr>    
+                {% endfor %}
+            </tbody>
+        </table>
+{% endblock %}

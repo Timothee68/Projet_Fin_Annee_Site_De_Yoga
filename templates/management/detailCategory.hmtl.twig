@@ -1,0 +1,51 @@
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Les préstation par catégorie{% endblock %}
+
+{% block body %}
+<div class="container">
+    <div class="row">
+        <h1 class="text-center"> {{ category }}</h1>
+        <button type="button" class="btn btn-lg bg-secondary mt-5  mb-5 col-3 "><a href="{{ path('add_benefit', {'id': category.id}) }}">Ajouter une préstation pour cet catégorie</a></button>
+        <table id="table_id" class="table table-striped mt-4 display">
+            <thead>
+            <tr class="bg-secondary">
+                <th scope="col ">Préstation</th>
+                <th scope="col">Editer</th>
+                <th scope="col">supprimer</th>
+            </tr>
+            </thead>
+            <tbody>
+                {% for benefit in category.benefits %}
+                <tr>
+                    <td><a href="{{ path('detail_edit_benefit', {'id': benefit.id }) }}">{{ benefit }}</a></td>
+                    <td><button type="button" class="btn btn-lg bg-secondary mt-2 "><a href="{{ path('edit_benefit', {'id': benefit.id }) }}">Editer</a></button></td>
+                    <td>
+                        <button type="button" class="btn btn-lg bg-secondary mt-2 " data-bs-toggle="modal" data-bs-target="#exampleModal{{benefit.id}}">supprimer</i></button>                 
+                        <!-- Modal -->
+                    <div class="modal fade" id="exampleModal{{benefit.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Confirmer vous la supréssion de : <br>{{benefit}} ? </h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                la suppression est définitif êtes vous certain de votre déscicions ? 
+                                </div>
+                                <div class="modal-footer">
+                                <button type="button" class="btn btn-lg bg-secondary mt-2 " data-bs-dismiss="modal" > X annuler</button>
+                                <button type="button" class="btn btn-lg bg-secondary mt-2 "><a href="{{ path('delete_benefit', {'id': benefit.id }) }}">supprimer</a></button>
+                            </div>
+                        </div>
+                    </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <button type="button" class="btn btn-lg bg-secondary mt-2 "><a href="{{ path('app_management') }}">retour</a></button>
+    </div>    
+</div>
+{% endblock %}

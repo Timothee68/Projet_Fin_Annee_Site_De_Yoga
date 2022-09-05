@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Profile{% endblock %}
+
+{% block body %}
+<article>
+    <div class="user-bg container bg-opacity-75 mt-4">
+        <H1 >Mon Compte</H1>
+        <div class="card mb-4">
+            <div class="row g-0 ">
+                <h5 class="user-profile card-title text-light p-3 fw-bold">Informations personelles</h5>
+                <div class="col-md-4 p-3 ">
+                    {% if app.user.img  %}
+                    <img src="/{{ app.user.img }}" class="img-fluid rounded-start mt-2" alt="...">
+                    {% else %}
+                    <img src="{{ asset('img/avatar.jpg') }}" class="img-fluid rounded-start mt-2" alt="...">
+                    {% endif %}
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <p class="card-text fs-2 text-center mt-4">{{ app.user}}</p>
+                        <p class="card-text fs-2 text-center mt-4">Email : {{ app.user.email}}</p>
+                        <p class="card-text fs-4 text-center mt-4">Age : {{ app.user.age }} ans</p>
+                        <p class="card-text fs-4 text-center mt-4">Téléphone : {{ app.user.telephone}}</p>
+                        <p class="card-text fs-4 text-center mt-4">Compte crée le :{{ app.user.registrationDate | date('d/m/Y')}}</p>
+                    </div> 
+                </div>               
+                <div class="row g-0">
+                    <p class="text-center"><button class="btn btn-primary mt-3 mb-3 col-3" name="submit" type="submit" data-bs-toggle="modal" data-bs-target="#exampleModal"><a href="{{path('edit_register', {'id' : app.user.id})}}">Modifier</a> </button></p>
+                    <a type="button" class=" text-danger text-center mt-2 " data-bs-toggle="modal" data-bs-target="#exampleModal{{app.user.id}}">supprimer</i></button>                 
+                        <!-- Modal -->
+                    <div class="modal fade" id="exampleModal{{app.user.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Confirmer vous la supréssion de votre compte ? </h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    la suppression est définitif êtes vous certain de votre déscicions ? 
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-lg bg-secondary mt-2 " data-bs-dismiss="modal" > X annuler</button>
+                                    <button type="button" class="btn btn-lg bg-secondary mt-2 "><a href="{{ path('app_delete' , {'id': app.user.id}) }}">supprimer</a></button>                           
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div> 
+            </div> 
+        </div>        
+    </div>
+</article>                  
+       
+{% endblock %}

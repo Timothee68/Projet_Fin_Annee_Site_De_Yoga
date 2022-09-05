@@ -1,0 +1,50 @@
+
+<div class="container">
+    <div id='calendar'></div>
+</div>
+
+{% block javascripts %}
+
+    <script>
+        // on ajoute un evenement d'écoute sur le document charger sur cet page avec une fonction
+        document.addEventListener('DOMContentLoaded', function() {
+            // on selectionne l'élément qui a pour ID 'calendar'
+            let calendarEl = document.getElementById('calendar');
+            // calendar = nouveau calendrier et calandarEl seras composer de :
+            let calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'timeGridWeek',    // ou possible de mettre 'listWeek' ou 'dayGridMonth'
+                locale: 'fr',   // pour avoir le texte en français
+                timeZone: 'Europe/Paris', // time zone de l'europe
+                headerToolbar:  {       // modifier la disposition de la toullbar et ajouter des éléments
+                    start: 'prev,next today', // preve nexte au début 
+                    center: 'title',        //title au milieu
+                    end: 'dayGridMonth, timeGridWeek'  // a la fin on a choix afficher le mois ou la semaine
+                },
+  
+                editable:true,  // on permet l'edition 
+                eventResizableFromStart : true,  // on permet d'étirer l'évenement vers le haut pour ajouter du temps 
+            
+            });
+            calendar.on('eventChange' , (e) => { // permet de changer l'évenement de date de le déplacer dans le calendrier
+                let url = `/api/${e.event.id}/edit` ;
+                let donnees = {
+                    "startTime": e.event.startTime,
+                    "endTime": e.event.endTime,  // extended car pas prévue donc mis sous se non par fullcalendar on doit l'utilise pour récuperer l'info
+                    "sessionDate": e.event.sessionDate, 
+                    "nbPlaceMax": e.event.nbPlaceMax,
+                    "backgroundColor": e.event.backgroundColor,
+                    "benefit": e.event.benefit,             
+                }
+                let xhr = new XMLHttpRequest;
+                xhr.open("PUT" ,url);
+                xhr.send(JSON.stringify(donnees));
+
+                // il faut encore traiter les données
+            })
+
+            calendar.render();
+        });
+        
+    </script>
+    
+{% endblock %}

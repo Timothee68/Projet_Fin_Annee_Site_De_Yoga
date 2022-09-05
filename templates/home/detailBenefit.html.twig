@@ -1,0 +1,76 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{benefit}}!{% endblock %}
+
+{% block body %}
+    <h1>Détails pour {{benefit}}</h1> 
+    <div class="container-fluid"> 
+        <div class="row">
+            <div class="card-group d-flex justify-content-evenly">
+                <div class="col-5 m-3 ">
+                    <div class="card">
+                        {# il faut mettre un slach ici car le chemin d'accès est différent  #}
+                        <img src="/{{benefit.img}}" class="presta-home card-img-top mt-5" alt="image représentant {{ benefit.title }} pendant ça pratique "> 
+                        <div class="card-body">
+                            <h3 class="card-title">Comment décrire : {{benefit}} </h3>
+                            <p class="card-text">
+                                {{ benefit.description }}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-5 m-3 ">
+                    <div class="card">
+                        <img src="{{asset('img/other/bien-etre.webp')}}" class="presta-home card-img-top mt-5" alt="image représentant les bienfaits fait au corps des pierres empiler sur un fond de décors de montagne">
+                        <div class="card-body">
+                            <h4 class="card-title">Les biens fait que vous apporterons les séances au fil du temps</h4>
+                            <button type="button" class="btn btn-lg bg-secondary mt-2 "><a href="{{ path('detail_edit_benefit', {'id': benefit.id }) }}"> ajout de bénéfice pour {{ benefit }}</a></button>
+                            <ul>
+                                {% for benefited in benefit.inputs %}
+                                <li class="mt-2 mb-2">
+                                   <img class="imgBe" src="{{ asset('img/other/imagebienetre.png') }}" alt="" srcset=""> {{ benefited.description}} <i class="fa-solid fa-hands-praying"></i>
+                                </li>
+                                {% endfor %}
+                            </ul> 
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row text-center">
+                <p class="fs-3"><strong>Le coût d'une séance pour une heure s'éléve à {{ benefit.price }} €</strong></p>
+            </div>
+            <p class="text-center"><button type="button" class="btn btn-lg bg-secondary mt-2 "><a href="{{ path('app_session')}}">Réserver une séance</a></button></p>
+            <div class="container">
+                <div class="row"> 
+                    <button type="button" class="btn btn-lg  mt-2 col-1 " onclick="one()">1</button>
+                    <button type="button" class="btn btn-lg  mt-2 col-1" onclick="two()">2</button>
+                    <button type="button" class="btn btn-lg  mt-2 col-1" onclick="four()">3</button>
+
+                    <div class="rows">
+                        {% for image in images %}
+                        <div class="column">
+                            <img src="/{{ image.img }}"  alt="{{ image.alt ~ benefit.title  }}">
+                        </div>
+                            {% endfor %}
+                        {# <div class="column">
+                            {% for image in images %}
+                            <img src="/{{ image.img }}"  alt="{{ image.alt ~ benefit.title  }}">
+                            {% endfor %}
+                        </div>
+                        <div class="column">
+                            {% for image in images %}
+                            <img src="/{{ image.img }}"  alt="{{ image.alt ~ benefit.title  }}">
+                            {% endfor %}
+                        </div>
+                        <div class="column">
+                            {% for image in images %}
+                            <img src="/{{ image.img }}"  alt="{{ image.alt ~ benefit.title  }}">
+                            {% endfor %}
+                        </div> #}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

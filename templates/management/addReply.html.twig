@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajouter un commentaire!{% endblock %}
+
+{% block body %}
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <div class="container-message">
+        {% if post.user.img %}
+          <figure class="avatar">
+            <img src="/{{ post.user.img }}" class="img-fluid rounded-start" alt="...">
+          </figure>         
+        {% else %}
+          <figure class="avatar">
+            <img src="{{asset('img/avatar.jpg')}}" class="img "  alt="Avatar">
+          </figure>
+        {% endif %}
+        {% if post.user.id == null %}
+          <h5>Compte supprimé</h5>
+        {% else %}
+          <h5> Écrit par :{{post.user.name }}</h5>
+        {% endif %}
+          <hr class="pink">
+          <p>{{ post.contents}}</p>
+          <span class="time-left">Posté le : {{ post.creationDate | date('d/m/Y H:i')}}</span>
+      </div>     
+    </div>
+  </div>
+</div>
+<div class="container">
+  <div class="row">
+    <div class="col">
+      {{ form_start(formAddReply) }}
+            {{ form_errors(formAddReply) }}
+                <div class="container">
+                      <div class="row">
+                          <div class="col-4 mb-4 mt-4">
+                                {{ form_row(formAddReply.content, { 'label': 'Répondre au commentaire' }) }}
+                          </div>
+                          <div class="row">
+                                <div class="col-4 mt-4">   
+                                    {{ form_row(formAddReply.submit, { 'label': 'Envoyer' }) }}
+                                </div>
+                          </div>     
+                      </div>   
+                </div> 
+      {{ form_end(formAddReply) }}
+    </div>
+  </div>
+</div>     
+ {% endblock %}

@@ -1,0 +1,72 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Blog OM NADA BRAMHA{% endblock %}
+
+{% block body %}
+    {% if is_granted('ROLE_ADMIN') %}
+        <button type="button" class="btn btn-primary"><a href="{{ path('add_blog') }}">Ajouter d'un post pour le blog</a></button>  
+    {% endif %}
+  <div class="container">
+        <div class="row">
+            <h1 class="mt-5 mb-5">Bienvenue sur mon blog</h1>
+            <div class="col mb-5">
+                <table id="table_id" class="table mt-5">
+                    <thead>
+                    <tr class="bg-secondary">
+                        <th  class="table-blog" scope="col ">Sujet</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for blog in blogs %}
+                    <tr>
+                        <td class="td-light">
+                            <div class="card mt-5 mb-3">
+                                {% if blog.image %}
+                                <img src="/{{blog.image}}" class="blog card-img-top" alt="image corresondant a l'article de blog {{blog.title}}">
+                                {% elseif blog.urlVideo %}
+                                <video width="320" height="240" controls>
+                                    <source src="#" type="video/mp4">
+                                    <source src="#" type="video/ogg">
+                                    Your browser does not support the video tag. 
+                                </video>
+                                {% else %}
+                                <img src="{{asset('img/logo/logo.jpg')}}" class="blog-image card-img-top" alt="image du logo par défault">
+                                {% endif %}
+                                
+                                <div class="card-body">
+                                <h5 class=" card-title fs-2"><a class="hover-title-blog" href="{{path('detail_blog' , {'id': blog.id})}}" >{{blog.title}}</a></h5>
+                                <p class="scroller card-text fs-5">{{ blog.contents}}</p>
+                                <p class="card-text fs-5"><small class="text-muted"> Éditer le : {{blog.publicationDate | date('d/m/Y H:m')}}</small></p>
+                                {% if is_granted('ROLE_ADMIN') %}
+                                <button type="button" class="btn btn-lg bg-secondary mt-2 "><a href="{{path('edit_blog' , {'id': blog.id }) }}">Editer</a></button>
+                                    <button type="button" class="btn btn-lg bg-secondary mt-2 " data-bs-toggle="modal" data-bs-target="#exampleModal{{blog.id}}">supprimer</i></button>                 
+                                        <!-- Modal -->
+                                    <div class="modal fade" id="exampleModal{{blog.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Confirmer vous la supréssion de : <br>{{blog.title}} ? </h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                la suppression est définitif êtes vous certain de votre déscicions ? 
+                                                </div>
+                                                <div class="modal-footer">
+                                                
+                                                <button type="button" class="btn btn-lg bg-secondary mt-2 " data-bs-dismiss="modal" > X annuler</button>
+                                                <button type="button" class="btn btn-lg bg-secondary mt-2 "><a href="{{path('delete_blog' , {'id': blog.id }) }}">supprimer</a></button>                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endif %}
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}
