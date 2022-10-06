@@ -12,59 +12,59 @@
           <div class="swiper-slide">
             <figure>
               <img src="{{asset('img/imported/62f3ac9b3ed40.jpg')}}" alt="image représentant l'entreprise ON NADA BRAMHA plus précisément la cliente pedant l'exercise d'une préstation " ></div>
-               <figcaption><em>sonotéhrapie individuelle</em></figcaption>
+               <figcaption class="figcaption-home"><em>sonotéhrapie individuelle</em></figcaption>
             </figure>
           <div class="swiper-slide">
             <figure>
               <img src="{{asset('img/imported/62f26ea855cb4.jpg')}}" alt="image représentant l'entreprise ON NADA BRAMHA plus précisément la cliente pedant l'exercise d'une préstation " >
-              <figcaption><em>Massage ayurvedique</em></figcaption>
+              <figcaption class="figcaption-home"><em>Massage ayurvedique</em></figcaption>
             </figure>
           </div>
           <div class="swiper-slide">
             <figure>
               <img src="{{asset('img/imported/62f37a7469692.jpg')}}" alt="image représentant l'entreprise ON NADA BRAMHA plus précisément la cliente pedant l'exercise d'une préstation " >
-              <figcaption><em>Les bols tibetains</em></figcaption>
+              <figcaption class="figcaption-home"><em>Les bols tibetains</em></figcaption>
             </figure>
           </div>
           <div class="swiper-slide">
             <figure>
               <img src="{{asset('img/imported/62f37aafacb04.jpg')}}" alt="image représentant l'entreprise ON NADA BRAMHA plus précisément la cliente pedant l'exercise d'une préstation " >
-              <figcaption><em>Sonotéhrapie de groupe</em></figcaption>
+              <figcaption class="figcaption-home"><em>Sonotéhrapie de groupe</em></figcaption>
             </figure>
           </div>
           <div class="swiper-slide">
             <figure>
               <img src="{{asset('img/imported/62f24805ad7c0.jpg')}}" alt="image représentant l'entreprise ON NADA BRAMHA plus précisément la cliente pedant l'exercise d'une préstation " >
-              <figcaption><em>Massage hollistique</em></figcaption>
+              <figcaption class="figcaption-home"><em>Massage hollistique</em></figcaption>
             </figure>
           </div>
           <div class="swiper-slide">
             <figure>
               <img src="{{asset('img/imported/62f2688749b8d.jpg')}}" alt="image représentant l'entreprise ON NADA BRAMHA plus précisément la cliente pedant l'exercise d'une préstation " >
-              <figcaption><em>Position de yoga hata</em></figcaption>
+              <figcaption class="figcaption-home"><em>Position de yoga hata</em></figcaption>
             </figure>
           </div>
           <div class="swiper-slide">
             <figure>
               <img src="{{asset('img/imported/630dc9ad5df9e.JPG')}}" alt="image représentant l'entreprise ON NADA BRAMHA plus précisément la cliente pedant l'exercise d'une préstation " >
-              <figcaption><em>Position de yoga hata</em></figcaption>
+              <figcaption class="figcaption-home"><em>Position de yoga hata</em></figcaption>
             </figure>
           </div>
           <div class="swiper-slide">
             <figure>
               <img src="{{asset('img/imported/630dc9b79b159.jpg')}}" alt="image représentant l'entreprise ON NADA BRAMHA plus précisément la cliente pedant l'exercise d'une préstation " >
-              <figcaption><em>Position de yoga Advaita</em></figcaption>
+              <figcaption class="figcaption-home"><em>Position de yoga Advaita</em></figcaption>
             </figure>
           </div>
           <div class="swiper-slide">
             <figure>
               <img src="{{asset('img/imported/630dc9c200e1b.jpg')}}" alt="image représentant l'entreprise ON NADA BRAMHA plus précisément la cliente pedant l'exercise d'une préstation " >
-              <figcaption><em>Position de yoga Advaita</em></figcaption>
+              <figcaption class="figcaption-home"><em>Position de yoga Advaita</em></figcaption>
             </figure>
           </div>
         </div>
-        <div class="swiper-button-next"></div>
-        <div class="swiper-button-prev"></div>
+        {# <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div> #}
         <div class="swiper-pagination"></div>
       </div>
     </section>
@@ -88,11 +88,10 @@
                 </div>
                 <div class="back">
                   <div class="inner">
-                    <button type="button" class="btn btn-dark mt-lg-2"> <a href="{{ path('detail_benefit' , {'id': benefit.id}) }}" >En savoir plus</a></button>
-                    <button type="button" class="btn btn-dark mt-lg-2"><a href="{{ path('app_session')}}" >Réserver une séance</a></button>
+                    <p><a href="{{ path('detail_benefit' , {'id': benefit.id}) }}" class="card-presta-btn">En savoir plus</a></p>
+                    <p><a href="{{ path('app_session' , {'id_benefit': benefit.id}) }}" class="card-presta-btn">Réserver une séance</a></p>
                     {% if is_granted("ROLE_ADMIN") %}
-                    {# <br> #}
-                    <button type="button" class="btn btn-dark mt-lg-2"><a href="{{ path('edit_benefit', {'id': benefit.id }) }}">Editer</a></button>
+                    <p><a href="{{ path('edit_benefit',{'id': benefit.category.id , 'benefit_id': benefit.id })  }}" class="mb-2">Editer</a></p> 
                     {% endif %}
                   </div>
                 </div>
@@ -129,7 +128,7 @@
             <li>
               <div>
                 {% if blog.image %}
-                  <img src="{{blog.image}}" class="blog-home card-img-top" alt="image corresondant a l'article de blog {{blog.title}}">                 
+                  <img src="{{blog.image}}" class="card-img-top" alt="image corresondant a l'article de blog {{blog.title}}">                 
                 {% elseif blog.urlVideo %}
                   <video width="320" height="240" controls>
                       <source src="#" type="video/mp4">
@@ -140,7 +139,7 @@
                   <img src="{{asset('img/logo/logo.jpg')}}" class="blog-image card-img-top" alt="image du logo par défault">
                 {% endif %}
                 <h1>{{blog.title | upper}}</h1> 
-                <p><a href="{{ path('detail_blog', {'id': blog.id}) }}"  class="btn btn-primary">Voir plus</a><br><br> Éditer le : {{blog.publicationDate | date('d/m/Y H:m')}}</p>
+                <p><a href="{{ path('detail_blog', {'id': blog.id}) }}"  class="text-light ">Voir plus</a><br><br> Éditer le : {{blog.publicationDate | date('d/m/Y H:m')}}</p>
               </div>
             </li>
           {% endfor %}
@@ -149,7 +148,7 @@
       </section>
       <section>
 
-        <h2 >Le livre d'or</h2>
+        <h2 class="mt-5 ">Le livre d'or</h2>
         <hr class="pink">
         <p class="fs-4 text-center mt-3 mb-5">Si vous souhaiter laisser un commentaire vous pouvez le déposer ici</p>   
 
@@ -169,34 +168,33 @@
               </div> 
             </div>    
               {{ form_end(formAddPost) }}
-            {% else %}
+          {% else %}
               <p class="fs-5 text-center"> Pour pouvoir laisser un commentaire, il faut avoir un compte utilisateur ou avoir déjà effectué une réservation ou un achat en ligne. </p>
-            {% endif %}
-
+          {% endif %}
         
-        <div id="livreDor">
+        <div id="livredor">
 
           {% for post in posts %}
             <div class="container-message">
 
               {% if post.user.img %}
                 <figure class="avatar">
-                  <img src="{{ post.user.img }}" class="img-fluid rounded-start" alt="...">
+                  <img src="{{ post.user.img }}" class="img-message img-fluid rounded-start" alt="...">
                 </figure>         
               {% else %}
                 <figure class="avatar">
-                  <img src="{{asset('img/avatar.jpg')}}" class="img "  alt="Avatar">
+                  <img src="{{asset('img/avatar.jpg')}}" class="img-message "  alt="Avatar">
                 </figure>
               {% endif %}
 
               {% if post.user.id == null %}
-                <h5>Compte supprimé</h5>
+                <h5 class="fs-5">Compte supprimé</h5>
               {% else %}
-                <h5> Écrit par :{{post.user.name }}</h5>
+                <h5 class="fs-5"> Écrit par :{{post.user.name }}</h5>
               {% endif %}
                 <hr class="pink">
-                <p>{{ post.contents}}</p>
-                <span class="time-left">Posté le : {{ post.creationDate | date('d/m/Y H:i')}}</span>
+                <p class="fs-5">{{ post.contents}}</p>
+                <span class="time-left fs-5">Posté le : {{ post.creationDate | date('d/m/Y H:i')}}</span>
 
                 {% if app.user and app.user.id == post.user.id  or is_granted('ROLE_ADMIN') %}
 
@@ -228,16 +226,16 @@
                 {% for response in post.replies %}
                   <div class="container-response">
                     <figure class="avatar-right">
-                      <img src="{{asset('img/avatar.jpg')}}" class="img right" alt="Avatar">
+                      <img src="{{asset('img/avatar.jpg')}}" class="img-message right" alt="Avatar">
                     </figure>
                     <hr>
                     {% if post.user.id == null %}
-                      <h5>Compte supprimé</h5>
+                      <h5 class="fs-5">Compte supprimé</h5>
                     {% else %}
-                      <h5 >Réponse de :{{response.sender.name }}</h5>
+                      <h5 class="fs-5">Réponse de :{{response.sender.name }}</h5>
                     {% endif %}
                       <p>{{ response.content}}</p>
-                      <span class="time-right">Posté le : {{ post.creationDate | date('d/m/Y H:i')}}</span>
+                      <span class="time-right fs-5">Posté le : {{ post.creationDate | date('d/m/Y H:i')}}</span>
                   </div>
                   {% endfor %} 
             </div>
@@ -247,7 +245,7 @@
       {% elseif edit == 'edit' %}
       <section>
 
-        <h2 >Le livre d'or</h2>
+        <h2>Le livre d'or</h2>
         <hr class="pink">
         <p class="fs-3 text-center mt-3 mb-5">Si vous souhaiter laisser un commentaire vous pouvez le déposer ici</p>   
 
@@ -279,22 +277,22 @@
 
               {% if post.user.img %}
                 <figure class="avatar">
-                  <img src="{{ post.user.img }}" class="img-fluid rounded-start" alt="...">
+                  <img src="{{ post.user.img }}" class="img-message img-fluid rounded-start" alt="...">
                 </figure>         
               {% else %}
                 <figure class="avatar">
-                  <img src="{{asset('img/avatar.jpg')}}" class="img "  alt="Avatar">
+                  <img src="{{asset('img/avatar.jpg')}}" class="img-message "  alt="Avatar">
                 </figure>
               {% endif %}
 
               {% if post.user.id == null %}
-                <h5>Compte supprimé</h5>
+                <h5 class="fs-5">Compte supprimé</h5>
               {% else %}
-                <h5> Écrit par :{{post.user.name }}</h5>
+                <h5 class="fs-5"> Écrit par :{{post.user.name }}</h5>
               {% endif %}
                 <hr class="pink">
-                <p>{{ post.contents}}</p>
-                <span class="time-left">Posté le : {{ post.creationDate | date('d/m/Y H:i')}}</span>
+                <p class="fs-5">{{ post.contents}}</p>
+                <span class="time-left fs-5">Posté le : {{ post.creationDate | date('d/m/Y H:i')}}</span>
 
                 {% if app.user and app.user.id == post.user.id  or is_granted('ROLE_ADMIN') %}
 
@@ -325,16 +323,16 @@
                 {% for response in post.replies %}
                   <div class="container-response">
                     <figure class="avatar-right">
-                      <img src="{{asset('img/avatar.jpg')}}" class="img right" alt="Avatar">
+                      <img src="{{asset('img/avatar.jpg')}}" class="img-message right" alt="Avatar">
                     </figure>
                     <hr>
                     {% if post.user.id == null %}
-                      <h5>Compte supprimé</h5>
+                      <h5 class="fs-5">Compte supprimé</h5>
                     {% else %}
-                      <h5 >Réponse de :{{response.sender.name }}</h5>
+                      <h5 class="fs-5">Réponse de :{{response.sender.name }}</h5>
                     {% endif %}
                       <p>{{ response.content}}</p>
-                      <span class="time-right">Posté le : {{ post.creationDate | date('d/m/Y H:i')}}</span>
+                      <span class="time-right fs-5">Posté le : {{ post.creationDate | date('d/m/Y H:i')}}</span>
                   </div>
                   {% endfor %} 
             </div>

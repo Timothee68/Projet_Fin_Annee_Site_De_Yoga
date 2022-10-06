@@ -2,8 +2,9 @@
 
 namespace App\Entity;
 
-use App\Repository\ReservationRepository;
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\ReservationRepository;
 
 /**
  * @ORM\Entity(repositoryClass=ReservationRepository::class)
@@ -17,34 +18,48 @@ class Reservation
      */
     private $id;
 
-    /**
+   /**
      * @ORM\Column(type="integer")
+     * @Assert\Range(
+     *  min = 0,
+     *  max = 50,
+     *  notInRangeMessage = "Arrondis interface : Veuillez entrer une valeur comprise entre {{ min }} et {{ max }}."
+     * )
      */
-    private $nb_places;
+    private $nbPlace;
 
     /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="reservations")
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="reservations" )
      */
     private $user;
-
+        
     /**
-     * @ORM\ManyToOne(targetEntity=Session::class, inversedBy="reservations")
+     * @ORM\ManyToOne(targetEntity=Session::class, inversedBy="reservations" , fetch="EAGER")
      */
     private $session;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Stage::class, inversedBy="reservations" , fetch="EAGER")
+     */
+    private $stage;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
+
+    public function nbPlace(){
+        return $this->nbPlace;
+    }
     public function getNbPlaces(): ?int
     {
-        return $this->nb_places;
+        return $this->nbPlace;
     }
 
-    public function setNbPlaces(int $nb_places): self
+    public function setNbPlaces(int $nbPlace): self
     {
-        $this->nb_places = $nb_places;
+        $this->nbPlace = $nbPlace;
 
         return $this;
     }
@@ -69,6 +84,23 @@ class Reservation
     public function setSession(?Session $session): self
     {
         $this->session = $session;
+
+        return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->nbPlace." place(s)";
+    }
+
+    public function getStage(): ?Stage
+    {
+        return $this->stage;
+    }
+
+    public function setStage(?Stage $stage): self
+    {
+        $this->stage = $stage;
 
         return $this;
     }

@@ -3,12 +3,13 @@
 {% block title %}Blog OM NADA BRAMHA{% endblock %}
 
 {% block body %}
-    {% if is_granted('ROLE_ADMIN') %}
-        <button type="button" class="btn btn-primary"><a href="{{ path('add_blog') }}">Ajouter d'un post pour le blog</a></button>  
-    {% endif %}
-  <div class="container">
+<div class="container blog-container">
+  
+        {% if is_granted('ROLE_ADMIN') %}
+            <button type="button" class="btn btn-primary"><a href="{{ path('add_blog', {'id_user': app.user.id}) }}">Ajouter d'un post pour le blog</a></button>  
+        {% endif %}
+        <h1 class="blog title mt-5 mb-5">Bienvenue sur mon blog</h1>
         <div class="row">
-            <h1 class="mt-5 mb-5">Bienvenue sur mon blog</h1>
             <div class="col mb-5">
                 <table id="table_id" class="table mt-5">
                     <thead>
@@ -22,15 +23,18 @@
                         <td class="td-light">
                             <div class="card mt-5 mb-3">
                                 {% if blog.image %}
-                                <img src="/{{blog.image}}" class="blog card-img-top" alt="image corresondant a l'article de blog {{blog.title}}">
+                                <img src="/{{blog.image}}" class="blog-image-index-detail card-img-top" alt="image corresondant a l'article de blog {{blog.title}}">
                                 {% elseif blog.urlVideo %}
-                                <video width="320" height="240" controls>
-                                    <source src="#" type="video/mp4">
-                                    <source src="#" type="video/ogg">
+                                <video width="320" height="240" controls preload="metadata">
+                                    <iframe width="560" height="315" src="/{{blog.urlVideo}}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                    <source src="/{{blog.urlVideo}}" type="video/mp4">
+                                    <source src="/{{blog.urlVideo}}" type="video/webm">
+                                    <source src="/{{blog.urlVideo}}" type="video/ogg">
+                                    <source src="/{{blog.urlVideo}}" type="video/iframe">
                                     Your browser does not support the video tag. 
                                 </video>
                                 {% else %}
-                                <img src="{{asset('img/logo/logo.jpg')}}" class="blog-image card-img-top" alt="image du logo par défault">
+                                <img src="{{asset('img/logo/logo.jpg')}}" class="blog-image-index-detail card-img-top" alt="image du logo par défault">
                                 {% endif %}
                                 
                                 <div class="card-body">
@@ -38,7 +42,7 @@
                                 <p class="scroller card-text fs-5">{{ blog.contents}}</p>
                                 <p class="card-text fs-5"><small class="text-muted"> Éditer le : {{blog.publicationDate | date('d/m/Y H:m')}}</small></p>
                                 {% if is_granted('ROLE_ADMIN') %}
-                                <button type="button" class="btn btn-lg bg-secondary mt-2 "><a href="{{path('edit_blog' , {'id': blog.id }) }}">Editer</a></button>
+                                <button type="button" class="btn btn-lg bg-secondary mt-2 "><a href="{{path('edit_blog' , {'id': blog.id , 'id_user' : app.user.id}) }}">Editer</a></button>
                                     <button type="button" class="btn btn-lg bg-secondary mt-2 " data-bs-toggle="modal" data-bs-target="#exampleModal{{blog.id}}">supprimer</i></button>                 
                                         <!-- Modal -->
                                     <div class="modal fade" id="exampleModal{{blog.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

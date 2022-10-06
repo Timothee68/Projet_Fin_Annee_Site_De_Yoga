@@ -8,8 +8,8 @@
         <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
     {% endfor %}
 
-    {% if edit %}
-    <h1 class="text-center mb-4" >Modifification de votre compte</h1>
+    {% if edit != null %}
+    <h1 class="text-center mb-4" >Modification de votre compte</h1>
     {% else %}
     <h1 class="text-center mt-5 mb-4">Crée un compte</h1>
     {% endif %}
@@ -55,7 +55,7 @@
                 </div>
                 <div class="row">
                     <div class="col-12">
-                        <button type="submit" class="btn">Register</button>
+                        <button type="submit" class="btn">Enregistrer compte</button>
                         {{ form_end(registrationForm) }}
                     </div>
                 </div>

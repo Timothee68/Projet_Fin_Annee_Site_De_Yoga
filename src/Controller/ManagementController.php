@@ -3,16 +3,19 @@
 namespace App\Controller;
 
 use App\Entity\Blog;
+use App\Entity\User;
 use App\Entity\Input;
+use App\Entity\Stage;
 use App\Form\BlogType;
 use App\Entity\Benefit;
+use App\Entity\Session;
 use App\Form\InputType;
 use App\Entity\Category;
 use App\Form\BenefitType;
 use App\Form\CategoryType;
+use App\Entity\Reservation;
 use App\Repository\InputRepository;
 use App\Entity\ImgCollectionBenefit;
-use App\Entity\Session;
 use App\Repository\BenefitRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
@@ -62,13 +65,32 @@ class ManagementController extends AbstractController
         ]);
     }
 
+    /**
+     * fonction pour afficher les réservation de tous les clients
+     * @Route("/admin/management/reservation-session", name="app_gestion_reservation")
+     */
+    public function showReservationManagement(ManagerRegistry $doctrine):Response
+    {
+
+        $reservations = $doctrine->getRepository(Reservation::class)->findAll();
+        $sessions = $doctrine->getRepository(Session::class)->findBy([], ['startTime' => "DESC"]);
+        return $this->render('management/showReservationSession.html.twig', [
+            'reservations' => $reservations,
+            'sessions' => $sessions,
+        ]);
+    }
+
+
       /**
      * fonction pour ajouter et/ou modifier un blog
-     * @Route("/admin/management/blog/add", name="add_blog")
-     * @Route("/admin/management/blog/edit/{id}" , name="edit_blog" )
+     * @Route("/admin/management/blog/{id_user}/add", name="add_blog")
+     * @Route("/admin/management/blog/{id_user}/edit/{id}" , name="edit_blog" )
+     * @ParamConverter("blog", options={"id" = "id"})
+     * @ParamConverter("user", options={"id" = "id_user"})
      */
-    public function addBlog(ManagerRegistry $doctrine , Blog $blog= null , Request $request):Response
+    public function addBlog(ManagerRegistry $doctrine , Blog $blog= null ,User $user =null, Request $request):Response
     {
+   
         if(!$blog){
             $blog =new Blog();
         }
@@ -91,7 +113,8 @@ class ManagementController extends AbstractController
                 }
                 $blog->setImage($newFilename);
             }
-            $blog = $form->getData();           
+            $blog = $form->getData();
+            $blog->setUser($user);         
             $entityManager = $doctrine->getManager();
             // hydrate et protection faille sql 
             $entityManager->persist($blog);
@@ -150,7 +173,8 @@ class ManagementController extends AbstractController
         {
             // gestionn de l'image de la préstation en elle meme
             $imgFile = $form->get('img')->getData();
-            if ($imgFile) {
+            if ($imgFile)
+            {
                 $newFilename = 'img/imported/'.uniqid().'.'.$imgFile->guessExtension();
                 try {
                     $imgFile->move(
@@ -163,11 +187,10 @@ class ManagementController extends AbstractController
                 $benefit->setImg($newFilename);
             }
              // on récuperes les images transmises pour la gallerie d'image de la préstation
-            $imgMultiple = $form->get('imagCollectionBenefits')->getData();
-            // dd($imgMultiple);
-             // $alt = $form->get('alt')->getData();
+            $imgMultiple = $form->get('imgCollectionBenefits')->getData();
             // on boucle sur les images
-            foreach ( $imgMultiple as $image) {
+            foreach ( $imgMultiple as $image) 
+            {
                 // on génére un nouveau nom de fichier
                 $fichier = 'img/imported/'.uniqid().'.'.$image->guessExtension();
                 // on copie le fichier dans le fichier upload
@@ -186,6 +209,7 @@ class ManagementController extends AbstractController
             $entityManager = $doctrine->getManager();
             $entityManager->persist($benefit);
             $entityManager->flush();
+
             $this->addFlash("success" , $benefit->getTitle()." à été ajouté/Modifié avec succès");
             return $this->redirectToRoute('detail_category' , ['id' => $benefit->getCategory()->getId()]); 
         }
@@ -197,16 +221,20 @@ class ManagementController extends AbstractController
 
     /**
      * function pour modifié une préstation 
-     * @Route("/admin/management/edit/{id}" , name="edit_benefit" )
+     * @Route("/admin/management/edit/{id}/{benefit_id}" , name="edit_benefit" )
+     * @ParamConverter("category", options={"id" = "id"})
+     * @ParamConverter("benefit", options={"id" = "benefit_id"})
      */
-    public function editBenefit( ManagerRegistry $doctrine, Benefit $benefit = null, Request $request): Response
+    public function editBenefit(Category $category , ManagerRegistry $doctrine, Benefit $benefit = null, Request $request): Response
     {
-        $form = $this->createForm(BenefitType::class,$benefit);
+    $form = $this->createForm(BenefitType::class,$benefit);
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid())
         {
+            // gestionn de l'image de la préstation en elle meme
             $imgFile = $form->get('img')->getData();
-            if ($imgFile) {
+            if ($imgFile)
+            {
                 $newFilename = 'img/imported/'.uniqid().'.'.$imgFile->guessExtension();
                 try {
                     $imgFile->move(
@@ -218,32 +246,31 @@ class ManagementController extends AbstractController
                 }
                 $benefit->setImg($newFilename);
             }
-               // on récuperes les images transmises
-               $imgMultiple = $form->get('imagCollectionBenefits')->getData();
-               // dd($imgMultiple);
-                // $alt = $form->get('alt')->getData();
-               // on boucle sur les images
-               foreach ( $imgMultiple as $image) {
-                   // on génére un nouveau nom de fichier
-                   $fichier = 'img/imported/'.uniqid().'.'.$image->guessExtension();
-                   // on copie le fichier dans le fichier upload
-                   $image->move(
-                       $this->getParameter('img_directory'),
-                       $fichier
-                   );
-                   // on stocke l'image dans la BDD (son nom)
-                   $img = new ImgCollectionBenefit();
-                   $img->setImg($fichier);
-                   $benefit->addImgCollectionBenefit($img);
-                   
-               }
+             // on récuperes les images transmises pour la gallerie d'image de la préstation
+            $imgMultiple = $form->get('imgCollectionBenefits')->getData();
+            // on boucle sur les images
+            foreach ( $imgMultiple as $image) 
+            {
+                // on génére un nouveau nom de fichier
+                $fichier = 'img/imported/'.uniqid().'.'.$image->guessExtension();
+                // on copie le fichier dans le fichier upload
+                $image->move(
+                    $this->getParameter('img_directory'),
+                    $fichier
+                );
+                // on stocke l'image dans la BDD (son nom)
+                $img = new ImgCollectionBenefit();
+                $img->setImg($fichier);
+                $benefit->addImgCollectionBenefit($img);
+                
+            }
             $benefit = $form->getData();
+            $category->addBenefit($benefit);
             $entityManager = $doctrine->getManager();
             $entityManager->persist($benefit);
             $entityManager->flush();
-
+            
             $this->addFlash("success" , $benefit->getTitle()." à été ajouté/Modifié avec succès");
-
             return $this->redirectToRoute('detail_category' , ['id' => $benefit->getCategory()->getId()]); 
         }
         return $this->render('management/addBenefit.html.twig', [
@@ -268,6 +295,7 @@ class ManagementController extends AbstractController
             $entityManager = $doctrine->getManager();
             $entityManager->persist($input);
             $entityManager->flush();
+
             $this->addFlash("success" , $input->getDescription()." à été ajouté/Modifié avec succès");
             return $this->redirectToRoute('app_input'); 
         }
@@ -292,7 +320,6 @@ class ManagementController extends AbstractController
             $entityManager->flush();
 
             $this->addFlash("success" , $input->getDescription()." à été ajouté/Modifié avec succès");
-
             return $this->redirectToRoute('app_input'); 
         }
         return $this->render('management/addInput.html.twig', [
@@ -314,17 +341,8 @@ class ManagementController extends AbstractController
         ]);
     }
 
-    /**
-     * fonction pour afficher le detail d'un blog
-    * @Route("/admin/management/blog/detail/{id}", name="detail_blog")
-    */
-    public function detailBlog(Blog $blog) : Response
-    {
-        return $this->render('blog/detail.html.twig', [
-            'blog' => $blog,
-        ]);
-    }
 
+    
     /**
      * fonction pour afficher le details d'une préstation dans le but de pouvoir ajouter des bénéfices liées a celle-çi
     * @Route("/admin/management/benefit/detail/{id}", name="detail_edit_benefit")
@@ -346,7 +364,7 @@ class ManagementController extends AbstractController
      * @ParamConverter("benefit", options={"id" = "benefit_id"})
      * @ParamConverter("input", options={"id" = "input_id"})
      */
-    public function addInputInBenefit(ManagerRegistry $doctrine, Benefit $benefit ,Input $input)
+    public function addInputInBenefit(ManagerRegistry $doctrine, Benefit $benefit ,Input $input) : Response
     {
         // ici on utilise la fonction addIntern de l'entité via la relation manyToMany puis on persit et envoie les infos en BDD
         $benefit->addInput($input);
@@ -362,7 +380,7 @@ class ManagementController extends AbstractController
      * @ParamConverter("benefit", options={"id" = "benefit_id"})
      * @ParamConverter("input", options={"id" = "input_id"})
      */
-    public function removeInputInBenefit(ManagerRegistry $doctrine, Benefit $benefit ,Input $input)
+    public function removeInputInBenefit(ManagerRegistry $doctrine, Benefit $benefit ,Input $input) :Response
     {
     
         $benefit->removeInput($input);
@@ -373,7 +391,77 @@ class ManagementController extends AbstractController
     }
 
 
+   /**
+     * fonction pour ajouter et/ou modifier un stage
+     * @Route("/admin/management/stage", name="show_stage")
+     */
+    public function ManagementStage(ManagerRegistry $doctrine,Stage $stage=null) : Response
+    {
+        $stages = $doctrine->getRepository(Stage::class)->findAll();
+        return $this->render('management/showStage.html.twig', [
+          "stages" => $stages,
 
+        ]); 
+    }
+
+  /**
+     * fonction pour ajouter et/ou modifier un stage
+     * @Route("/admin/management/stage/add", name="add_stage")
+     * @Route("/admin/management/stage/edit/{id}" , name="edit_stage" )
+     */
+    public function addstage(ManagerRegistry $doctrine , Stage $stage= null ,User $user =null, Request $request):Response
+    {
+   
+        if(!$stage){
+            $stage =new Stage();
+        }
+        // crée le formulaire de type stage 
+        $form = $this->createForm(StageType::class , $stage );
+        $form->handleRequest($request);
+        // si envoye et sanitise avec les filter etc protection faille xss puis on execute le tout 
+        if($form->isSubmitted() && $form->isValid())
+        {
+            $imgFile = $form->get('image')->getData();
+            if ($imgFile) {
+                $newFilename = 'img/imported/'.uniqid().'.'.$imgFile->guessExtension();
+                try {
+                    $imgFile->move(
+                        $this->getParameter('img_directory'),
+                        $newFilename
+                    );
+                } catch (FileException $e) {
+                    // ... handle exception if something happens during file upload
+                }
+                $stage->setImage($newFilename);
+            }
+            $stage = $form->getData();
+            $stage->setUser($user);         
+            $entityManager = $doctrine->getManager();
+            // hydrate et protection faille sql 
+            $entityManager->persist($stage);
+            $entityManager->flush();
+            $this->addFlash("success" , $stage->getTitle()." à été ajouté/Modifié avec succès");
+            return $this->redirectToRoute('show_stage'); 
+        }
+        return $this->render('stage/add.html.twig', [
+            'formAddStage' =>  $form->createView(),
+            'edit' => $stage->getId(),
+        ]);
+    }
+  /**
+     * fonction pour ajouter une stage d'une préstation
+     * @Route("/admin/stage/delete/{id}" , name="delete_stage" )
+     */
+    public function deleteStage(ManagerRegistry $doctrine, Stage $stage) :Response
+    {
+        $entityManager = $doctrine->getManager();
+        $entityManager->remove($stage);
+        $entityManager->flush();
+        $this->addFlash("success" , "supprimé avec succès");
+        return $this->redirectToRoute("show_event");
+    }
+
+    
 
     /**
     * @Route("/admin/management/delete_Category/{id}", name="delete_category")

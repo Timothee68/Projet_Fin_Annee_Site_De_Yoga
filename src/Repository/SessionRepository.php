@@ -2,8 +2,10 @@
 
 namespace App\Repository;
 
+use App\Entity\Benefit;
 use App\Entity\Session;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query\Expr\Select;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -38,6 +40,17 @@ class SessionRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
+
+    public function foundSession($id)
+    {
+        return $this->createQueryBuilder('s')
+            ->innerJoin('s.benefit' , 'b')
+            ->andWhere('b.id = :id')
+            ->setParameter('id' , $id)
+            ->getQuery()
+            ->getResult();
+    }
+
 
 //    /**
 //     * @return Session[] Returns an array of Session objects

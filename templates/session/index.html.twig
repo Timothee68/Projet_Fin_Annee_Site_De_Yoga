@@ -1,42 +1,115 @@
 {% extends 'base.html.twig' %}
-
 {% block title %}Réservation{% endblock %}
 
 {% block body %}
+<figure>
+    <img src="{{ asset('img/stageimage.jpg') }}" alt="" srcset="">
+    <figcaption class="figcaption-reservation">Repos détente et bien être seront au rendez-vous</figcaption>
+</figure>
+<div class="container">
+    <div class="row d-flex justify-content-around ">
+        <h1 class="mt-5 mb-5">Réservation</h1>
+        <h2 class="mt-5 mb-5">Choisissez la préstation que vous voulez faire</h2>
+        <div class="col-6 ">
+            <nav class="nav-select-prestation">
+                <a class="nav-link dropdown-toggle fs-2 text-md-center" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Categorie de Préstation</a>
+                <ul class="dropdown-menu text-center col-12"> 
+                    <div id="myBtnContainer">
+                        <li ><a class="menu-tab dropdown-item fs-4" href="{{ path('app_session')}}">All</a></li> 
+                        {% for category in categorys %}
+                            <li ><a class="menu-tab dropdown-item fs-4" data-tab="{{category.id}}">{{category}}</a></li> 
+                        {% endfor %}
+                    </div>  
+                </ul>
+            </nav>  
+        </div>
+    </div>
 
-    <h1>Réservation</h1>
-
-    <h2>Choisissez la préstation que vous voulez faire</h2>
-
-        <nav>
-            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Préstation</a>
-            <ul class="dropdown-menu">
+    <div class="row d-flex justify-content-evenly">
+        <div class="col-10 d-flex justify-content-around mt-5 mb-5">
+            {# si idCategory est defini et que idcategory n'est pas vide #}
+            {% if idCategory is defined and idCategory is not empty %}
+                {# pour chaque benefit #}
                 {% for benefit in benefits %}
-                    <li><a class="dropdown-item" href="#">{{benefit}}</a></li>
+                    {# si idcategory == id de la catégorie appartenant au benefit on affiche les bouttons avec la class show en plus  #}
+                    {% if idCategory == benefit.category.id %}
+                        <button class="active benefit-btn {{benefit.category.id}} show btn btn-res fs-5" data-category="{{benefit.category.id}}"><a href="{{ path('app_session', {'benefit': benefit.id, 'category': benefit.category.id  }) }} " value="{{benefit}}">{{benefit}}</a>
+                    {#sinon pas !  #}
+                    {% else %}
+                        <button class="benefit-btn {{benefit.category.id}} btn btn-res fs-5" data-category="{{benefit.category.id}}"><a href="{{ path('app_session', {'benefit': benefit.id, 'category': benefit.category.id  }) }} " value="{{benefit}}">{{benefit}}</a>
+                    {% endif %}
                 {% endfor %}
-            </ul>
-        </nav>
+            {% else %}
+                {% for benefit in benefits %}
+                    <button class="active benefit-btn {{benefit.category.id}} btn btn-res fs-5" data-category="{{benefit.category.id}}"><a href="{{ path('app_session', {'benefit': benefit.id , 'category': benefit.category.id}) }} " value="{{benefit}}">{{benefit}}</a>
+                {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+</div>  
+<div class="container-fluid">
+    <div class="row col-12 justify-content-center">
+        
+        <div class="col-6 m">
+            <h2>Planning a la semaine</h2>
+            {# <button id="togg1" class="btn">afficher/désactiver planning </button> #}
+            <div class="container mt-5">
+                <div id="d1">
+                    <div id='calendar'></div>
+                </div>
+            </div>
+        </div>
 
-        <table id="table_id" class="table mt-5">
-            <thead>
-                <tr class="bg-secondary">
-                    <th  class="table-blog" scope="col ">Préstation</th>
-                    <th  class="table-blog" scope="col ">jour de prestation</th>
-                    <th  class="table-blog" scope="col ">date de début</th>
-                    <th  class="table-blog" scope="col ">date de fin </th>
-                    <th  class="table-blog" scope="col ">nombre de place</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for session in sessions %}
-                <tr>
-                    <td>{{ session.benefit }}</td>
-                    <td> {{ session.sessionDate | date('d/m/Y')  }}</td>          
-                    <td>{{ session.startTime | date('H:m') }}</td>
-                    <td>{{ session.endTime | date('H:m')  }}</td>
-                    <td>{{ session.nbPlaceMax }}</td>
-                </tr>    
+        <div class="col-sm-6"> 
+            <h5 class="text-end mb-5"><i class="fa-solid fa-circle color-green"></i>DISPONILBE /<i class="fa-solid fa-circle color-red"></i> PLEIN </h5>
+            {# si on a un id d'une categorie et d'une préstation précise #}
+            {% if idCategory is defined and idCategory is not empty %}
+                {% for session in sessionsById  %}
+                        {% include "session/_showSession.html.twig" %}
                 {% endfor %}
-            </tbody>
-        </table>
+            {% else %}
+                {# sinon affichage de all session #}
+                {% for session in sessions  %}
+                    {% include "session/_showSession.html.twig" %}
+                {% endfor %}
+            {% endif %}
+        </div>
+        
+    </div>
+</div>
+
+    
+    <script>
+         // on ajoute un evenement d'écoute sur le document charger sur cet page avec une fonction
+         document.addEventListener('DOMContentLoaded', function() {
+            // on selectionne l'élément qui a pour ID 'calendar'
+            let calendarEl = document.getElementById('calendar');
+            // calendar = nouveau calendrier et calandarEl seras composer de :
+            let calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'timeGridWeek',    // ou possible de mettre 'listWeek' ou 'dayGridMonth'
+                locale: 'fr',   // pour avoir le texte en français
+                timeZone: 'Europe/Paris', // time zone de l'europe
+                headerToolbar:  {       // modifier la disposition de la toullbar et ajouter des éléments
+                    start: 'prev,next today', // preve nexte au début 
+                    center: 'title',        //title au milieu
+                    end: 'dayGridMonth,timeGridWeek,list'  // a la fin on a choix afficher le mois ou la semaine
+                },
+                allDaySlot: false, // defini si allday s'affiche ou non 
+                slotMinTime: "08:00", // affichage des heure qu'a partir de de 8heures,
+                slotMaxTime: "21:00", // affichage des heure jusqu'a 20heures,
+                hiddenDays: [ 0, 6 ], // pour masquer dimanche et samedi sur le rendue du calendrier
+                nowIndicator: true, // place un trait rouge a l'heure ou l'on se trouve 
+                buttonText: {  // permet de redefinir le texte des bouttons 
+                    today: "Aujourd'hui",  
+                    week: "Semaine",
+                    list: "Liste"
+                },
+                events: {{ datas | raw }},
+              //  selectable: true,
+              //  selectHelper: true ,
+               
+            });
+            calendar.render();
+        });
+    </script>
 {% endblock %}

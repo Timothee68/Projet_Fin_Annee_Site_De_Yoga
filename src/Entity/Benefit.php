@@ -55,7 +55,7 @@ class Benefit
     private $inputs;
 
     /**
-     * @ORM\OneToMany(targetEntity=ImgCollectionBenefit::class, mappedBy="benfefit" , cascade={"persist"} , orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=ImgCollectionBenefit::class, mappedBy="benefit" , cascade={"persist", "remove"} , orphanRemoval=true)
      * @ORM\OrderBy({"img" = "ASC"})
      */
     private $imgCollectionBenefits;

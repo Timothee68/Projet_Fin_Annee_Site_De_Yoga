@@ -39,6 +39,18 @@ class ReservationRepository extends ServiceEntityRepository
         }
     }
 
+
+    public function foundReservation($id)
+    {
+        return $this->createQueryBuilder('s')
+            ->innerJoin('s.user' , 'b')
+            ->andWhere('b.id = :id')
+            ->setParameter('id' , $id)
+            ->getQuery()
+            ->getResult();
+    }
+
+
 //    /**
 //     * @return Reservation[] Returns an array of Reservation objects
 //     */

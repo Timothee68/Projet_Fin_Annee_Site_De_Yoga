@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajouter une session !{% endblock %}
+
+{% block body %}
+     {{ form_start(formAddStage) }}
+          {{ form_errors(formAddStage) }}
+               <div class="container">
+                    <div class="row d-flex justify-content-between">
+                        <div class="col-4 mb-4 mt-4">
+                            {{ form_row(formAddStage.content ) }}
+                        </div>
+                        <div class="col-4 mb-4 mt-4">
+                        {{ form_row(formAddStage.nbPlaceMax) }}
+                        </div>
+                        <div class="col-6 mb-4 mt-4">
+                            {{ form_row(formAddStage.startTime) }}
+                        </div>
+                        <div class="col-6 mb-4 mt-4">
+                            {{ form_row(formAddStage.endTime )}}
+                        </div>
+                        <div class="col-4 mb-4 mt-4">
+                            {{ form_row(formAddStage.backgroundColor) }}
+                        </div>
+                        <div class="col-4">        
+                            {{ form_row(formAddStage.image, { 'label': "placer la description de l'image 100 caractères maximum" }) }}
+                       </div>        
+                         <div class="row">
+                              <div class="col-4 mt-4">   
+                                   {{ form_row(formAddStage.submit, { 'label': 'Envoyer' }) }}
+                              </div>
+                         </div>     
+                    </div>   
+               </div> 
+     {{ form_end(formAddStage) }}
+ {% endblock %}
+

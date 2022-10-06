@@ -47,7 +47,7 @@ class BenefitType extends AbstractType
                 ])
                 
             //on ajoute le champ "images" dans le formulaire il n'est pas liée a la BDD MULTIPLE CHOIX IMAGES A LA SELECTION 
-            ->add('imagCollectionBenefits', FileType::class, [
+            ->add('imgCollectionBenefits', FileType::class, [
                 'label' => 'Images réliées à la galerie d\'image pour la préstation Séléctionne autant de photos que tu le souhaite',
                 "attr" => [ 'class' => "form-control"],
                 'multiple' => true,

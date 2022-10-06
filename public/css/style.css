@@ -27,9 +27,7 @@ img{
   border:#783897 solid 1px !important;
 }
 
-.blog-image{
-  width: 10% !important;
-}
+
 
 .wrapper{
   width: 90%;
@@ -109,13 +107,7 @@ body, html {
   height: 100px; 
   object-fit: cover;
 }
-.blog-home{
-  max-width:100%;
-  max-height: 450px;
-  min-height: 250px;
-  object-fit: cover;
-  object-position: 20% 50%; 
-}
+
 
 
 /* détail présta */
@@ -151,6 +143,9 @@ body, html {
 } 
 
 
+.img-message img{
+  width: 10%;
+}
 
 
 
@@ -158,11 +153,17 @@ body, html {
 .swiper {
   width: 100%;
   max-height: 600px;
-  -webkit-clip-path: polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%);
+  border-radius: 15px;
+  -webkit-border-radius: 15px;
+  -moz-border-radius: 15px;
+  -ms-border-radius: 15px;
+  -o-border-radius: 15px;
+  /*-webkit-clip-path: polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%);
   clip-path: polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%);
+  */
 }
 /* Caption text */
-figcaption {
+.figcaption-home {
   color: #f2f2f2;
   font-size: 30px;
   padding: 8px 12px;
@@ -252,12 +253,20 @@ figcaption {
 }
 
 .back{
-  background: #cedce7;
-  background: -webkit-linear-gradient(45deg,  #cedce7 0%,#596a72 100%);
-  background: -o-linear-gradient(45deg,  #cedce7 0%,#596a72 100%);
-  background: linear-gradient(45deg,  #cedce7 0%,#596a72 100%);
+  background: #ffffff;
+  background: -webkit-linear-gradient(45deg,  #ffffff 0%,#f6c8c8 100%);
+  background: -o-linear-gradient(45deg,  #ffffff 0%,#f6c8c8 100%);
+  background: linear-gradient(45deg,  #fbc4fc 0%,#f6b3e8 100%);
 }
 
+.card-presta-btn{
+  font-size: 18PX;
+}
+.card-presta-btn:hover{
+  font-size: 20PX;
+  color:#783897 !important;
+  width: 100%;
+}
 .front:after{
 	position: absolute;
     top: 0;
@@ -445,7 +454,7 @@ figcaption {
 #categories li img{
   left:-100%;
   right:-100%;
-  width: auto;
+  width: auto !important;
   height:100%;
   margin:0 auto;
 
@@ -552,6 +561,7 @@ figcaption {
   padding: 10px;
   margin: 10px 0;
   font-size: medium;
+  width: 50%;
 }
 
 .container-response {
@@ -614,7 +624,6 @@ figcaption {
 
 
 
-
 /* colonne egale gallerie image presta*/
 .column {
   flex: 50%;
@@ -627,19 +636,26 @@ figcaption {
 }
 
 
-
-
-
 /* blog */
+
+/* blog home */
+
+.blog-image img{
+  width: 100% !important;
+  max-width:100%;
+  max-height: 450px;
+  min-height: 250px;
+  
+  object-fit: cover;
+  object-position: 20% 50%; 
+}
+
 .table-blog{
   background-color: #783897 !important;
 }
+.blog-image-index-detail{
+    width: auto;
 
-.blog{
-  border-width: auto;
-  max-block-size: 400px;
-  object-fit: cover;
-  object-position: 50% 50%;
 }
 
 .scroller {
@@ -648,7 +664,6 @@ figcaption {
   scrollbar-color: rebeccapurple green;
   scrollbar-width: thin;
 }
-
 
 
 
@@ -682,3 +697,123 @@ footer a{
     -ms-border-radius: 20px 20px !important;
     -o-border-radius: 20px 20px !important;
 }
+
+
+
+/* css choix des préstation*/ 
+/* PAS SUR  */
+
+
+.container {
+  overflow: hidden;
+}
+
+.filterDiv {
+  float: left;
+  background-color: #ffffff;
+  color: #000000;
+  width: auto;
+  text-align: center;
+  margin: 10px;
+  padding: 10px;
+  display: none; /* Hidden by default */
+}
+
+/* The "show" class is added to the filtered elements */
+.show {
+  display: block;
+}
+
+/* Style the buttons */
+.btn {
+  border: none;
+  outline: none;
+  padding: 12px 16px;
+  background-color: #f1f1f1;
+  cursor: pointer;
+}
+
+/* Add a light grey background on mouse-over */
+.btn:hover {
+  background-color: #ddd;
+}
+
+/* Add a dark background to the active button */
+.btn.active {
+  background-color: #666;
+  color: white;
+}
+
+
+/* reservation btn affichage */
+.benefit-btn{
+  display: none;
+}
+
+.benefit-btn.active{
+  display: inline-block;
+}
+
+
+/* page reservation */
+
+.shadow{
+  border-color: whitesmoke !important;
+  box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+}
+
+.color-green{
+  color: rgb(164, 241, 39);
+}
+
+.color-red{
+  color:rgb(195, 54, 94)
+}
+
+.btn-res{
+  color: #000 !important;
+  background-color: rgb(255, 255, 255) !important;
+  box-shadow: #fbc4fc96 0px 30px 60px -12px inset, #f6b3e889  0px 18px 36px -18px inset;
+}
+.blog-container{
+  width: 60% !important;
+}
+
+.datepasser{
+  background-color: rgb(107, 87, 87) !important;
+}
+
+
+/*  page show reservation by client  */
+.imgReservationsssss{
+
+  background-image: url("../public/img/img-res.jpg") !important; 
+  width: auto;
+  height: auto; 
+}
+.imgReservationsssss  {
+  height:100%;
+  width: auto;
+  background-image: url('../img/img-res.jpg') !important;
+  background-repeat: no-repeat;
+  background-size:contain;
+}
+
+.nav-select-prestation{
+  background-color: #f6b3e8 !important;
+  border-radius: 20px;
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  -ms-border-radius: 20px;
+  -o-border-radius: 20px;
+}
+
+ 
+.hidden{
+
+  visibility: hidden;
+
+}
+
+
+

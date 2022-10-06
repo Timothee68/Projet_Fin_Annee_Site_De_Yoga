@@ -1,0 +1,69 @@
+{% extends 'base.html.twig' %}
+{% block title %}Réservation{% endblock %}
+
+{% block body %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-6">
+            <h1 class="mt-5 mb-5">Listes de toute les sessions en cours et passer </h1>            
+                {# {% include "session/_showSession.html.twig" %} #}
+                <table id="table_id" class="table table-striped mt-4 display">
+                    <thead>
+                    <tr class="bg-secondary">
+                        <th scope="col ">Id</th>
+                        <th scope="col">Préstation</th>
+                        <th scope="col">Date déroulement</th>
+                        <th scope="col">Nombre de place maximum</th>               
+                        <th scope="col">nombre de place réserver</th>
+                        <th scope="col">nombre de place restante</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        {% for session in sessions %}   
+                        <tr>
+                            <td><strong>{{ session.id }} </strong></td>
+                            <td><strong>{{ session.benefit}}</strong></td>
+                            <td>Le {{ session.startTime | date("d/m/Y")  }}  de {{ session.startTime | date("h:m")  }} à {{ session.endTime | date("h:m")  }}.</td>
+                            <td>Place reserver : {{session.nbPlaceMax}} place(s)</td>
+                            <td>Place reserver : {{session.nbPlaceReserved}} place(s)</td>
+                            <td>Place restante : {{session.remainingPlaces}} place(s)</td>
+                        </tr>             
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="col-6">
+            <h1 class="mt-5 mb-5">Listes de toutes les réservations</h1>            
+            <table id="table_id2" class="table table-striped mt-4 display">
+                <thead>
+                <tr class="bg-secondary">
+                    <th scope="col ">Id Session</th>
+                    <th scope="col ">Nom client</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">N°Tél</th>
+                    <th scope="col">Session</th>
+                    <th scope="col">date</th>
+                    <th scope="col">nombre de place réserver</th>
+                    <th scope="col">nombre de place restante</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for reservation in reservations %}   
+                    <tr>
+                        <td><strong>{{ reservation.session.id }}</strong></td>
+                        <td><strong>{{ reservation.user.name }} {{ reservation.user.firstName }}</strong></td>
+                        <td><strong>{{ reservation.user.email }} </strong></td>
+                        <td><strong>{{ reservation.user.telephone }} </strong></td>
+                        <td><strong>{{ reservation.session.benefit}}:</strong></td>
+                        <td>Le {{ reservation.session.startTime | date("d/m/Y")  }}  de {{ reservation.session.startTime | date("h:m")  }} à {{ reservation.session.endTime | date("h:m")  }}.</td>
+                        <td>Place reserver : {{reservation.nbPlace}} place(s)</td>
+                        <td>Place restante : {{reservation.session.remainingPlaces}} place(s) /  {{reservation.session.nbPlaceMax}}</td>
+                    </tr>             
+                {% endfor %}
+            </tbody>
+        </table>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

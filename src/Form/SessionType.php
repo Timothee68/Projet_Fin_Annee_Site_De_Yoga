@@ -29,10 +29,6 @@ class SessionType extends AbstractType
                 // 'multiple' => true,
                 // 'expanded' => true,
             ])
-            ->add('sessionDate', DateType::class, [
-                'widget' => 'single_text',
-                "attr" => ['class' => "form-control"],
-            ])
             ->add('nbPlaceMax', IntegerType::class, [
                 "attr" => ['class' => "form-control"]
                 ])

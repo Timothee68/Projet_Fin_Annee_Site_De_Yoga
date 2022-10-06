@@ -96,8 +96,10 @@ class HomeController extends AbstractController
     public function showReply(ManagerRegistry $doctrine, Post $post=null, Request $request): Response 
     {
         $posts = $doctrine->getRepository(Post::class)->findBy([] , ['creationDate' => 'DESC']);
+        $replys = $doctrine->getRepository(Reply::class)->findAll();
         return $this->render('management/reply.html.twig', [
-            'posts' => $posts,   
+            'posts' => $posts,
+            "replys" => $replys,   
         ]);
     }     
 
@@ -136,8 +138,9 @@ class HomeController extends AbstractController
     {
         return $this->render('home/mentionLegal.html.twig');
     }
+
     /**
-     * @Route("/home/detail/{id}", name="detail_benefit")
+     * @Route("/home/benefit/detail/{id}", name="detail_benefit")
      */
     public function detailBenefit(Benefit $benefit , ImgCollectionBenefitRepository $img): Response
     {
@@ -148,6 +151,18 @@ class HomeController extends AbstractController
             'images' => $images,
         ]);
     }
+
+    /**
+     * fonction pour afficher le detail d'un blog
+    * @Route("/home/blog/detail/{id}", name="detail_blog")
+    */
+    public function detailBlog(Blog $blog) : Response
+    {
+        return $this->render('blog/detail.html.twig', [
+            'blog' => $blog,
+        ]);
+    }
+
     /**
     * @Route("/home/delete_post/{id}", name="delete_post")
     */

@@ -20,7 +20,7 @@
                 {% for benefit in category.benefits %}
                 <tr>
                     <td><a href="{{ path('detail_edit_benefit', {'id': benefit.id }) }}">{{ benefit }}</a></td>
-                    <td><button type="button" class="btn btn-lg bg-secondary mt-2 "><a href="{{ path('edit_benefit', {'id': benefit.id }) }}">Editer</a></button></td>
+                    <td><button type="button" class="btn btn-lg bg-secondary mt-2 "><a href="{{ path('edit_benefit', {'id': category.id , 'benefit_id': benefit.id }) }}">Editer</a></button></td>
                     <td>
                         <button type="button" class="btn btn-lg bg-secondary mt-2 " data-bs-toggle="modal" data-bs-target="#exampleModal{{benefit.id}}">supprimer</i></button>                 
                         <!-- Modal -->

@@ -7,20 +7,17 @@
           {{ form_errors(formAddSession) }}
                <div class="container">
                     <div class="row d-flex justify-content-between">
-                        <div class="col-6 mb-4 mt-4">
+                        <div class="col-4 mb-4 mt-4">
                             {{ form_row(formAddSession.benefit ) }}
-                        </div>
-                        <div class="col-6 mb-4 mt-4">
-                            {{ form_row(formAddSession.sessionDate )}}
-                        </div>
-                        <div class="col-5 mb-4 mt-4">
-                            {{ form_row(formAddSession.startTime) }}
-                        </div>
-                        <div class="col-5 mb-4 mt-4">
-                            {{ form_row(formAddSession.endTime )}}
                         </div>
                         <div class="col-4 mb-4 mt-4">
                         {{ form_row(formAddSession.nbPlaceMax) }}
+                        </div>
+                        <div class="col-6 mb-4 mt-4">
+                            {{ form_row(formAddSession.startTime) }}
+                        </div>
+                        <div class="col-6 mb-4 mt-4">
+                            {{ form_row(formAddSession.endTime )}}
                         </div>
                         <div class="col-4 mb-4 mt-4">
                             {{ form_row(formAddSession.backgroundColor) }}

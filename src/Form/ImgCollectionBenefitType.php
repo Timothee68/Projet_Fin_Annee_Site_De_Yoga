@@ -34,7 +34,7 @@ class ImgCollectionBenefitType extends AbstractType
             ->add('alt',TextType::class ,[
                 "attr" => [ 'class' => "form-control"],
                 ])
-            // ->add('benfefit')
+            // ->add('benefit')
         ;
     }
 

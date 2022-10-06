@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+{% block title %}Gestion stage{% endblock %}
+
+{% block body %}
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h1 class="mt-5 mb-5">Listes de tout les stages en cours et passer </h1>            
+                <button type="button" class="btn btn-primary mt-5 mb-5"><a class="dropdown-item" href="{{ path('add_stage')}}">Ajouter un stage</a></button>
+                <table id="table_id" class="table table-striped mt-4 display">
+                    <thead>
+                    <tr class="bg-secondary">
+                        <th scope="col ">Id</th>
+                        <th scope="col">Stage</th>
+                        <th scope="col">Date déroulement</th>
+                        <th scope="col">Nombre de place maximum</th>               
+                        <th scope="col">nombre de place réserver</th>
+                        <th scope="col">nombre de place restante</th>
+                        <th scope="col ">Éditer</th>
+                        <th scope="col">Supprimer</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        {% for stage in stages %}   
+                        <tr>
+                            <td><strong>{{ stage.id }} </strong></td>
+                            <td><strong>{{ stage.title}}</strong></td>
+                            <td>Le {{ stage.startTime | date("d/m/Y")  }}  de {{ stage.startTime | date("h:m")  }} à {{ stage.endTime | date("h:m")  }}.</td>
+                            <td>Place reserver : {{stage.nbPlaceMax}} place(s)</td>
+                            <td>Place reserver : {{stage.nbPlaceReserved}} place(s)</td>
+                            <td>Place restante : {{stage.remainingPlaces}} place(s)</td>
+                            <td><a class="dropdown-item" href="{{ path('edit_stage' , {'id':stage.id }) }}">Éditer</a></td>
+                            <td><a class="dropdown-item" href="{{ path('delete_stage' , {'id':stage.id }) }}">Supprimer</a></td>
+                        </tr>             
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

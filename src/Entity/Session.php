@@ -2,10 +2,12 @@
 
 namespace App\Entity;
 
-use App\Repository\SessionRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\SessionRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
+use DateTime;
 
 /**
  * @ORM\Entity(repositoryClass=SessionRepository::class)
@@ -30,22 +32,22 @@ class Session
     private $endTime;
 
     /**
-     * @ORM\Column(type="datetime")
-     */
-    private $sessionDate;
-
-    /**
-     * @ORM\ManyToOne(targetEntity=Benefit::class, inversedBy="sessions")
+     * @ORM\ManyToOne(targetEntity=Benefit::class, inversedBy="sessions" , fetch="EAGER")
      */
     private $benefit;
 
     /**
-     * @ORM\OneToMany(targetEntity=Reservation::class, mappedBy="session")
+     * @ORM\OneToMany(targetEntity=Reservation::class, mappedBy="session" , fetch="EAGER")
      */
     private $reservations;
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\Range(
+     *  min = 0,
+     *  max = 50,
+     *  notInRangeMessage = "Arrondis interface : Veuillez entrer une valeur comprise entre {{ min }} et {{ max }}."
+     * )
      */
     private $nbPlaceMax;
 
@@ -88,17 +90,6 @@ class Session
         return $this;
     }
 
-    public function getSessionDate(): ?\DateTimeInterface
-    {
-        return $this->sessionDate;
-    }
-
-    public function setSessionDate(\DateTimeInterface $sessionDate): self
-    {
-        $this->sessionDate = $sessionDate;
-
-        return $this;
-    }
 
     public function getBenefit(): ?Benefit
     {
@@ -153,6 +144,42 @@ class Session
 
         return $this;
     }
+
+
+    // fonction pour afficher le nombre de place restante dans la session 
+    public function getRemainingPlaces(){
+        $somme = 0;
+        foreach($this->reservations as $reservation)
+        {
+            $res = $reservation->getNbPlaces();
+            $somme += $res;
+        }    
+        $reserved =  $this->nbPlaceMax - $somme;
+            return $reserved;
+     }
+
+
+     // fonction pour afficher le nombre de place réserver pour la session 
+     public function getNbPlaceReserved(){
+        $somme = 0;
+        foreach($this->reservations as $reservation)
+        {
+            $res= $reservation->getNbPlaces();
+            $somme += $res;          
+        }
+        return $somme;
+    }
+
+   public function diffDate()
+   {
+        $date = new DateTime();
+        $origin =  $this->startTime->getTimestamp();
+        $target = $date->getTimestamp();
+        $timeDiff = $origin - $target;
+        
+        echo $timeDiff ;
+        
+   }
 
     public function getBackgroundColor(): ?string
     {
