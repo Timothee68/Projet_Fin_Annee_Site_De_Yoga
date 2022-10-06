@@ -1,3 +1,3 @@
 # SiteDeYoga
 
-Création d'un site de réservation pour un site de yoga 
+Création d'un site de yoga permettant la réservation de séance en ligne .
