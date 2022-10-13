@@ -20,9 +20,7 @@ class ChangePasswordFormType extends AbstractType
             ->add('plainPassword', RepeatedType::class, [
                 'type' => PasswordType::class,
                 'first_options' => [
-                    'attr' => ['autocomplete' => 'new-password', 'class' => "form-control"],
-                    
-                   
+                    'attr' => ['autocomplete' => 'new-password', 'class' => "form-control"],                   
                     'constraints' => [
                         new NotBlank([
                             'message' => 'Please enter a password',

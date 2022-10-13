@@ -561,7 +561,8 @@ body, html {
   padding: 10px;
   margin: 10px 0;
   font-size: medium;
-  width: 50%;
+  width: 60%;
+  margin-left: 25%;
 }
 
 .container-response {
@@ -654,7 +655,12 @@ body, html {
   background-color: #783897 !important;
 }
 .blog-image-index-detail{
-    width: auto;
+  width: 100% !important;
+  max-width:100%;
+  max-height: 450px;
+  min-height: 250px;
+  object-fit: cover;
+  object-position: 20% 50%; 
 
 }
 
@@ -816,4 +822,54 @@ footer a{
 }
 
 
+/* page contact */
+.image-container{
+  width: 100%;
+}
+.figure-contact{
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+/* .img-contact{ */
+  /* position: absolute;
+  top: 0;
+  left: 0; */
+  /* width: 100%;
+  height: max-content;
+  object-fit:contain;
+  transform: rotate(90deg);
+  -webkit-transform: rotate(90deg);
+  -moz-transform: rotate(90deg);
+  -ms-transform: rotate(90deg);
+  -o-transform: rotate(90deg);
+  margin: 0;
+  padding: 0;
+} */
+.contact-form{
+  width: 50% !important;
+  border: solid black 2px;
+}
 
+
+.fa-facebook:hover{
+  background: rgb(66,167,237);
+  background: linear-gradient(180deg, rgba(66,167,237,1) 10%, rgba(6,116,232,1) 86%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: 40px;
+
+}
+
+.fa-twitter:hover{
+  color: rgb(66,167,237);
+  font-size: 40px;
+}
+
+.fa-instagram-square:hover{
+  background: rgb(237,66,100);
+  background: linear-gradient(90deg, rgba(237,66,100,1) 4%, rgba(255,237,188,1) 94%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: 40px;
+}

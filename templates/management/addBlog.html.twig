@@ -1,36 +1,38 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Ajouter un blog{% endblock %}
+{% block title %}Ajouter un blog
+{% endblock %}
 
 {% block body %}
-          {{ form_start(formAddBlog) }}
-          {{ form_errors(formAddBlog) }}
-               <div class="container">
-                    <div class="row">
-                         <div class="col-4 mb-4 mt-4">
-                              {{ form_row(formAddBlog.title, { 'label': 'Titre' }) }}
-                         </div>
-                         <div class="col-4 mb-4 mt-4">
-                              {{ form_row(formAddBlog.contents) }}
-                         </div>
-                    <div class="row">
-                         <h3>choisisez si vous voulez poster une vidéo ou si vous voulez poster une image </h3>
-                         <div class="col-4 mb-4">   
-                              {{ form_row(formAddBlog.image) }}
-                         </div>
-                         <div class="col-4">        
-                              {{ form_row(formAddBlog.urlVideo, { 'label': "placer l'url de la vidéo ou le liens internet" }) }}
-                         </div>
-                         <div class="col-4">        
-                              {{ form_row(formAddBlog.altImage, { 'label': "placer la description de l'image 100 caractères maximum" }) }}
-                         </div>              
-                    </div>     
-                         <div class="row">
-                              <div class="col-4 mt-4">   
-                                   {{ form_row(formAddBlog.submit, { 'label': 'Envoyer' }) }}
-                              </div>
-                         </div>     
-                    </div>   
-               </div> 
-     {{ form_end(formAddBlog) }}
+	{{ form_start(formAddBlog) }}
+	{{ form_errors(formAddBlog) }}
+	<div class="container">
+		<div class="row">
+			<div class="col-4 mb-4 mt-4">
+				{{ form_row(formAddBlog.title, { 'label': 'Titre' }) }}
+			</div>
+			<div class="col-4 mb-4 mt-4">
+				{{ form_row(formAddBlog.contents) }}
+			</div>
+			<div class="row">
+				<h3>choisisez si vous voulez poster une vidéo ou si vous voulez poster une image
+				</h3>
+				<div class="col-4 mb-4">
+					{{ form_row(formAddBlog.image) }}
+				</div>
+				<div class="col-4">
+					{{ form_row(formAddBlog.urlVideo, { 'label': "placer l'url de la vidéo ou le liens internet" }) }}
+				</div>
+				<div class="col-4">
+					{{ form_row(formAddBlog.altImage, { 'label': "placer la description de l'image 100 caractères maximum" }) }}
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-4 mt-4">
+					{{ form_row(formAddBlog.submit, { 'label': 'Envoyer' }) }}
+				</div>
+			</div>
+		</div>
+	</div>
+	{{ form_end(formAddBlog) }}
 {% endblock %}

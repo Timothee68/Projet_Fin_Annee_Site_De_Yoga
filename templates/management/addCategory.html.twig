@@ -1,22 +1,22 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Ajouter une préstation{% endblock %}
-
-{% block body %}
-    {{ form_start(formAddCategory) }}
-    {{ form_errors(formAddCategory) }}
-        <div class="container">
-            <div class="row">
-                <div class="col-4 mb-4 mt-4">
-                    {{ form_row(formAddCategory.categoryName, { 'label': 'Nom de la catégorie' }) }}
-                </div>
-                <div class="row">
-                    <div class="col-4 mt-4">   
-                        {{ form_row(formAddCategory.submit, { 'label': 'Envoyer' }) }}
-                    </div>
-                </div>     
-            </div>   
-        </div> 
-    {{ form_end(formAddCategory) }}
+{% block title %}Ajouter une préstation
 {% endblock %}
 
+{% block body %}
+	{{ form_start(formAddCategory) }}
+	{{ form_errors(formAddCategory) }}
+	<div class="container">
+		<div class="row">
+			<div class="col-4 mb-4 mt-4">
+				{{ form_row(formAddCategory.categoryName, { 'label': 'Nom de la catégorie' }) }}
+			</div>
+			<div class="row">
+				<div class="col-4 mt-4">
+					{{ form_row(formAddCategory.submit, { 'label': 'Envoyer' }) }}
+				</div>
+			</div>
+		</div>
+	</div>
+	{{ form_end(formAddCategory) }}
+{% endblock %}

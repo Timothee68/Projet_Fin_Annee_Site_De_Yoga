@@ -62,7 +62,7 @@
                         <ul class="dropdown-menu fs-4">
                             <li><a class="dropdown-item" href="{{ path('app_presentation')}}">A propos de moi</a></li>
                             <li><a class="dropdown-item" href="#">Newsletter</a></li>
-                            <li><a class="dropdown-item" href="#">Contacts</a></li>                
+                            <li><a class="dropdown-item" href="{{ path('app_contact') }}">Contacts</a></li>                
                         </ul>
                     </li>
                     <li class="nav mt-5">
@@ -144,10 +144,10 @@
                         <p>SIRET 2345 4852 1458 1774</p>
                     </div>
                     <div class="col-4">
-                        <h3 class="mb-4">ME SUIVRE</h3>
-                        <div id="reseauxSocial" class="col-md-6 d-flex justify-content-evenly mb-4">
-                            <p class="text-center"><a href="#"><i class="fa-brands fa-facebook"></i></a></p>
-                            <p class="text-center"><a href="#"><i class="fa-brands fa-twitter"></i></a></p>
+                        <h3 class="mb-5">ME SUIVRE</h3>
+                        <div id="reseauxSocial" class="col-md-12 d-flex justify-content-evenly mt-5 ">
+                            <a href="#"><i class="fa-brands fa-facebook"></i></a>
+                          <a href="#"><i class="fa-brands fa-twitter"></i></a>
                             <a href="#"><i class="fa-brands fa-instagram-square"></i></a>     
                         </div>
                     </div>
@@ -168,7 +168,6 @@
                             <a href="{{asset('Politique de confidentialité.pdf')}}">Politique de confidentialité</a> |
                             <a href="https://www.privacypolicies.com/live/ed9c7f88-549a-4f3f-9e5e-222565074af4">C.G.U.</a> | 
                             <a href="{{asset('Modèle-conditions-générales-de-vente-gratuit.pdf')}}">C.G.V.</a> 
-
                         </p>
                     </div>
                 </div>

@@ -331,11 +331,6 @@ class SessionController extends AbstractController
         ]); 
     }
 
-    
- 
-
-    
-
     /**
      * fonction pour ajouter une session d'une préstation
      * @Route("/session/delete/{id}/{id_user}" , name="delete_reservation" )
@@ -349,6 +344,7 @@ class SessionController extends AbstractController
         $userFound = $doctrine->getRepository(User::class)->findOneBy(["id" => $user]);
       
         $email= $userFound->getEmail();
+
         $entityManager = $doctrine->getManager();
         $entityManager->remove($reservation);
         $entityManager->flush();
@@ -356,30 +352,23 @@ class SessionController extends AbstractController
         //  L'IDEE EST DE SUPPRIMER LE RDV ET ENVOYE UN MAIL A L ADMIN
         if($reservation->getSession() != null && $reservation->getStage() == null )
         {
-            $email = (new TemplatedEmail())
+            $emails = (new TemplatedEmail())
             ->from(new Address( $email))
             ->to('Om-nada-braham@exemple.com')
             ->subject('Annulation du rdv'.$reservation->getId()." ".$reservation->getSession()->getBenefit()->getTitle()."." )
             ->htmlTemplate('session/annulation.html.twig')
             ;
         }else if ($reservation->getSession() == null && $reservation->getStage() != null) {
-                $email = (new TemplatedEmail())
+                $emails = (new TemplatedEmail())
                 ->from(new Address( $email))
                 ->to('Om-nada-braham@exemple.com')                                
                 ->htmlTemplate('session/annulation.html.twig')
                 ->subject('Annulation du rdv'.$reservation->getId()." ". $reservation->getStage()->getTitle()."." )
                 ;
         }
-        $mailer->send($email);
+        $mailer->send($emails);
         return $this->redirectToRoute('app_showReservation', ['id' => $user]);
-        // return $this->render('user/reservation.html.twig', [
-        //     'datas' =>  $datas ?? null,
-        //     "events" => $events,
-        // ]);
     }
-
-  
-
 
     /**
      * fonction pour ajouter une session d'une préstation

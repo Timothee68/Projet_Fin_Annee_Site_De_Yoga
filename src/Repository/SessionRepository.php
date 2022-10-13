@@ -51,7 +51,54 @@ class SessionRepository extends ServiceEntityRepository
             ->getResult();
     }
 
-
+//  a modifier pour adapter a mon projet  crée des boutton pour choisir la date et fair le changement
+// ajouter dans un controller
+// $pastSessions = $sr->findPastSession();
+// $progressSessions = $sr->findProgressSession();
+// $futurSessions = $sr->findFuturSession();
+// return $this->render('home/index.html.twig', [
+//     'pastSessions' => $pastSessions,
+//     'progressSessions' => $progressSessions,
+//     'futurSessions' => $futurSessions,
+// ]);
+// }
+        // fonction DQL pour récupérer les dates de fin de session entérieur a la date actuel
+        public function findPastSession()
+        {
+            $now = new \DateTime();
+            return $this->createQueryBuilder('s')
+                        ->andWhere('s.dateEnd < :val')
+                        ->setParameter('val',$now)
+                        ->orderBy('s.dateStart', 'ASC')
+                        ->getQuery()
+                        ->getResult()
+                        ;
+        }
+        // fonction DQL pour récupérer les dates de debut de session supérieur a la date actuel
+        public function findFuturSession()
+        {
+            $now = new \DateTime();
+            return $this->createQueryBuilder('s')
+                        ->andWhere('s.dateStart > :val')
+                        ->setParameter('val',$now)
+                        ->orderBy('s.dateStart', 'ASC')
+                        ->getQuery()
+                        ->getResult()
+                        ;
+        }
+        // fonction DQL pour récupérer les dates de debut de session inférieur et dont la date de fin est supérieur a la date actuel
+        public function findProgressSession()
+        {
+            $now = new \DateTime();
+            return $this->createQueryBuilder('s')
+                        ->andWhere('s.dateStart < :val AND s.dateEnd > :val')
+                        ->setParameter('val', $now)
+                        ->orderBy('s.dateStart', 'ASC')
+                        ->getQuery()
+                        ->getResult()
+                        ;
+        }
+    
 //    /**
 //     * @return Session[] Returns an array of Session objects
 //     */

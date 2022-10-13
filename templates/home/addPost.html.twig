@@ -1,21 +1,22 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Ajouter un commentaire!{% endblock %}
+{% block title %}Ajouter un commentaire!
+{% endblock %}
 
 {% block body %}
-     {{ form_start(formAddPost) }}
-          {{ form_errors(formAddPost) }}
-               <div class="container">
-                    <div class="row">
-                         <div class="col-4 mb-4 mt-4">
-                              {{ form_row(formAddPost.contents, { 'label': 'Laisser un commentaire' }) }}
-                         </div>
-                         <div class="row">
-                              <div class="col-4 mt-4">   
-                                   {{ form_row(formAddPost.submit, { 'label': 'Envoyer' }) }}
-                              </div>
-                         </div>     
-                    </div>   
-               </div> 
-     {{ form_end(formAddPost) }}
- {% endblock %}
+	{{ form_start(formAddPost) }}
+	{{ form_errors(formAddPost) }}
+	<div class="container">
+		<div class="row">
+			<div class="col-4 mb-4 mt-4">
+				{{ form_row(formAddPost.contents, { 'label': 'Laisser un commentaire' }) }}
+			</div>
+			<div class="row">
+				<div class="col-4 mt-4">
+					{{ form_row(formAddPost.submit, { 'label': 'Envoyer' }) }}
+				</div>
+			</div>
+		</div>
+	</div>
+	{{ form_end(formAddPost) }}
+{% endblock %}

@@ -45,7 +45,6 @@ class BenefitType extends AbstractType
                         ]),
                     ]
                 ])
-                
             //on ajoute le champ "images" dans le formulaire il n'est pas liée a la BDD MULTIPLE CHOIX IMAGES A LA SELECTION 
             ->add('imgCollectionBenefits', FileType::class, [
                 'label' => 'Images réliées à la galerie d\'image pour la préstation Séléctionne autant de photos que tu le souhaite',
@@ -54,24 +53,6 @@ class BenefitType extends AbstractType
                 'mapped' => false,
                 'required' => false,
             ])                
-
-            // pour faire un COLLECTION TYPE 
-            // ->add('imgCollectionBenefits',CollectionType::class, [
-            //     // la collection attend l'élément qu'elle entrera dans le form ce n'est pas obligatoire que se soit un autre form
-            //     'entry_type' => ImgCollectionBenefitType::class,
-            //     'prototype' => true,
-            //     //  on va autoriser l'ajout  d'un nouvelle élément dans l'entité session qui seront persister grace au cascade persiste sur l'élément programme
-            //     // ca va activer un data prototype qui sera un attribu html qu'on pourra manipuler en js
-            //     'allow_add' => true, 
-            //     'allow_delete' => true,
-            //     // il obligatoire car Session  n'a pas de setProgramm() mais c'est Programme qui contient setSession() 
-            //     // Programme est propriaitaire de la relation, pour éviter un mapped a false on ajoute le by reference a false.
-            //     'by_reference' => false,
-            //     'entry_options' => [
-            //         'attr' => ['class' => 'form-control'],
-            //         'label' => 'Choisis les photos pour afficher dans la gallery',
-            //         ],
-            //     ])
             ->add('submit',SubmitType::class, [
                 "attr" => ['class' => "form-control bg-primary"]
                 ])

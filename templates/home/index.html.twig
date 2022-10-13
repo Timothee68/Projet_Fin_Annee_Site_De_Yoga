@@ -1,345 +1,409 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Accueil{% endblock %}
+{% block title %}Accueil
+{% endblock %}
 
 {% block body %}
-<div class="wrapper">
-  <main>
-    {% if edit == 'null' %}
-    <section>
-      <div class="swiper mySwiper mt-5 mb-5">
-        <div class="swiper-wrapper">
-          <div class="swiper-slide">
-            <figure>
-              <img src="{{asset('img/imported/62f3ac9b3ed40.jpg')}}" alt="image représentant l'entreprise ON NADA BRAMHA plus précisément la cliente pedant l'exercise d'une préstation " ></div>
-               <figcaption class="figcaption-home"><em>sonotéhrapie individuelle</em></figcaption>
-            </figure>
-          <div class="swiper-slide">
-            <figure>
-              <img src="{{asset('img/imported/62f26ea855cb4.jpg')}}" alt="image représentant l'entreprise ON NADA BRAMHA plus précisément la cliente pedant l'exercise d'une préstation " >
-              <figcaption class="figcaption-home"><em>Massage ayurvedique</em></figcaption>
-            </figure>
-          </div>
-          <div class="swiper-slide">
-            <figure>
-              <img src="{{asset('img/imported/62f37a7469692.jpg')}}" alt="image représentant l'entreprise ON NADA BRAMHA plus précisément la cliente pedant l'exercise d'une préstation " >
-              <figcaption class="figcaption-home"><em>Les bols tibetains</em></figcaption>
-            </figure>
-          </div>
-          <div class="swiper-slide">
-            <figure>
-              <img src="{{asset('img/imported/62f37aafacb04.jpg')}}" alt="image représentant l'entreprise ON NADA BRAMHA plus précisément la cliente pedant l'exercise d'une préstation " >
-              <figcaption class="figcaption-home"><em>Sonotéhrapie de groupe</em></figcaption>
-            </figure>
-          </div>
-          <div class="swiper-slide">
-            <figure>
-              <img src="{{asset('img/imported/62f24805ad7c0.jpg')}}" alt="image représentant l'entreprise ON NADA BRAMHA plus précisément la cliente pedant l'exercise d'une préstation " >
-              <figcaption class="figcaption-home"><em>Massage hollistique</em></figcaption>
-            </figure>
-          </div>
-          <div class="swiper-slide">
-            <figure>
-              <img src="{{asset('img/imported/62f2688749b8d.jpg')}}" alt="image représentant l'entreprise ON NADA BRAMHA plus précisément la cliente pedant l'exercise d'une préstation " >
-              <figcaption class="figcaption-home"><em>Position de yoga hata</em></figcaption>
-            </figure>
-          </div>
-          <div class="swiper-slide">
-            <figure>
-              <img src="{{asset('img/imported/630dc9ad5df9e.JPG')}}" alt="image représentant l'entreprise ON NADA BRAMHA plus précisément la cliente pedant l'exercise d'une préstation " >
-              <figcaption class="figcaption-home"><em>Position de yoga hata</em></figcaption>
-            </figure>
-          </div>
-          <div class="swiper-slide">
-            <figure>
-              <img src="{{asset('img/imported/630dc9b79b159.jpg')}}" alt="image représentant l'entreprise ON NADA BRAMHA plus précisément la cliente pedant l'exercise d'une préstation " >
-              <figcaption class="figcaption-home"><em>Position de yoga Advaita</em></figcaption>
-            </figure>
-          </div>
-          <div class="swiper-slide">
-            <figure>
-              <img src="{{asset('img/imported/630dc9c200e1b.jpg')}}" alt="image représentant l'entreprise ON NADA BRAMHA plus précisément la cliente pedant l'exercise d'une préstation " >
-              <figcaption class="figcaption-home"><em>Position de yoga Advaita</em></figcaption>
-            </figure>
-          </div>
-        </div>
-        {# <div class="swiper-button-next"></div>
-        <div class="swiper-button-prev"></div> #}
-        <div class="swiper-pagination"></div>
-      </div>
-    </section>
+	<div class="wrapper">
+		<main>
+			{% if edit == 'null' %}
+				<section>
+					<div class="swiper mySwiper mt-5 mb-5">
+						<div class="swiper-wrapper">
+							<div class="swiper-slide">
+								<figure>
+									<img src="{{asset('img/imported/62f3ac9b3ed40.jpg')}}" alt="image représentant l'entreprise ON NADA BRAMHA plus précisément la cliente pedant l'exercise d'une préstation "></div>
+								<figcaption class="figcaption-home">
+									<em>sonotéhrapie individuelle</em>
+								</figcaption>
+							</figure>
+							<div class="swiper-slide">
+								<figure>
+									<img src="{{asset('img/imported/62f26ea855cb4.jpg')}}" alt="image représentant l'entreprise ON NADA BRAMHA plus précisément la cliente pedant l'exercise d'une préstation ">
+									<figcaption class="figcaption-home">
+										<em>Massage ayurvedique</em>
+									</figcaption>
+								</figure>
+							</div>
+							<div class="swiper-slide">
+								<figure>
+									<img src="{{asset('img/imported/62f37a7469692.jpg')}}" alt="image représentant l'entreprise ON NADA BRAMHA plus précisément la cliente pedant l'exercise d'une préstation ">
+									<figcaption class="figcaption-home">
+										<em>Les bols tibetains</em>
+									</figcaption>
+								</figure>
+							</div>
+							<div class="swiper-slide">
+								<figure>
+									<img src="{{asset('img/imported/62f37aafacb04.jpg')}}" alt="image représentant l'entreprise ON NADA BRAMHA plus précisément la cliente pedant l'exercise d'une préstation ">
+									<figcaption class="figcaption-home">
+										<em>Sonotéhrapie de groupe</em>
+									</figcaption>
+								</figure>
+							</div>
+							<div class="swiper-slide">
+								<figure>
+									<img src="{{asset('img/imported/62f24805ad7c0.jpg')}}" alt="image représentant l'entreprise ON NADA BRAMHA plus précisément la cliente pedant l'exercise d'une préstation ">
+									<figcaption class="figcaption-home">
+										<em>Massage hollistique</em>
+									</figcaption>
+								</figure>
+							</div>
+							<div class="swiper-slide">
+								<figure>
+									<img src="{{asset('img/imported/62f2688749b8d.jpg')}}" alt="image représentant l'entreprise ON NADA BRAMHA plus précisément la cliente pedant l'exercise d'une préstation ">
+									<figcaption class="figcaption-home">
+										<em>Position de yoga hata</em>
+									</figcaption>
+								</figure>
+							</div>
+							<div class="swiper-slide">
+								<figure>
+									<img src="{{asset('img/imported/630dc9ad5df9e.JPG')}}" alt="image représentant l'entreprise ON NADA BRAMHA plus précisément la cliente pedant l'exercise d'une préstation ">
+									<figcaption class="figcaption-home">
+										<em>Position de yoga hata</em>
+									</figcaption>
+								</figure>
+							</div>
+							<div class="swiper-slide">
+								<figure>
+									<img src="{{asset('img/imported/630dc9b79b159.jpg')}}" alt="image représentant l'entreprise ON NADA BRAMHA plus précisément la cliente pedant l'exercise d'une préstation ">
+									<figcaption class="figcaption-home">
+										<em>Position de yoga Advaita</em>
+									</figcaption>
+								</figure>
+							</div>
+							<div class="swiper-slide">
+								<figure>
+									<img src="{{asset('img/imported/630dc9c200e1b.jpg')}}" alt="image représentant l'entreprise ON NADA BRAMHA plus précisément la cliente pedant l'exercise d'une préstation ">
+									<figcaption class="figcaption-home">
+										<em>Position de yoga Advaita</em>
+									</figcaption>
+								</figure>
+							</div>
+						</div>
+						{# <div class="swiper-button-next"></div>
+																		        <div class="swiper-button-prev"></div> #}
+						<div class="swiper-pagination"></div>
+					</div>
+				</section>
 
 
-      <section class="prestation">
+				<section class="prestation">
 
-        <h2 id="prestation" class="mt-5 mb-5">Les Prestations</h2>
+					<h2 id="prestation" class="mt-5 mb-5">Les Prestations</h2>
 
-        <hr class="pink">
+					<hr class="pink">
 
-        <div class="boites mt-5 mb-5">
-          {% for benefit in benefits %}
-            <div class="boite" ontouchstart="this.classList.toggle('hover');">
-              <div class="conteneur">
-                <div class="front" style="background-image: url({{benefit.img}})" alt="image représentant {{ benefit.title }} pendant ça pratique">
-                  <div class="inner">
-                    <h5 class="card-title"><em>{{benefit.title}}</em></h5>
-                    <span>Lorem ipsum</span>
-                  </div>
-                </div>
-                <div class="back">
-                  <div class="inner">
-                    <p><a href="{{ path('detail_benefit' , {'id': benefit.id}) }}" class="card-presta-btn">En savoir plus</a></p>
-                    <p><a href="{{ path('app_session' , {'id_benefit': benefit.id}) }}" class="card-presta-btn">Réserver une séance</a></p>
-                    {% if is_granted("ROLE_ADMIN") %}
-                    <p><a href="{{ path('edit_benefit',{'id': benefit.category.id , 'benefit_id': benefit.id })  }}" class="mb-2">Editer</a></p> 
-                    {% endif %}
-                  </div>
-                </div>
-              </div>
-            </div>
-          {% endfor %} 
-        </div>
+					<div class="boites mt-5 mb-5">
+						{% for benefit in benefits %}
+							<div class="boite" ontouchstart="this.classList.toggle('hover');">
+								<div class="conteneur">
+									<div class="front" style="background-image: url({{benefit.img}})" alt="image représentant {{ benefit.title }} pendant ça pratique">
+										<div class="inner">
+											<h5 class="card-title">
+												<em>{{benefit.title}}</em>
+											</h5>
+											<span>Lorem ipsum</span>
+										</div>
+									</div>
+									<div class="back">
+										<div class="inner">
+											<p>
+												<a href="{{ path('detail_benefit' , {'id': benefit.id}) }}" class="card-presta-btn">En savoir plus</a>
+											</p>
+											<p>
+												<a href="{{ path('app_session' , {'id_benefit': benefit.id}) }}" class="card-presta-btn">Réserver une séance</a>
+											</p>
+											{% if is_granted("ROLE_ADMIN") %}
+												<p>
+													<a href="{{ path('edit_benefit',{'id': benefit.category.id , 'benefit_id': benefit.id }) }}" class="mb-2">Editer</a>
+												</p>
+											{% endif %}
+										</div>
+									</div>
+								</div>
+							</div>
+						{% endfor %}
+					</div>
 
-      </section>
+				</section>
 
-      <section class="video">
+				<section class="video">
 
-          <h2 id="video">Retrouver les vidéos</h2>
-          <p class="fs-4"><a href="">View all</a></p>
+					<h2 id="video">Retrouver les vidéos</h2>
+					<p class="fs-4">
+						<a href="">View all</a>
+					</p>
 
-          <hr class="pink">
-          
-          <p class="text-center fs-5 mt-3 mb-5" >Retrouver toutes les vidéos de séance de <em>yoga</em>, des stages effectuer et des vidéo personnelle concernant les <em>soins énergétiques et du corps</em>.</p>
-              
-      </section>
-      <section>
+					<hr class="pink">
 
-        <h2 class="mt-5 mb-5" id="blog">Blog et actualités d' <em>Om nada bramha</em></h2>
+					<p class="text-center fs-5 mt-3 mb-5">Retrouver toutes les vidéos de séance de
+						<em>yoga</em>, des stages effectuer et des vidéo personnelle concernant les
+						<em>soins énergétiques et du corps</em>.</p>
 
-       <p class="fs-4"><a href="{{ path('show_blog') }}">View all</a></p> 
+				</section>
+				<section>
 
-        <hr class="pink">
-        
-        <p class="text-center fs-5 mt-3 mb-5">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ac augue adipiscing sed ornare enim ut etiam.</p>
-        <ul id="categories" class="clr">
-          <li class="pusher">
-          </li>
-          {% for blog in blogs %}
-            <li>
-              <div>
-                {% if blog.image %}
-                  <img src="{{blog.image}}" class="card-img-top" alt="image corresondant a l'article de blog {{blog.title}}">                 
-                {% elseif blog.urlVideo %}
-                  <video width="320" height="240" controls>
-                      <source src="#" type="video/mp4">
-                      <source src="#" type="video/ogg">
-                      Your browser does not support the video tag. 
-                  </video>
-                {% else %} 
-                  <img src="{{asset('img/logo/logo.jpg')}}" class="blog-image card-img-top" alt="image du logo par défault">
-                {% endif %}
-                <h1>{{blog.title | upper}}</h1> 
-                <p><a href="{{ path('detail_blog', {'id': blog.id}) }}"  class="text-light ">Voir plus</a><br><br> Éditer le : {{blog.publicationDate | date('d/m/Y H:m')}}</p>
-              </div>
-            </li>
-          {% endfor %}
-        </ul>
+					<h2 class="mt-5 mb-5" id="blog">Blog et actualités d'
+						<em>Om nada bramha</em>
+					</h2>
 
-      </section>
-      <section>
+					<p class="fs-4">
+						<a href="{{ path('show_blog') }}">View all</a>
+					</p>
 
-        <h2 class="mt-5 ">Le livre d'or</h2>
-        <hr class="pink">
-        <p class="fs-4 text-center mt-3 mb-5">Si vous souhaiter laisser un commentaire vous pouvez le déposer ici</p>   
+					<hr class="pink">
 
-          {% if app.user and app.user.chekReservation >= 1  %}
-            {{ form_start(formAddPost) }}
-            {{ form_errors(formAddPost) }}
-            <div class="col d-flex justify-content-center">
-              <div class="col-sm-6  mb-2 mt-4">
-                {{ form_row(formAddPost.contents, { 'label': 'Laisser un commentaire' }) }}
-              </div>
-            </div>
-            <div class="row">
-              <div class="col d-flex justify-content-center">
-                <div class="col-2 mt-2 mb-5">   
-                  {{ form_row(formAddPost.submit, { 'label': 'Envoyer' }) }}
-                </div>
-              </div> 
-            </div>    
-              {{ form_end(formAddPost) }}
-          {% else %}
-              <p class="fs-5 text-center"> Pour pouvoir laisser un commentaire, il faut avoir un compte utilisateur ou avoir déjà effectué une réservation ou un achat en ligne. </p>
-          {% endif %}
-        
-        <div id="livredor">
+					<p class="text-center fs-5 mt-3 mb-5">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ac augue adipiscing sed ornare enim ut etiam.</p>
+					<ul id="categories" class="clr">
+						<li class="pusher"></li>
+						{% for blog in blogs %}
+							<li>
+								<div>
+									{% if blog.image %}
+										<img src="{{blog.image}}" class="card-img-top" alt="image corresondant a l'article de blog {{blog.title}}">
+									{% elseif blog.urlVideo %}
+										<video width="320" height="240" controls>
+											<source src="#" type="video/mp4">
+											<source src="#" type="video/ogg">
+											Your browser does not support the video tag.
+										</video>
+									{% else %}
+										<img src="{{asset('img/logo/logo.jpg')}}" class="blog-image card-img-top" alt="image du logo par défault">
+									{% endif %}
+									<h1>{{blog.title | upper}}</h1>
+									<p>
+										<a href="{{ path('detail_blog', {'id': blog.id}) }}" class="text-light ">Voir plus</a><br><br>
+										Éditer le :
+										{{blog.publicationDate | date('d/m/Y H:m')}}</p>
+								</div>
+							</li>
+						{% endfor %}
+					</ul>
 
-          {% for post in posts %}
-            <div class="container-message">
+				</section>
+				<section>
 
-              {% if post.user.img %}
-                <figure class="avatar">
-                  <img src="{{ post.user.img }}" class="img-message img-fluid rounded-start" alt="...">
-                </figure>         
-              {% else %}
-                <figure class="avatar">
-                  <img src="{{asset('img/avatar.jpg')}}" class="img-message "  alt="Avatar">
-                </figure>
-              {% endif %}
+					<h2 class="mt-5 ">Le livre d'or</h2>
+					<hr class="pink">
+					<p class="fs-4 text-center mt-3 mb-5">Si vous souhaiter laisser un commentaire vous pouvez le déposer ici</p>
 
-              {% if post.user.id == null %}
-                <h5 class="fs-5">Compte supprimé</h5>
-              {% else %}
-                <h5 class="fs-5"> Écrit par :{{post.user.name }}</h5>
-              {% endif %}
-                <hr class="pink">
-                <p class="fs-5">{{ post.contents}}</p>
-                <span class="time-left fs-5">Posté le : {{ post.creationDate | date('d/m/Y H:i')}}</span>
+					{% if app.user and app.user.chekReservation >= 1  %}
+						{{ form_start(formAddPost) }}
+						{{ form_errors(formAddPost) }}
+						<div class="col d-flex justify-content-center">
+							<div class="col-sm-6  mb-2 mt-4">
+								{{ form_row(formAddPost.contents, { 'label': 'Laisser un commentaire' }) }}
+							</div>
+						</div>
+						<div class="row">
+							<div class="col d-flex justify-content-center">
+								<div class="col-2 mt-2 mb-5">
+									{{ form_row(formAddPost.submit, { 'label': 'Envoyer' }) }}
+								</div>
+							</div>
+						</div>
+						{{ form_end(formAddPost) }}
+					{% else %}
+						<p class="fs-5 text-center">
+							Pour pouvoir laisser un commentaire, il faut avoir un compte utilisateur ou avoir déjà effectué une réservation ou un achat en ligne.
+						</p>
+					{% endif %}
 
-                {% if app.user and app.user.id == post.user.id  or is_granted('ROLE_ADMIN') %}
+					<div id="livredor">
+						{% for post in posts %}
+							<div class="container-message">
 
-                <button type="button" class="btn btn-dark mt-lg-2"><a href="{{ path('edit_post', {'id': post.id }) }}">Éditer</a></button>               
-                <!-- Modal suppresion -->
-                <button type="button" class="btn btn-lg bg-secondary mt-2 " data-bs-toggle="modal" data-bs-target="#exampleModal{{post.id}}">supprimer</i></button>                 
-                    <div class="modal fade" id="exampleModal{{post.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog">
-                          <div class="modal-content">
-                            <div class="modal-header">
-                              <h5 class="modal-title" id="exampleModalLabel">Confirmer vous la supréssion du post ? </h5>
-                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                              <p><strong>Contenue message :</strong></p>
-                              <p>{{post.contents}} </p>
-                              la suppression est définitif êtes vous certain de votre déscicions ? 
-                            </div>
-                            <div class="modal-footer">
-                              <button type="button" class="btn btn-lg bg-secondary mt-2 " data-bs-dismiss="modal" > X annuler</button>
-                              <button type="button" class="btn btn-dark mt-lg-2"><a href="{{ path('delete_post', {'id': post.id }) }}">Supprimer</a></button>
-                            </div>
-                        </div>
-                      </div>
-                    </div>
-                {% endif %}
+								{% if post.user.img is defined and post.user.img != null %}
+									<figure class="avatar">
+										<img src="{{ post.user.img }}" class="img-message img-fluid rounded-start" alt="...">
+									</figure>
+								{% else %}
+									<figure class="avatar">
+										<img src="{{asset('img/avatar.jpg')}}" class="img-message " alt="Avatar">
+									</figure>
+								{% endif %}
 
-                {# message reply #}
-                {% for response in post.replies %}
-                  <div class="container-response">
-                    <figure class="avatar-right">
-                      <img src="{{asset('img/avatar.jpg')}}" class="img-message right" alt="Avatar">
-                    </figure>
-                    <hr>
-                    {% if post.user.id == null %}
-                      <h5 class="fs-5">Compte supprimé</h5>
-                    {% else %}
-                      <h5 class="fs-5">Réponse de :{{response.sender.name }}</h5>
-                    {% endif %}
-                      <p>{{ response.content}}</p>
-                      <span class="time-right fs-5">Posté le : {{ post.creationDate | date('d/m/Y H:i')}}</span>
-                  </div>
-                  {% endfor %} 
-            </div>
-          {% endfor %}
-        </div> 
-      </section>
-      {% elseif edit == 'edit' %}
-      <section>
+								{% if post.user.id is defined %}
+									<h5 class="fs-5">
+										Écrit par :{{post.user.name }}</h5>
+								{% else %}
+									<h5 class="fs-5">Compte supprimé</h5>
+								{% endif %}
+								<hr class="pink">
+								<p class="fs-5">{{ post.contents}}</p>
+								<span class="time-left fs-5">Posté le :
+									{{ post.creationDate | date('d/m/Y H:i')}}</span>
 
-        <h2>Le livre d'or</h2>
-        <hr class="pink">
-        <p class="fs-3 text-center mt-3 mb-5">Si vous souhaiter laisser un commentaire vous pouvez le déposer ici</p>   
+								{% if  is_granted('ROLE_ADMIN') %}
 
-          {% if app.user %}
-            {{ form_start(formAddPost) }}
-            {{ form_errors(formAddPost) }}
-            <div class="col d-flex justify-content-center">
-              <div class="col-sm-6  mb-2 mt-4">
-                {{ form_row(formAddPost.contents, { 'label': 'Laisser un commentaire' }) }}
-              </div>
-            </div>
-            <div class="row">
-              <div class="col d-flex justify-content-center">
-                <div class="col-2 mt-2 mb-5">   
-                  {{ form_row(formAddPost.submit, { 'label': 'Envoyer' }) }}
-                </div>
-              </div> 
-            </div>    
-              {{ form_end(formAddPost) }}
-            {% else %}
-              <p class="fs-3">Connecter vous pour pouvoir laisser un commentaire !</p>
-            {% endif %}
+									<button type="button" class="btn btn-dark mt-lg-2">
+										<a href="{{ path('edit_post', {'id': post.id }) }}">Éditer</a>
+									</button>
+									<!-- Modal suppresion -->
+									<button type="button" class="btn btn-lg bg-secondary mt-2 " data-bs-toggle="modal" data-bs-target="#exampleModal{{post.id}}">supprimer</i>
+								</button>
+								<div class="modal fade" id="exampleModal{{post.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+									<div class="modal-dialog">
+										<div class="modal-content">
+											<div class="modal-header">
+												<h5 class="modal-title" id="exampleModalLabel">Confirmer vous la supréssion du post ?
+												</h5>
+												<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+											</div>
+											<div class="modal-body">
+												<p>
+													<strong>Contenue message :</strong>
+												</p>
+												<p>{{post.contents}}
+												</p>
+												la suppression est définitif êtes vous certain de votre déscicions ?
+											</div>
+											<div class="modal-footer">
+												<button type="button" class="btn btn-lg bg-secondary mt-2 " data-bs-dismiss="modal">
+													X annuler</button>
+												<button type="button" class="btn btn-dark mt-lg-2">
+													<a href="{{ path('delete_post', {'id': post.id }) }}">Supprimer</a>
+												</button>
+											</div>
+										</div>
+									</div>
+								</div>
+							{% endif %}
 
-        
-        <div id="livreDor">
+							{# message reply #}
+							{% for response in post.replies %}
+								<div class="container-response">
+									<figure class="avatar-right">
+										<img src="{{asset('img/avatar.jpg')}}" class="img-message right" alt="Avatar">
+									</figure>
+									<hr>
+									{% if post.user.id == null %}
+										<h5 class="fs-5">Compte supprimé</h5>
+									{% else %}
+										<h5 class="fs-5">Réponse de :{{response.sender.name }}</h5>
+									{% endif %}
+									<p>{{ response.content}}</p>
+									<span class="time-right fs-5">Posté le :
+										{{ post.creationDate | date('d/m/Y H:i')}}</span>
+								</div>
+							{% endfor %}
+						</div>
+					{% endfor %}
+				</div>
+			</section>
+		{% elseif edit == 'edit' %}
+			<section>
 
-          {% for post in posts %}
-            <div class="container-message">
+				<h2>Le livre d'or</h2>
+				<hr class="pink">
+				<p class="fs-3 text-center mt-3 mb-5">Si vous souhaiter laisser un commentaire vous pouvez le déposer ici</p>
 
-              {% if post.user.img %}
-                <figure class="avatar">
-                  <img src="{{ post.user.img }}" class="img-message img-fluid rounded-start" alt="...">
-                </figure>         
-              {% else %}
-                <figure class="avatar">
-                  <img src="{{asset('img/avatar.jpg')}}" class="img-message "  alt="Avatar">
-                </figure>
-              {% endif %}
+				{% if app.user %}
+					{{ form_start(formAddPost) }}
+					{{ form_errors(formAddPost) }}
+					<div class="col d-flex justify-content-center">
+						<div class="col-sm-6  mb-2 mt-4">
+							{{ form_row(formAddPost.contents, { 'label': 'Laisser un commentaire' }) }}
+						</div>
+					</div>
+					<div class="row">
+						<div class="col d-flex justify-content-center">
+							<div class="col-2 mt-2 mb-5">
+								{{ form_row(formAddPost.submit, { 'label': 'Envoyer' }) }}
+							</div>
+						</div>
+					</div>
+					{{ form_end(formAddPost) }}
+				{% else %}
+					<p class="fs-3">Connecter vous pour pouvoir laisser un commentaire !</p>
+				{% endif %}
 
-              {% if post.user.id == null %}
-                <h5 class="fs-5">Compte supprimé</h5>
-              {% else %}
-                <h5 class="fs-5"> Écrit par :{{post.user.name }}</h5>
-              {% endif %}
-                <hr class="pink">
-                <p class="fs-5">{{ post.contents}}</p>
-                <span class="time-left fs-5">Posté le : {{ post.creationDate | date('d/m/Y H:i')}}</span>
 
-                {% if app.user and app.user.id == post.user.id  or is_granted('ROLE_ADMIN') %}
+				<div id="livreDor">
 
-                <button type="button" class="btn btn-dark mt-lg-2"><a href="{{ path('edit_post', {'id': post.id }) }}">Éditer</a></button>               
-                <!-- Modal suppresion -->
-                <button type="button" class="btn btn-lg bg-secondary mt-2 " data-bs-toggle="modal" data-bs-target="#exampleModal{{post.id}}">supprimer</i></button>                 
-                    <div class="modal fade" id="exampleModal{{post.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog">
-                          <div class="modal-content">
-                            <div class="modal-header">
-                              <h5 class="modal-title" id="exampleModalLabel">Confirmer vous la supréssion du post ? </h5>
-                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                              <p><strong>Contenue message :</strong></p>
-                              <p>{{post.contents}} </p>
-                              la suppression est définitif êtes vous certain de votre déscicions ? 
-                            </div>
-                            <div class="modal-footer">
-                              <button type="button" class="btn btn-lg bg-secondary mt-2 " data-bs-dismiss="modal" > X annuler</button>
-                              <button type="button" class="btn btn-dark mt-lg-2"><a href="{{ path('delete_post', {'id': post.id }) }}">Supprimer</a></button>
-                            </div>
-                        </div>
-                      </div>
-                    </div>
-                {% endif %}
-                {# message reply #}
-                {% for response in post.replies %}
-                  <div class="container-response">
-                    <figure class="avatar-right">
-                      <img src="{{asset('img/avatar.jpg')}}" class="img-message right" alt="Avatar">
-                    </figure>
-                    <hr>
-                    {% if post.user.id == null %}
-                      <h5 class="fs-5">Compte supprimé</h5>
-                    {% else %}
-                      <h5 class="fs-5">Réponse de :{{response.sender.name }}</h5>
-                    {% endif %}
-                      <p>{{ response.content}}</p>
-                      <span class="time-right fs-5">Posté le : {{ post.creationDate | date('d/m/Y H:i')}}</span>
-                  </div>
-                  {% endfor %} 
-            </div>
-          {% endfor %}
-        </div> 
-      </section>
-    {% endif %}
-    </main>
-</div>     
+					{% for post in posts %}
+						<div class="container-message">
+
+							{% if post.user.img %}
+								<figure class="avatar">
+									<img src="{{ post.user.img }}" class="img-message img-fluid rounded-start" alt="...">
+								</figure>
+							{% else %}
+								<figure class="avatar">
+									<img src="{{asset('img/avatar.jpg')}}" class="img-message " alt="Avatar">
+								</figure>
+							{% endif %}
+
+							{% if post.user.id == null %}
+								<h5 class="fs-5">Compte supprimé</h5>
+							{% else %}
+								<h5 class="fs-5">
+									Écrit par :{{post.user.name }}</h5>
+							{% endif %}
+							<hr class="pink">
+							<p class="fs-5">{{ post.contents}}</p>
+							<span class="time-left fs-5">Posté le :
+								{{ post.creationDate | date('d/m/Y H:i')}}</span>
+
+							{% if app.user and app.user.id == post.user.id  or is_granted('ROLE_ADMIN') %}
+
+								<button type="button" class="btn btn-dark mt-lg-2">
+									<a href="{{ path('edit_post', {'id': post.id }) }}">Éditer</a>
+								</button>
+								<!-- Modal suppresion -->
+								<button type="button" class="btn btn-lg bg-secondary mt-2 " data-bs-toggle="modal" data-bs-target="#exampleModal{{post.id}}">supprimer</i>
+							</button>
+							<div class="modal fade" id="exampleModal{{post.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+								<div class="modal-dialog">
+									<div class="modal-content">
+										<div class="modal-header">
+											<h5 class="modal-title" id="exampleModalLabel">Confirmer vous la supréssion du post ?
+											</h5>
+											<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+										</div>
+										<div class="modal-body">
+											<p>
+												<strong>Contenue message :</strong>
+											</p>
+											<p>{{post.contents}}
+											</p>
+											la suppression est définitif êtes vous certain de votre déscicions ?
+										</div>
+										<div class="modal-footer">
+											<button type="button" class="btn btn-lg bg-secondary mt-2 " data-bs-dismiss="modal">
+												X annuler</button>
+											<button type="button" class="btn btn-dark mt-lg-2">
+												<a href="{{ path('delete_post', {'id': post.id }) }}">Supprimer</a>
+											</button>
+										</div>
+									</div>
+								</div>
+							</div>
+						{% endif %}
+						{# message reply #}
+						{% for response in post.replies %}
+							<div class="container-response">
+								<figure class="avatar-right">
+									<img src="{{asset('img/avatar.jpg')}}" class="img-message right" alt="Avatar">
+								</figure>
+								<hr>
+								{% if post.user.id == null %}
+									<h5 class="fs-5">Compte supprimé</h5>
+								{% else %}
+									<h5 class="fs-5">Réponse de :{{response.sender.name }}</h5>
+								{% endif %}
+								<p>{{ response.content}}</p>
+								<span class="time-right fs-5">Posté le :
+									{{ post.creationDate | date('d/m/Y H:i')}}</span>
+							</div>
+						{% endfor %}
+					</div>
+				{% endfor %}
+			</div>
+		</section>
+	{% endif %}
+	</main>
+</div>
 {% endblock %}

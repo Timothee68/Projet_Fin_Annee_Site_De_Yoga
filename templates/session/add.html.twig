@@ -1,35 +1,35 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Ajouter une session !{% endblock %}
+{% block title %}Ajouter une session !
+{% endblock %}
 
 {% block body %}
-     {{ form_start(formAddSession) }}
-          {{ form_errors(formAddSession) }}
-               <div class="container">
-                    <div class="row d-flex justify-content-between">
-                        <div class="col-4 mb-4 mt-4">
-                            {{ form_row(formAddSession.benefit ) }}
-                        </div>
-                        <div class="col-4 mb-4 mt-4">
-                        {{ form_row(formAddSession.nbPlaceMax) }}
-                        </div>
-                        <div class="col-6 mb-4 mt-4">
-                            {{ form_row(formAddSession.startTime) }}
-                        </div>
-                        <div class="col-6 mb-4 mt-4">
-                            {{ form_row(formAddSession.endTime )}}
-                        </div>
-                        <div class="col-4 mb-4 mt-4">
-                            {{ form_row(formAddSession.backgroundColor) }}
-                        </div>
-    
-                         <div class="row">
-                              <div class="col-4 mt-4">   
-                                   {{ form_row(formAddSession.submit, { 'label': 'Envoyer' }) }}
-                              </div>
-                         </div>     
-                    </div>   
-               </div> 
-     {{ form_end(formAddSession) }}
- {% endblock %}
+	{{ form_start(formAddSession) }}
+	{{ form_errors(formAddSession) }}
+	<div class="container">
+		<div class="row d-flex justify-content-between">
+			<div class="col-4 mb-4 mt-4">
+				{{ form_row(formAddSession.benefit ) }}
+			</div>
+			<div class="col-4 mb-4 mt-4">
+				{{ form_row(formAddSession.nbPlaceMax) }}
+			</div>
+			<div class="col-6 mb-4 mt-4">
+				{{ form_row(formAddSession.startTime) }}
+			</div>
+			<div class="col-6 mb-4 mt-4">
+				{{ form_row(formAddSession.endTime )}}
+			</div>
+			<div class="col-4 mb-4 mt-4">
+				{{ form_row(formAddSession.backgroundColor) }}
+			</div>
 
+			<div class="row">
+				<div class="col-4 mt-4">
+					{{ form_row(formAddSession.submit, { 'label': 'Envoyer' }) }}
+				</div>
+			</div>
+		</div>
+	</div>
+	{{ form_end(formAddSession) }}
+{% endblock %}

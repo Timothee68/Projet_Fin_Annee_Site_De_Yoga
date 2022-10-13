@@ -55,7 +55,7 @@ class ManagementController extends AbstractController
 
     /**
      * fonction pour afficher les blogs
-     * @Route("/admin/management/blog", name="show_blog")
+     * @Route("/management/blog", name="show_blog")
      */
     public function showBlog(ManagerRegistry $doctrine):Response
     {

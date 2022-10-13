@@ -27,12 +27,12 @@ class BlogType extends AbstractType
                 'required' => false,
                     'constraints' => [
                         new File([
-                        'maxSize' => '10254k',
-                        'mimeTypes' => [
-                            'image/jpeg',
-                            'image/webp',
-                        ],
-                        'mimeTypesMessage' => 'Please upload une image valide',
+                            'maxSize' => '10254k',
+                            'mimeTypes' => [
+                                'image/jpeg',
+                                'image/webp',
+                            ],
+                            'mimeTypesMessage' => 'Please upload une image valide',
                         ]),
                     ]
                 ])

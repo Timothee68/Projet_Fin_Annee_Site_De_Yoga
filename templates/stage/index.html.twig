@@ -1,102 +1,141 @@
 {% extends 'base.html.twig' %}
-{% block title %}Stage{% endblock %}
+{% block title %}Stage
+{% endblock %}
 
 {% block body %}
-<figure>
-    <img src="{{ asset('img/stageimage.jpg') }}" alt="" srcset="">
-    {# <figcaption>Repos détente et bien être seront au rendez-vous</figcaption> #}
-</figure>
-<div class="container" >
-    <div class="row">
-        <article>
-            <h1 class="mt-5 mb-5">Je propose régulièrement des stages de plusieurs jours</h1>
-                <p class=" fs-5">
-                    Je vous invite à vous joindre a moi pour éffectuer des stages dans des lieux calme arboré et très charmant
-                    pour effectuer diverse activité liée au spirtuelle au soin du corps et aussi de l'esprit.
-                </p>
-        </article>
-    </div>
-</div>    
-<div class="container" style="width:55%">   
-    <div class="row">
-        <h2 class="mt-5 mb-5">Voici la liste des différents stage que je propose </h2>
-        <div class="col">
-            {% for stage in stages %}
-                <div class="card mb-3">
-                    <img src="/{{stage.image}}" class="stage card-img-top"  alt="image corresondant a l'article de stage {{stage.title}}">
-                    <div class="card-body">
-                        <h1 class="text-center">{{stage.title}}</h1>
-                        <hr>
-                        <p class="card-text fs-3"><strong>Description et information du stage</strong></p>
-                        <p class="card-text fs-5">{{ stage.content}}</p>
-                        <p class="card-text fs-5"><strong class="text-muted "> Date su stage : {{stage.startTime | date('d/m/Y H:m')}} {{stage.endTime | date('d/m/Y H:m')}}</strong></p>
-                        <p class="card-text fs-4"><strong>Prix : {{stage.price}}€</strong></p>  
-                        <p class="text-center"><a class="btn btn-primary btn-res fs-2" data-bs-toggle="modal" href="#exampleModalToggle{{stage.id }}" role="button">réserver</a></p>
-                        {# MODAL 1 #}
-                        <div class="modal fade" id="exampleModalToggle{{stage.id }}" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
-                            <div class="modal-dialog modal-dialog-centered">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div>
-                                    <div class="card" style="width: auto;">
-                                        <img src="/{{stage.image}}" class="card-img-top" alt="..."> 
-                                        <div class="card-body">
-                                            <h5 class="modal-title" id="exampleModalToggleLabel">{{stage.title}}</h5>     
-                                            <hr>
-                                            <p class="card-text">Date du déroulement du {{ stage.startTime | date('d/m/Y H:m') }} à {{ stage.endTime | date('d/m/Y H:m') }} </p>
-                                            <hr>
-                                            <p class="card-text">prix : {{stage.price}}€</p>  
-                                            <p class="card-text">A regler sur place</p> 
-                                        </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn-res btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
-                                        <button class=" btn-res btn btn-primary" data-bs-target="#exampleModalToggle2{{stage.id }}" data-bs-toggle="modal" data-bs-dismiss="modal">Suivant</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        {# MODAL 2 #}
-                        <div class="modal fade" id="exampleModalToggle2{{stage.id }}" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
-                            <div class="modal-dialog modal-dialog-centered">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalToggleLabel2">Vous aller valider la réservation</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div>
-                                        <form action="{{ path('app_reservation_stage', {'idUser':app.user.id  , 'idstage': stage.id }) }} " method="POST">
-                                    <div class="modal-body">
-                                        {% if  stage.remainingPlaces == 1 %}
-                                            <label for="stage_nbPlaceMax" class="required"><strong>choissisez le nombre de place que vous voulez réserver pour le stage </strong></label>
-                                            <input type="number" data-id="stage_nbPlaceMax" name="nbPlaceMax" required="required" min="1" max="1" placeholder="1" class="form-control nbplaceTest">     
-                                        {% else %} 
-                                            <label for="stage_nbPlaceMax" class="required">choissisez le nombre de place que vous voulez réserver </label>
-                                            <input type="number" data-id="stage_nbPlaceMax" name="nbPlaceMax"  required="required" min="1" max="{{stage.remainingPlaces}}" required="required" class="form-control nbplaceTest">                                   
-                                        {% endif %}                                                         
-                                            vous pouvez annuler 24h avant la date prévue a tout moment dans l'onglet "user" de la barre de navigation selectionner"gestion des reservation"                                    
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class=" btn-res btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
-                                        <button class=" btn-res btn btn-primary" data-bs-target="#exampleModalToggle{{stage.id }}" data-bs-toggle="modal" data-bs-dismiss="modal">Revenir en arrière</button>  
-                                        {% if app.user == null  %}
-                                            <button type="button" class="btn btn-primary"><a class="dropdown-item" href="{{ path('app_stage') }}">Réserver stage</a></button>
-                                        {% else %}
-                                            <button type="submit" name="submit" class="btn-res btn btn-primary"> Valider réservation</button>    
-                                        {% endif %} 
-                                    </div>
-                                        </form>                                                                                                                                                       
-                                </div>
-                            </div>
-                        </div>
-                      
-                        {% if is_granted('ROLE_ADMIN') %}
-                        <button type="button" class="btn btn-primary"><a class="dropdown-item" href="{{ path('edit_stage' , {'id':stage.id }) }}">Éditer</a></button>
-                        <button type="button" class="btn btn-primary"><a class="dropdown-item" href="{{ path('delete_stage' , {'id':stage.id }) }}">Supprimer</a></button>
-                        {% endif %}
-                    </div>
-                </div>
-            {% endfor %}
-        </div>
-    </div>
-{% endblock %}
+	<figure>
+		<img
+		src="{{ asset('img/stageimage.jpg') }}" alt="" srcset="">
+	{# <figcaption>Repos détente et bien être seront au rendez-vous</figcaption> #}
+	</figure>
+	<div class="container">
+		<div class="row">
+			<article>
+				<h1 class="mt-5 mb-5">Je propose régulièrement des stages de plusieurs jours</h1>
+				<p class=" fs-5">
+					Je vous invite à vous joindre a moi pour éffectuer des stages dans des lieux calme arboré et très charmant
+					pour effectuer diverse activité liée au spirtuelle au soin du corps et aussi de l'esprit.
+				</p>
+			</article>
+		</div>
+	</div>
+	<div class="container" style="width:55%">
+		<div class="row">
+			<h2 class="mt-5 mb-5">Voici la liste des différents stage que je propose
+			</h2>
+			<div class="col">
+				{% for stage in stages %}
+					<div class="card mb-3">
+						<img src="/{{stage.image}}" class="stage card-img-top" alt="image corresondant a l'article de stage {{stage.title}}">
+						<div class="card-body">
+							<h1 class="text-center">{{stage.title}}</h1>
+							<hr>
+							<p class="card-text fs-3">
+								<strong>Description et information du stage</strong>
+							</p>
+							<p class="card-text fs-5">{{ stage.content}}</p>
+							<p class="card-text fs-5">
+								<strong class="text-muted ">
+									Date su stage :
+									{{stage.startTime | date('d/m/Y H:m')}}
+									{{stage.endTime | date('d/m/Y H:m')}}</strong>
+							</p>
+							<p class="card-text fs-4">
+								<strong>Prix :
+									{{stage.price}}€</strong>
+							</p>
+							<p class="text-center">
+								{% if app.user.id is defined %}
+										<a class="btn btn-primary btn-res fs-2" data-bs-toggle="modal" href="#exampleModalToggle{{stage.id }}" role="button">réserver</a>
+									</p>
+								{% else %}
+									<p class="fs-4">Pour réserver il faut avoir un compte utilisateur ou être connecter, pour le suivie et la gestion merci de votre compréhension</p>
+							 <button type="button" class="btn btn-lg bg-secondary mt-2 " data-bs-dismiss="modal" ><a  href="{{path('app_register')}}">Crée un compte</a></button>
+								<button type="button" class="btn btn-lg bg-secondary mt-2 " data-bs-dismiss="modal" ><a  href="{{path('app_login')}}">Ou se connecter</a></button>
+							{% endif %}
+							{# MODAL 1 #}
+							<div class="modal fade" id="exampleModalToggle{{stage.id }}" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+								<div class="modal-dialog modal-dialog-centered">
+									<div class="modal-content">
+										<div class="modal-header">
+											<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+										</div>
+										<div class="card" style="width: auto;">
+											<img src="/{{stage.image}}" class="card-img-top" alt="...">
+											<div class="card-body">
+												<h5 class="modal-title" id="exampleModalToggleLabel">{{stage.title}}</h5>
+												<hr>
+												<p class="card-text">Date du déroulement du
+													{{ stage.startTime | date('d/m/Y H:m') }}
+													à
+													{{ stage.endTime | date('d/m/Y H:m') }}
+												</p>
+												<hr>
+												<p class="card-text">prix :
+													{{stage.price}}€</p>
+												<p class="card-text">A regler sur place</p>
+											</div>
+										</div>
+										<div class="modal-footer">
+											<button type="button" class="btn-res btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+											<button class=" btn-res btn btn-primary" data-bs-target="#exampleModalToggle2{{stage.id }}" data-bs-toggle="modal" data-bs-dismiss="modal">Suivant</button>
+										</div>
+									</div>
+								</div>
+							</div>
+							{# MODAL 2 #}
+							<div class="modal fade" id="exampleModalToggle2{{stage.id }}" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
+								<div class="modal-dialog modal-dialog-centered">
+									<div class="modal-content">
+										<div class="modal-header">
+											<h5 class="modal-title" id="exampleModalToggleLabel2">Vous aller valider la réservation</h5>
+											<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+										</div>
+										{% if app.user.id is defined %}
+											<form action="{{ path('app_reservation_stage', {'idUser':app.user.id , 'idstage': stage.id }) }} " method="POST">
+										{% endif %}
+											<div class="modal-body">
+												{% if  stage.remainingPlaces == 1 %}
+													<label for="stage_nbPlaceMax" class="required">
+														<strong>choissisez le nombre de place que vous voulez réserver pour le stage
+														</strong>
+													</label>
+													<input type="number" data-id="stage_nbPlaceMax" name="nbPlaceMax" required="required" min="1" max="1" placeholder="1" class="form-control nbplaceTest">
+												{% else %}
+													<label for="stage_nbPlaceMax" class="required">choissisez le nombre de place que vous voulez réserver
+													</label>
+													<input type="number" data-id="stage_nbPlaceMax" name="nbPlaceMax" required="required" min="1" max="{{stage.remainingPlaces}}" required="required" class="form-control nbplaceTest">
+												{% endif %}
+												vous pouvez annuler 24h avant la date prévue a tout moment dans l'onglet "user" de la barre de navigation selectionner"gestion des reservation"
+											</div>
+											<div class="modal-footer">
+												<button type="button" class=" btn-res btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+												<button class=" btn-res btn btn-primary" data-bs-target="#exampleModalToggle{{stage.id }}" data-bs-toggle="modal" data-bs-dismiss="modal">Revenir en arrière</button>
+												{% if app.user == null  %}
+													<button type="button" class="btn btn-primary">
+														<a class="dropdown-item" href="{{ path('app_stage') }}">Réserver stage</a>
+													</button>
+												{% else %}
+													<button type="submit" name="submit" class="btn-res btn btn-primary">
+														Valider réservation</button>
+												{% endif %}
+											</div>
+										</form>
+									</div>
+								</div>
+							</div>
+
+							{% if is_granted('ROLE_ADMIN') %}
+								<button type="button" class="btn btn-primary">
+									<a class="dropdown-item" href="{{ path('edit_stage' , {'id':stage.id }) }}">Éditer</a>
+								</button>
+								<button type="button" class="btn btn-primary">
+									<a class="dropdown-item" href="{{ path('delete_stage' , {'id':stage.id }) }}">Supprimer</a>
+								</button>
+							{% endif %}
+						</div>
+					</div>
+				{% endfor %}
+			</div>
+		</div>
+	{% endblock %}

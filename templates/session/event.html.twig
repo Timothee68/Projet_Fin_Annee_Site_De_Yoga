@@ -46,35 +46,6 @@
     <div id='calendar'></div>
 </div>
 
-
-
-<!-- Edit Modal -->
-<div class="modal fade" id="schedule-edit">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <!-- Modal Header -->
-            <div class="modal-header">
-                <h4 class="modal-title">Edit Your Schedule</h4>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-            </div>
-            <!-- Modal body -->
-            <div class="modal-body">
-                <form>
-                    <div class="form-group">
-                        <label>Schedule Name:</label>
-                        <input type="text" class="form-control">
-                    </div>
-                </form>
-            </div>
-            <!-- Modal footer -->
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-success">Save Your Schedule</button>
-            </div>
-        </div>
-    </div>
-</div>
-
     <script>
          // on ajoute un evenement d'écoute sur le document charger sur cet page avec une fonction
          document.addEventListener('DOMContentLoaded', function() {
@@ -105,9 +76,7 @@
                 nowIndicator: true, // place un trait rouge a l'heure ou l'on se trouve 
                 events: {{ datas | raw }},
                 eventClick: function(event) {
-                    let modal = document.getElementById("#schedule-edit");
-                         modal.modal();
-                },
+                }
             });
            
             calendar.on('eventChange' , (e) => { // permet de changer l'évenement de date de le déplacer dans le calendrier

@@ -4,11 +4,16 @@ namespace App\Controller;
 
 use App\Entity\User;
 
+use App\Entity\Contact;
+use App\Form\ContactType;
 use App\Form\RegistrationFormType;
 use App\Security\AppAuthenticator;
+use Symfony\Component\Mime\Address;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -81,8 +86,43 @@ class UserController extends AbstractController
         ]);
     }
    
-    
+    /**
+    * @Route("/contact", name="app_contact")
+    */
+    public function Contact(ManagerRegistry $doctrine , Contact $contact = null ,MailerInterface $mailer, Request $request): Response
+    {
+        $contact =new Contact();
 
+        $form = $this->createForm(ContactType::class , $contact );
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid())
+        {
+            $contact = $form->getData();           
+            $entityManager = $doctrine->getManager();
+            $entityManager->persist($contact);
+            $entityManager->flush();
+
+            $email = $contact->getEmail();
+            $message = $contact->getMessageContent();
+
+            $emails = (new TemplatedEmail())
+            ->from(new Address( $email))
+            ->to('Om-nada-braham@exemple.com')
+            ->subject('Mail contact Site Om nada Braham')
+            ->text($message)
+            ;
+            $mailer->send($emails);
+
+            $this->addFlash("success" ,"Message envoyez avec succès");
+
+            return $this->redirectToRoute('app_contact'); 
+        }
+        return $this->render('contact/index.html.twig', [
+            'formContact' =>  $form->createView(),
+          
+        ]);
+    }
         /**
      * @Route("/profil/{id}", name="app_delete")
      */
@@ -94,6 +134,4 @@ class UserController extends AbstractController
         $this->addFlash("success" , "Compte à été supprimé avec succès");
         return $this->redirectToRoute("app_home");
     }
-
-
 }
