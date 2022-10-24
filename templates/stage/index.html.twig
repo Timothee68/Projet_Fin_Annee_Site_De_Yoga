@@ -1,12 +1,12 @@
 {% extends 'base.html.twig' %}
-{% block title %}Stage
-{% endblock %}
+{% block title %}Stage{% endblock %}
 
 {% block body %}
+{% set dateNow = date() %}
 	<figure>
 		<img
 		src="{{ asset('img/stageimage.jpg') }}" alt="" srcset="">
-	{# <figcaption>Repos détente et bien être seront au rendez-vous</figcaption> #}
+	<figcaption class="figcatption-img-stage">Repos détente et bien être seront au rendez-vous</figcaption>
 	</figure>
 	<div class="container">
 		<div class="row">
@@ -21,8 +21,8 @@
 	</div>
 	<div class="container" style="width:55%">
 		<div class="row">
-			<h2 class="mt-5 mb-5">Voici la liste des différents stage que je propose
-			</h2>
+			<h2 class="mt-5 mb-5">Voici la liste des différents stage que je propose</h2>		
+			<h5 class="text-end mb-5"><i class="fa-solid fa-circle color-green"></i>DISPONILBE <i class="fa-solid fa-circle color-red"></i> PLEIN/DATE PASSER</h5>
 			<div class="col">
 				{% for stage in stages %}
 					<div class="card mb-3">
@@ -31,11 +31,15 @@
 							<h1 class="text-center">{{stage.title}}</h1>
 							<hr>
 							<p class="card-text fs-3">
-								<strong>Description et information du stage</strong>
+							{% if  stage.remainingPlaces <= 0  or  dateNow > stage.startTime %}
+								<strong>Description et information du stage &nbsp</strong> <i class="fa-solid fa-circle color-red"></i>
+							{% else %}
+								<strong>Description et information du stage &nbsp</strong> <i class="fa-solid fa-circle color-green"></i>
+							{% endif %}
 							</p>
 							<p class="card-text fs-5">{{ stage.content}}</p>
 							<p class="card-text fs-5">
-								<strong class="text-muted ">
+								<strong class="text-muted">
 									Date su stage :
 									{{stage.startTime | date('d/m/Y H:m')}}
 									{{stage.endTime | date('d/m/Y H:m')}}</strong>
@@ -46,13 +50,14 @@
 							</p>
 							<p class="text-center">
 								{% if app.user.id is defined %}
-										<a class="btn btn-primary btn-res fs-2" data-bs-toggle="modal" href="#exampleModalToggle{{stage.id }}" role="button">réserver</a>
-									</p>
+							
+									<a class="btn btn-primary btn-res fs-2" data-bs-toggle="modal" href="#exampleModalToggle{{stage.id }}" role="button">réserver</a>
 								{% else %}
 									<p class="fs-4">Pour réserver il faut avoir un compte utilisateur ou être connecter, pour le suivie et la gestion merci de votre compréhension</p>
-							 <button type="button" class="btn btn-lg bg-secondary mt-2 " data-bs-dismiss="modal" ><a  href="{{path('app_register')}}">Crée un compte</a></button>
-								<button type="button" class="btn btn-lg bg-secondary mt-2 " data-bs-dismiss="modal" ><a  href="{{path('app_login')}}">Ou se connecter</a></button>
-							{% endif %}
+							 		<button type="button" class="btn btn-lg bg-secondary mt-2 " data-bs-dismiss="modal" ><a  href="{{path('app_register')}}">Crée un compte</a></button>
+									<button type="button" class="btn btn-lg bg-secondary mt-2 " data-bs-dismiss="modal" ><a  href="{{path('app_login')}}">Ou se connecter</a></button>
+								{% endif %}
+							</p>
 							{# MODAL 1 #}
 							<div class="modal fade" id="exampleModalToggle{{stage.id }}" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
 								<div class="modal-dialog modal-dialog-centered">
@@ -124,18 +129,14 @@
 									</div>
 								</div>
 							</div>
-
 							{% if is_granted('ROLE_ADMIN') %}
-								<button type="button" class="btn btn-primary">
-									<a class="dropdown-item" href="{{ path('edit_stage' , {'id':stage.id }) }}">Éditer</a>
-								</button>
-								<button type="button" class="btn btn-primary">
-									<a class="dropdown-item" href="{{ path('delete_stage' , {'id':stage.id }) }}">Supprimer</a>
-								</button>
+								<button type="button" class="btn btn-primary" href="{{ path('edit_stage' , {'id':stage.id }) }}">Éditer</button>
+								<button type="button" class="btn btn-primary" href="{{ path('delete_stage' , {'id':stage.id }) }}">Supprimer</button>
 							{% endif %}
 						</div>
 					</div>
 				{% endfor %}
 			</div>
 		</div>
-	{% endblock %}
+	</div>
+{% endblock %}

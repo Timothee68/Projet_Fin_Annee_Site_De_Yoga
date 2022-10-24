@@ -40,6 +40,7 @@ class UserController extends AbstractController
         return $this->render('user/presentation.html.twig', [
         ]);
     }
+    
     /**
     * @Route("/user/edit/{id}", name="edit_register")
     */

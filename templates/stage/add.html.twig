@@ -8,11 +8,17 @@
 	{{ form_errors(formAddStage) }}
 	<div class="container">
 		<div class="row d-flex justify-content-between">
-			<div class="col-4 mb-4 mt-4">
+			<div class="col-12 mb-4 mt-4">
+				{{ form_row(formAddStage.title ) }}
+			</div>
+			<div class="col-12 mb-4 mt-4">
 				{{ form_row(formAddStage.content ) }}
 			</div>
-			<div class="col-4 mb-4 mt-4">
+			<div class="col-6 mb-4 mt-4">
 				{{ form_row(formAddStage.nbPlaceMax) }}
+			</div>
+			<div class="col-6 mb-4 mt-4">
+				{{ form_row(formAddStage.price) }}
 			</div>
 			<div class="col-6 mb-4 mt-4">
 				{{ form_row(formAddStage.startTime) }}

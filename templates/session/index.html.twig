@@ -2,10 +2,13 @@
 {% block title %}Réservation{% endblock %}
 
 {% block body %}
-<figure>
-    <img src="{{ asset('img/stageimage.jpg') }}" alt="" srcset="">
-    <figcaption class="figcaption-reservation">Repos détente et bien être seront au rendez-vous</figcaption>
-</figure>
+
+	<figure>
+		<img
+		src="{{ asset('img/stageimage.jpg') }}" alt="" srcset="">
+	<figcaption class="figcatption-img-stage">Repos détente et bien être seront au rendez-vous</figcaption>
+	</figure>
+
 <div class="container">
     <div class="row d-flex justify-content-around ">
         <h1 class="mt-5 mb-5">Réservation</h1>
@@ -16,8 +19,12 @@
                 <ul class="dropdown-menu text-center col-12"> 
                     <div id="myBtnContainer">
                         <li ><a class="menu-tab dropdown-item fs-4" href="{{ path('app_session')}}">All</a></li> 
-                        {% for category in categorys %}
-                            <li ><a class="menu-tab dropdown-item fs-4" data-tab="{{category.id}}">{{category}}</a></li> 
+                        {% for category in categorys  %}
+                            {% if category.categoryName == "Stage" %}
+                                <li ><a style="display: none;" class="menu-tab dropdown-item fs-4" data-tab="{{category.id}}">{{category}}</a></li> 
+                            {% else %}
+                                <li ><a style="cursor: pointer;" class="menu-tab dropdown-item fs-4" data-tab="{{category.id}}">{{category}}</a></li> 
+                            {% endif %}
                         {% endfor %}
                     </div>  
                 </ul>
@@ -52,7 +59,6 @@
         
         <div class="col-6 m">
             <h2>Planning a la semaine</h2>
-            {# <button id="togg1" class="btn">afficher/désactiver planning </button> #}
             <div class="container mt-5">
                 <div id="d1">
                     <div id='calendar'></div>
@@ -61,7 +67,7 @@
         </div>
 
         <div class="col-sm-6"> 
-            <h5 class="text-end mb-5"><i class="fa-solid fa-circle color-green"></i>DISPONILBE /<i class="fa-solid fa-circle color-red"></i> PLEIN </h5>
+            <h5 class="text-end mb-5"><i class="fa-solid fa-circle color-green"></i>DISPONILBE<i class="fa-solid fa-circle color-red"></i>PLEIN/DATE PASSER</h5>
             {# si on a un id d'une categorie et d'une préstation précise #}
             {% if idCategory is defined and idCategory is not empty %}
                 {% for session in sessionsById  %}
@@ -73,43 +79,56 @@
                     {% include "session/_showSession.html.twig" %}
                 {% endfor %}
             {% endif %}
-        </div>
-        
+        </div>       
     </div>
 </div>
 
-    
-    <script>
-         // on ajoute un evenement d'écoute sur le document charger sur cet page avec une fonction
-         document.addEventListener('DOMContentLoaded', function() {
-            // on selectionne l'élément qui a pour ID 'calendar'
-            let calendarEl = document.getElementById('calendar');
-            // calendar = nouveau calendrier et calandarEl seras composer de :
-            let calendar = new FullCalendar.Calendar(calendarEl, {
-                initialView: 'timeGridWeek',    // ou possible de mettre 'listWeek' ou 'dayGridMonth'
-                locale: 'fr',   // pour avoir le texte en français
-                timeZone: 'Europe/Paris', // time zone de l'europe
-                headerToolbar:  {       // modifier la disposition de la toullbar et ajouter des éléments
-                    start: 'prev,next today', // preve nexte au début 
-                    center: 'title',        //title au milieu
-                    end: 'dayGridMonth,timeGridWeek,list'  // a la fin on a choix afficher le mois ou la semaine
-                },
-                allDaySlot: false, // defini si allday s'affiche ou non 
-                slotMinTime: "08:00", // affichage des heure qu'a partir de de 8heures,
-                slotMaxTime: "21:00", // affichage des heure jusqu'a 20heures,
-                hiddenDays: [ 0, 6 ], // pour masquer dimanche et samedi sur le rendue du calendrier
-                nowIndicator: true, // place un trait rouge a l'heure ou l'on se trouve 
-                buttonText: {  // permet de redefinir le texte des bouttons 
-                    today: "Aujourd'hui",  
-                    week: "Semaine",
-                    list: "Liste"
-                },
-                events: {{ datas | raw }},
-              //  selectable: true,
-              //  selectHelper: true ,
-               
-            });
-            calendar.render();
+<script>
+    // on ajoute un evenement d'écoute sur le document charger sur cet page avec une fonction
+    document.addEventListener('DOMContentLoaded', function()
+    {
+        // on selectionne l'élément qui a pour ID 'calendar'
+        let calendarEl = document.getElementById('calendar');
+        // calendar = nouveau calendrier et calandarEl seras composer de :
+        let calendar = new FullCalendar.Calendar(calendarEl, 
+        {
+            initialView: 'dayGridMonth',    // ou possible de mettre 'listWeek' ou 'dayGridMonth'
+            locale: 'fr',   // pour avoir le texte en français
+            timeZone: 'Europe/Paris', // time zone de l'europe
+            headerToolbar:  {       // modifier la disposition de la toullbar et ajouter des éléments
+                start: 'prev,next today', // preve nexte au début 
+                center: 'title',        //title au milieu
+                end: 'dayGridMonth,timeGridWeek,list'  // a la fin on a choix afficher le mois ou la semaine
+            },
+            allDaySlot: false, // defini si allday s'affiche ou non 
+            slotMinTime: "08:00", // affichage des heure qu'a partir de de 8heures,
+            slotMaxTime: "21:00", // affichage des heure jusqu'a 20heures,
+            hiddenDays: [ 0, 6 ], // pour masquer dimanche et samedi sur le rendue du calendrier
+            nowIndicator: true, // place un trait rouge a l'heure ou l'on se trouve 
+            buttonText: {  // permet de redefinir le texte des bouttons 
+                today: "Aujourd'hui",  
+                week: "Semaine",
+                list: "Liste"
+            },
+            events: {{ datas | raw }},
+            eventClick : function(info) 
+            { 
+                    console.log(info);
+                    const modals = document.querySelectorAll(".modal-trigger"); // je selectionne tout les elemement avec la classe .modal-trigger
+                    const modalss = document.querySelectorAll(".modal-triggers");
+                    console.log(modals);
+                    for(let modal of modals)
+                    {  // pour chaque élements récupérer    
+                        let id = modal.id; // on récupere la value de chaque éléments qui est l'id de la réservation
+                        if(id == info.event.id)
+                        { // si l'id de la réservation est strictement égal  a l'id de l'event qui est le meme que celui de la réservation alors 
+                                
+                                modal.click();  // on ajoute un évenement au clique.
+                        }                             
+                    }
+            }
         });
-    </script>
+        calendar.render();
+    });
+</script>
 {% endblock %}

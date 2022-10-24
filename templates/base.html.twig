@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <a src="https://tarteaucitron.io/load.js?domain=127.0.0.1%2Fhome&uuid=daf144c9bc05780c9795c92d794cc241b7da33fb"></script>  
+        <link rel="icon" href="{{ asset('img/favicon.ico') }}" />
+        <script src="https://tarteaucitron.io/load.js?domain=127.0.0.1%2Fhome&uuid=daf144c9bc05780c9795c92d794cc241b7da33fb"></script>  
         <meta charset="UTF-8">
         <title>{% block title %}Om Nada bramha!{% endblock %}</title>
         {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css" integrity="sha256-5veQuRbWaECuYxwap/IOE/DAwNxgm4ikX7nrgsqYp88=" crossorigin="anonymous">
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+        {# <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>"> #}
         {% block stylesheets %}
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
         <link rel="stylesheet" href="{{ asset('css/style.css') }}">
@@ -34,16 +35,16 @@
                     <li class="nav-item dropdown mt-5">
                         <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Gestion du site</a>
                         <ul class="dropdown-menu fs-4">
-                                <li><a href="{{ path('app_management') }}" >Crée et gérer préstations</a></li>
-                                <li><a href="{{ path('app_input') }}">Crée et gérer les bienfaits des préstations</a></li>
-                                <li><a href="{{ path('show_event') }}">Crée Session des présatations</a></li>
-                                <li><a href="{{ path('show_stage') }}">Crée Stage </a></li>
-                                <li><hr class="dropdown-divider"></li>
-                                <li><a href="{{ path('add_blog' , {'id_user': app.user.id}) }}" >Ajouter un artcicle de Blog</a></li>
-                                <li><a href="#" >Ajouter une vidéo</a></li>
-                                <li><hr class="dropdown-divider"></li>
-                                <li><a href="{{ path('app_reply') }}" >Répondre aux messages</a></li>
-                                <li><a href="{{ path('app_gestion_reservation') }}" >Gestion réservation</a></li>
+                            <li><a href="{{ path('app_management') }}" >Crée et gérer préstations</a></li>
+                            <li><a href="{{ path('app_input') }}">Crée et gérer les bienfaits des préstations</a></li>
+                            <li><a href="{{ path('show_event') }}">Crée Session des présatations</a></li>
+                            <li><a href="{{ path('show_stage') }}">Crée Stage </a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a href="{{ path('add_blog' , {'id_user': app.user.id}) }}" >Ajouter un artcicle de Blog</a></li>
+                            <li><a href="#" >Ajouter une vidéo</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a href="{{ path('app_reply') }}" >Répondre aux messages</a></li>
+                            <li><a href="{{ path('app_gestion_reservation') }}" >Gestion réservation</a></li>
                         </ul>
                     </li>
                     {% endif %}

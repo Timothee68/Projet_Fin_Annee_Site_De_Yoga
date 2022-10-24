@@ -10,6 +10,7 @@ use App\Form\BlogType;
 use App\Entity\Benefit;
 use App\Entity\Session;
 use App\Form\InputType;
+use App\Form\StageType;
 use App\Entity\Category;
 use App\Form\BenefitType;
 use App\Form\CategoryType;
@@ -435,7 +436,7 @@ class ManagementController extends AbstractController
                 $stage->setImage($newFilename);
             }
             $stage = $form->getData();
-            $stage->setUser($user);         
+            // $stage->setUser($user->getId());         
             $entityManager = $doctrine->getManager();
             // hydrate et protection faille sql 
             $entityManager->persist($stage);

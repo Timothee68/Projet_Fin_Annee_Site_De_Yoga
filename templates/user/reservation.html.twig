@@ -30,7 +30,7 @@
             {# {% set date =  reservation.session.startTime  %} #}
             {# {{ dump(date) }} #}
                               <!-- Modal suppresion -->
-                              {% set id = reservation.session.id %}
+                              {# {% set id = reservation.session.id %} #}
                               <button type="button" value="{{reservation.id}}" id="{{reservation.session.id}}" class="modal-trigger btn btn-lg bg-secondary mt-2" style="display:none;" data-bs-toggle="modal" data-bs-target="#exampleModal{{reservation.session.id}}">annuler</i></button>                 
                               <div class="modal fade" id="exampleModal{{reservation.session.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog">
@@ -133,14 +133,13 @@
                         for(let modal of modals){  // pour chaque élements récupérer
 
                               let id = modal.value; // on récupere la value de chaque éléments qui est l'id de la réservation
-                                    if(id == info.event.id){ // si l'id de la réservation est strictement égal  a l'id de l'event qui est le meme que celui de la réservation alors 
-                                          
-                                          modal.click();  // on ajoute un évenement au clique.
-                                    }
+                              if(id == info.event.id){ // si l'id de la réservation est strictement égal  a l'id de l'event qui est le meme que celui de la réservation alors 
+                                    
+                                    modal.click();  // on ajoute un évenement au clique.
+                              }
                              
                         }
-                  }
-                    
+                  }  
               });
               calendar.render();
           });

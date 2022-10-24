@@ -23,6 +23,9 @@ class StageType extends AbstractType
             ->add('content', TextareaType::class ,[
                 "attr" => [ 'class' => "form-control"]
                 ])
+            ->add('title', TextType::class ,[
+                "attr" => [ 'class' => "form-control"]
+                ])
             ->add('image', FileType::class ,[
                 'label' => 'Image réliée à la préstation',
                 "attr" => [ 'class' => "form-control"],
@@ -43,6 +46,9 @@ class StageType extends AbstractType
                 "attr" => ['class' => "form-control"]
                 ])
             ->add('nbPlaceMax', IntegerType::class, [
+                "attr" => ['class' => "form-control"]
+                ])
+            ->add('price', IntegerType::class, [
                 "attr" => ['class' => "form-control"]
                 ])
             ->add('endTime', DateTimeType::class, [

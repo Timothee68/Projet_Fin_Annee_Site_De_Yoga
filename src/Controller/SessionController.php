@@ -60,7 +60,7 @@ class SessionController extends AbstractController
         // on encode $data en format Json 
         $datas=json_encode($rdvs);
         $benefits = $doctrine->getRepository(Benefit::class)->findAll();
-        $sessions = $doctrine->getRepository(Session::class)->findBy([], ['startTime' => "DESC"]);
+        $sessions = $doctrine->getRepository(Session::class)->findBy([], ['endTime' => "DESC"]);
         $categorys = $doctrine->getRepository(Category::class)->findAll();
 
         return $this->render('session/index.html.twig', [

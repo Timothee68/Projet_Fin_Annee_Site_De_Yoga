@@ -83,18 +83,15 @@
 							</div>
 						</div>
 						{# <div class="swiper-button-next"></div>
-																		        <div class="swiper-button-prev"></div> #}
+						<div class="swiper-button-prev"></div> #}
 						<div class="swiper-pagination"></div>
 					</div>
 				</section>
 
-
 				<section class="prestation">
 
 					<h2 id="prestation" class="mt-5 mb-5">Les Prestations</h2>
-
 					<hr class="pink">
-
 					<div class="boites mt-5 mb-5">
 						{% for benefit in benefits %}
 							<div class="boite" ontouchstart="this.classList.toggle('hover');">
@@ -113,7 +110,7 @@
 												<a href="{{ path('detail_benefit' , {'id': benefit.id}) }}" class="card-presta-btn">En savoir plus</a>
 											</p>
 											<p>
-												<a href="{{ path('app_session' , {'id_benefit': benefit.id}) }}" class="card-presta-btn">Réserver une séance</a>
+												<a href="{{ path('app_session' , {'benefit': benefit.id , 'category': benefit.category.id }) }}" class="card-presta-btn">Réserver une séance</a>
 											</p>
 											{% if is_granted("ROLE_ADMIN") %}
 												<p>
@@ -185,7 +182,8 @@
 				</section>
 				<section>
 
-					<h2 class="mt-5 ">Le livre d'or</h2>
+					<div id="livredor">
+					<h2  class="mt-5 ">Le livre d'or</h2>
 					<hr class="pink">
 					<p class="fs-4 text-center mt-3 mb-5">Si vous souhaiter laisser un commentaire vous pouvez le déposer ici</p>
 
@@ -211,7 +209,6 @@
 						</p>
 					{% endif %}
 
-					<div id="livredor">
 						{% for post in posts %}
 							<div class="container-message">
 
