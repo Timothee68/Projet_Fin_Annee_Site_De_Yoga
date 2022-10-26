@@ -29,6 +29,7 @@
             {% if reservation.session != null  %}
             {# {% set date =  reservation.session.startTime  %} #}
             {# {{ dump(date) }} #}
+            {% set dateNow = date() %}
                               <!-- Modal suppresion -->
                               {# {% set id = reservation.session.id %} #}
                               <button type="button" value="{{reservation.id}}" id="{{reservation.session.id}}" class="modal-trigger btn btn-lg bg-secondary mt-2" style="display:none;" data-bs-toggle="modal" data-bs-target="#exampleModal{{reservation.session.id}}">annuler</i></button>                 
@@ -40,7 +41,8 @@
                                                       <h5 class="modal-title" id="exampleModalLabel"> Information de votre réservations déjà éffectuer</h5>
                                                       {% else %}
                                                       <h5 class="modal-title" id="exampleModalLabel"> l'annulation est définitive êtes vous certain de votre décsicions ?</h5>
-                                                      {% endif %}                                                       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                      {% endif %}                                                       
+                                                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                 </div>
                                                 <div class="modal-body">
                                                       <img src="/{{reservation.session.benefit.img}}" alt="image {{ reservation.session.benefit}}" style="max-height: 250px;"  srcset="">
@@ -52,8 +54,9 @@
                                                 <div class="modal-footer">
                                                       {% if dateNow > reservation.session.startTime  %}
                                                       {% else %}
-                                                            <button type="button" class="btn btn-lg bg-secondary mt-2 " data-bs-dismiss="modal" >X</button>      
-                                                            <button class="btn"><a href="{{ path('delete_reservation', {'id': reservation.id , 'id_user': app.user.id}) }}">Annuler RDV</a></button>
+                                                            <button type="button" class=" btn-res btn btn-secondary" data-bs-dismiss="modal" >X</button>    
+                                                            <button class="btn-res btn btn-secondary"><a href="{{ path('edit_reservation', {'id': reservation.id , 'id_user': app.user.id}) }}">Modifer infos de la réservation</a></button>  
+                                                            <button class="btn-res btn btn-secondary"><a href="{{ path('delete_reservation', {'id': reservation.id , 'id_user': app.user.id}) }}">Annuler RDV</a></button>
                                                       {% endif %} 
                                                 </div>
                                           </div>
@@ -85,8 +88,8 @@
                                           <div class="modal-footer">
                                                 {% if dateNow > reservation.stage.startTime  %}
                                                 {% else %}
-                                                      <button type="button" class="btn btn-lg bg-secondary mt-2 " data-bs-dismiss="modal" >X</button>      
-                                                      <button class="btn"><a href="{{ path('delete_reservation', {'id': reservation.id , 'id_user': app.user.id}) }}">Annuler RDV</a></button>
+                                                      <button type="button" class="btn-res btn btn-secondary mt-2 " data-bs-dismiss="modal" >X</button>      
+                                                      <button class="btn-res btn btn-secondary"><a href="{{ path('delete_reservation', {'id': reservation.id , 'id_user': app.user.id}) }}">Annuler RDV</a></button>
                                                 {% endif %}                              
                                           </div>
                                     </div>

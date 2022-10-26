@@ -1,107 +1,124 @@
 {% set dateNow = date() %}
-{% if dateNow > session.startTime  %}
-	<div class="card fs-5 mb-3 shadow datepasser">
-	{% else %}
-		<div class="card fs-5 mb-3 shadow">
-		{% endif %}
+{% if dateNow < session.startTime %}
+	<div class="card fs-5 mb-3 shadow">
 		<div class="card-body">
-			{% if  session.remainingPlaces <= 0  or  dateNow > session.startTime %}
+			{% if  session.remainingPlaces <= 0 %}
 				<i class="fa-solid fa-circle color-red"></i>
 			{% else %}
 				<i class="fa-solid fa-circle color-green"></i>
 			{% endif %}
-				<strong>{{ session.benefit }}
-					le
-					{{ session.startTime | date('d/m/Y') }}
-					De
-					{{ session.startTime | date('H:i') }}
-					à
-					{{ session.endTime | date('H:i') }}
-				</strong>
-			{% if dateNow > session.startTime   %}
-				<p class="text-end fs-2">Date passer</p>
-				<button class="modal-triggers btn btn-primary btn-res" id="{{session.id}}" value="{{session.id}}" style="display:none;" data-bs-toggle="modal" href="#exampleModalToggle{{session.id }}" role="button">réserver</button>
-			{% else %}
-				<!-- Button trigger modal -->
-				<p class="text-end">
-					{% if  session.remainingPlaces <= 0  %}
-						<strong>COMPLET</strong>
-						<button class="modal-triggers btn btn-primary btn-res" id="{{session.id}}" value="{{session.id}}" style="display:none;" data-bs-toggle="modal" href="#exampleModalToggle{{session.id }}" role="button">réserver</button>
-					{% else %}
-						<button class="modal-trigger btn btn-primary btn-res" id="{{session.id}}" value="{{session.id}}" data-bs-toggle="modal" href="#exampleModalToggle{{session.id }}" role="button">réserver</button>
-					{% endif %}
-				</p>
-				{# MODAL 1 #}
-				<div class="modal fade" id="exampleModalToggle{{session.id }}" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
-					<div class="modal-dialog modal-dialog-centered">
-						<div class="modal-content">
-							<div class="modal-header">
-								<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			<strong>{{ session.benefit }}
+				le
+				{{ session.startTime | date('d/m/Y') }}
+				De
+				{{ session.startTime | date('H:i') }}
+				à
+				{{ session.endTime | date('H:i') }}
+			</strong>
+			<p class="text-end">
+				{% if  session.remainingPlaces <= 0  %}
+					<strong>COMPLET</strong>
+					<button class="modal-triggers btn btn-primary btn-res" id="{{session.id}}" value="{{session.id}}" style="display:none;" data-bs-toggle="modal" href="#exampleModalToggle{{session.id }}" role="button">réserver</button>
+				{% else %}
+					<button class="modal-trigger btn btn-primary btn-res" id="{{session.id}}" value="{{session.id}}" data-bs-toggle="modal" href="#exampleModalToggle{{session.id }}" role="button">réserver</button>
+				{% endif %}
+			</p>
+			{# MODAL 1 #}
+			<div class="modal fade" id="exampleModalToggle{{session.id }}" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+				<div class="modal-dialog modal-dialog-centered">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+						</div>
+						<div class="card" style="width: auto;">
+							<img src="/{{session.benefit.img}}" class="card-img-top" alt="...">
+							<div class="card-body">
+								<h5 class="modal-title" id="exampleModalToggleLabel">{{session.benefit.title}}</h5>
+								<hr>
+								<p class="card-text">horaire :
+									{{ session.startTime | date('d/m/Y') }}
+									De
+									{{ session.startTime | date('H:i') }}
+									à
+									{{ session.endTime | date('H:i') }}
+								</p>
+								<hr>
+								<p class="card-text">prix :
+									{{session.benefit.price}}€</p>
+								<p class="card-text">A regler sur  place</p>
 							</div>
-							<div class="card" style="width: auto;">
-								<img src="/{{session.benefit.img}}" class="card-img-top" alt="...">
-								<div class="card-body">
-									<h5 class="modal-title" id="exampleModalToggleLabel">{{session.benefit.title}}</h5>
-									<hr>
-									<p class="card-text">horaire :
-										{{ session.startTime | date('d/m/Y') }}
-										De
-										{{ session.startTime | date('H:i') }}
-										à
-										{{ session.endTime | date('H:i') }}
-									</p>
-									<hr>
-									<p class="card-text">prix :
-										{{session.benefit.price}}€</p>
-									<p class="card-text">A regler sur  place</p>
-								</div>
-							</div>
-							<div class="modal-footer">
-								<button type="button" class="btn-res btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
-								<button class=" btn-res btn btn-primary" data-bs-target="#exampleModalToggle2{{session.id }}" data-bs-toggle="modal" data-bs-dismiss="modal">Suivant</button>
-							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn-res btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+							<button class=" btn-res btn btn-primary" data-bs-target="#exampleModalToggle2{{session.id }}" data-bs-toggle="modal" data-bs-dismiss="modal">Suivant</button>
 						</div>
 					</div>
 				</div>
-				{# MODAL 2 #}
-				<div class="modal fade" id="exampleModalToggle2{{session.id }}" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
-					<div class="modal-dialog modal-dialog-centered">
-						<div class="modal-content">
-							<div class="modal-header">
-								<h5 class="modal-title" id="exampleModalToggleLabel2">Vous aller valider la réservation</h5>
+			</div>
+			{# MODAL 2 #}
+			<div class="modal fade" id="exampleModalToggle2{{session.id }}" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
+				<div class="modal-dialog modal-dialog-centered">
+					<div class="modal-content">
+						<div class="modal-header">
+						{% if app.user is defined %}
+								<h5 class="modal-title" id="exampleModalToggleLabel2">Veuillez remplir le formulaire de réservation et le valider</h5>
 								<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 							</div>
 							<form action="{{ path('app_reservation', {'idUser':app.user.id , 'idSession': session.id }) }} " method="POST">
 								<div class="modal-body">
 									{% if  session.remainingPlaces == 1 %}
+										<label for="session_name" class="required">
+											<strong>Nom</strong>
+										</label>
+										<input type="texte" data-id="session_name" name="name" required="required" placeholder="Dupond" class="form-control">
+										<label for="session_firstName" class="required">
+											<strong>Prénom</strong>
+										</label>
+										<input type="texte" data-id="session_firstName" name="firstName" required="required" placeholder="Jean" class="form-control">
+										<label for="session_telephone" class="required">
+											<strong>Téléphone</strong>
+										</label>
+										<input type="tel" data-id="session_telephone" name="telephone" required="required" placeholder="..." class="form-control" pattern="[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}"required>
 										<label for="session_nbPlaceMax" class="required">
 											<strong>choissisez le nombre de place que vous voulez réserver pour cet séance</strong>
 										</label>
-										<input type="number" data-id="session_nbPlaceMax" name="nbPlaceMax" required="required" min="1" max="1" placeholder="1" class="form-control nbplaceTest">
+										<input type="number" data-id="session_nbPlaceMax" name="nbPlaceMax" required="required" min="1" max="1" placeholder="1" class="form-control">
 									{% else %}
+										<label for="session_name" class="required">
+											<strong>Nom</strong>
+										</label>
+										<input type="texte" data-id="session_name" name="name" required="required" placeholder="Dupond" class="form-control">
+										<label for="session_firstName" class="required">
+											<strong>Prénom</strong>
+										</label>
+										<input type="texte" data-id="session_firstName" name="firstName" required="required" placeholder="Jean" class="form-control">
+										<label for="session_telephone" class="required">
+											<strong>Téléphone</strong>
+										</label>
+										<input type="tel" data-id="session_telephone" name="telephone" required="required" placeholder="..." class="form-control" pattern="[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}"required>
 										<label for="session_nbPlaceMax" class="required">choissisez le nombre de place que vous voulez réserver
 										</label>
 										<input type="number" data-id="session_nbPlaceMax" name="nbPlaceMax" required="required" min="1" max="{{session.remainingPlaces}}" required="required" class="form-control nbplaceTest">
 									{% endif %}
-									vous pouvez annuler 24h avant la date prévue a tout moment dans l'onglet "user" de la barre de navigation selectionner"gestion des reservation"
+									vous pouvez annuler 24h avant la date prévue a tout moment dans l'onglet "user" de la barre de navigation selectionner "gestion des reservations".
 								</div>
 								<div class="modal-footer">
 									<button type="button" class=" btn-res btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
 									<button class=" btn-res btn btn-primary" data-bs-target="#exampleModalToggle{{session.id }}" data-bs-toggle="modal" data-bs-dismiss="modal">Revenir en arrière</button>
-									{% if app.user == null  %}
-										<button type="submit" name="submit" class="btn-res btn btn-primary">
-											<a href="{{ path('app_login')}} ">Valider réservation</a>
-										</button>
-									{% else %}
-										<button type="submit" name="submit" class="btn-res btn btn-primary">
-											Valider réservation</button>
-									{% endif %}
+									<button type="submit" name="submit" class="btn-res btn btn-primary">Valider réservation</button>
 								</div>
 							</form>
-						</div>
+						{% else %}
+							<div class="modal-header">
+								<h5 class="modal-title" id="exampleModalToggleLabel2">Il faut avoir un compte ou être connecter pour pouvoir réservez une séance</h5>
+								<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+							</div>
+							<button type="button" class=" btn-res btn btn-secondary" href="{{path('app_login')}}">Connexion</button>
+							<button type="button" class=" btn-res btn btn-secondary" href="{{path('app_register')}}">Crée un compte</button>
+						{% endif %}
 					</div>
 				</div>
-			{% endif %}
+			</div>
 			<p>
 				place
 				{{ session.nbPlaceReserved  }}/{{ session.nbPlaceMax }}
@@ -110,3 +127,5 @@
 			</p>
 		</div>
 	</div>
+
+{% endif %}

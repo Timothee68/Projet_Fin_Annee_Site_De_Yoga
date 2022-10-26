@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modification de la réservation {% endblock %}
+
+{% block body %}
+<div class="container">
+    <h1>Modification de la réservation {{reservation.session.benefit.title}}</h1>
+    <h3>En date du {{reservation.session.startTime | date("d-m-Y H:m") }}
+	{{ form_start(formEditReservation) }}
+	{{ form_errors(formEditReservation) }}
+        {% if edit is defined %}
+            <div class="container">
+                <div class="row d-flex justify-content-between">
+                    <div class="col-4 mb-4 mt-4">
+                        {{ form_row(formEditReservation.name ) }}
+                    </div>
+                    <div class="col-4 mb-4 mt-4">
+                        {{ form_row(formEditReservation.firstName) }}
+                    </div>
+                    <div class="col-6 mb-4 mt-4">
+                        {{ form_row(formEditReservation.telephone) }}
+                    </div>
+                    <div class="col-6 mb-4 mt-4">
+                        {{ form_row(formEditReservation.nb_places )}}
+                    </div>
+                    <div class="row">
+                        <div class="col-4 mt-4">
+                            {{ form_row(formEditReservation.submit, { 'label': 'Envoyer' }) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+	{{ form_end(formEditReservation) }}
+</div>    
+{% endblock %}

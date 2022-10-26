@@ -44,7 +44,7 @@ class HomeController extends AbstractController
 
             $blogs = $doctrine->getRepository(Blog::class)->findBy([] , ["publicationDate" => "DESC"] , 4);
             $benefits = $doctrine->getRepository(Benefit::class)->findBy([] , ['title' => 'DESC']);
-            $posts = $doctrine->getRepository(Post::class)->findBy([] , ['creationDate' => 'DESC']);
+            $posts = $doctrine->getRepository(Post::class)->findBy([] , ['creationDate' => 'DESC'] ) ;
             return $this->render('home/index.html.twig', [
                 'benefits' => $benefits,
                 'posts' => $posts,

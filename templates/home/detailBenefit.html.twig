@@ -30,11 +30,13 @@
 						<img src="{{asset('img/other/bien-etre.webp')}}" class="presta-home card-img-top mt-5" alt="image représentant les bienfaits fait au corps des pierres empiler sur un fond de décors de montagne">
 						<div class="card-body">
 							<h4 class="card-title">Les biens fait que vous apporterons les séances au fil du temps</h4>
+							 {% if is_granted('ROLE_ADMIN') %}
 							<button type="button" class="btn btn-lg bg-secondary mt-2 ">
 								<a href="{{ path('detail_edit_benefit', {'id': benefit.id }) }}">
 									ajout de bénéfice pour
 									{{ benefit }}</a>
 							</button>
+							{% endif %}
 							<ul>
 								{% for benefited in benefit.inputs %}
 									<li class="mt-2 mb-2">
@@ -56,7 +58,7 @@
 				</p>
 			</div>
 			<p class="text-center">
-				<button type="button" class="btn btn-lg bg-secondary mt-2 ">
+				<button type="button" class=" btn-res btn btn-secondary mt-2 ">
 					<a href="{{ path('app_session')}}">Réserver une séance</a>
 				</button>
 			</p>

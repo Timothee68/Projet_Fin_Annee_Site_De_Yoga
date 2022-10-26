@@ -24,20 +24,10 @@ class RegistrationFormType extends AbstractType
     {
         $builder
 
-            ->add('name'  , TextType::class, [
-                "attr" => ['class' => "form-control"],
-            ])
-            ->add('firstName' , TextType::class, [
-                "attr" => ['class' => "form-control"],
-            ])
-            ->add('dateOfBirth', DateType::class, [
-                'widget' => 'single_text',
+            ->add('pseudo'  , TextType::class, [
                 "attr" => ['class' => "form-control"],
             ])
             ->add('email', EmailType::class,[
-                "attr" => ['class' => "form-control"],
-            ])
-            ->add('telephone', TextType::class, [
                 "attr" => ['class' => "form-control"],
             ])
             ->add('img', FileType::class ,[

@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Newsletter!{% endblock %}
+
+{% block body %}
+<div class="container ">
+<h1 class="text-center"> Désinscription a la newsletter de Om Nada Brahma </h1>
+	{{ form_start(formNewsletterDelete) }}
+	{{ form_errors(formNewsletterDelete) }}
+		<div class="row d-flex justify-content-center align-content-center ">
+			<div class="col-6 mb-4 mt-4">
+				{{ form_row(formNewsletterDelete.email, { 'label': 'Entrée votre Email puis valider pour vous désabonné(e)' }) }}
+			</div>
+			<div class="row d-flex justify-content-center align-content-center">
+				<div class="col-6 mt-4">
+					{{ form_row(formNewsletterDelete.submit, { 'label': 'Envoyer' }) }}
+				</div>
+			</div>
+		</div>
+{{ form_end(formNewsletterDelete) }}
+</div>
+{% endblock %}

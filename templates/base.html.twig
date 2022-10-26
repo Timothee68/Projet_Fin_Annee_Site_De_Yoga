@@ -119,14 +119,14 @@
 
         {# Afficher les messages d'erreur #} 
         {% for message in app.flashes('error') %}
-        <div class="alert alert-error">
+        <div class="alert alert-error text-center">
             {{ message }}
             </div>
         {% endfor %}
 
         {# Afficher les messages de warning #} 
         {% for message in app.flashes('warning') %}
-        <div class="alert alert-warning">
+        <div class="alert alert-warning text-center">
             {{ message }}
             </div>
         {% endfor %}
@@ -154,13 +154,13 @@
                     </div>
                     <div class="col-4">
                         <h3>Sign up <br>Newsletter</h3>
-                        <input type="email">
-                        <p><a href="#">Se désinscrire</a></p>
+                        <p><a class="inscrir" href="{{ path('app_newsletter')}}">S'inscrire</a></p>
+                        <p><a class="desinscrir" href="{{ path('delete_newsletter')}}">Se désinscrire</a></p>
                         <button class="btn btn-dark" type="btn"> READ MORE</button>
                     </div>
                 </div>
                 <div class="row">
-                    <p class="text-center">&copy; 2022 - Site de yoga Tim.LUC. </p>
+                    <p class="text-center">&copy; 2022 - Site de yoga Timothée LUCARELLI. </p>
                 </div>
                 <div class="row">
                     <div class="footer-lien text-center ">

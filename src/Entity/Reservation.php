@@ -43,6 +43,26 @@ class Reservation
      */
     private $stage;
 
+    /**
+     * @ORM\Column(type="string", length=50)
+     */
+    private $firstName;
+
+    /**
+     * @ORM\Column(type="string", length=50)
+     */
+    private $name;
+
+    /**
+     * @ORM\Column(type="string", length=10)
+     */
+    private $telephone;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $dateOfBirth;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -101,6 +121,54 @@ class Reservation
     public function setStage(?Stage $stage): self
     {
         $this->stage = $stage;
+
+        return $this;
+    }
+
+    public function getFirstName(): ?string
+    {
+        return $this->firstName;
+    }
+
+    public function setFirstName(string $firstName): self
+    {
+        $this->firstName = $firstName;
+
+        return $this;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): self
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    public function getTelephone(): ?string
+    {
+        return $this->telephone;
+    }
+
+    public function setTelephone(string $telephone): self
+    {
+        $this->telephone = $telephone;
+
+        return $this;
+    }
+
+    public function getDateOfBirth(): ?\DateTimeInterface
+    {
+        return $this->dateOfBirth;
+    }
+
+    public function setDateOfBirth(?\DateTimeInterface $dateOfBirth): self
+    {
+        $this->dateOfBirth = $dateOfBirth;
 
         return $this;
     }

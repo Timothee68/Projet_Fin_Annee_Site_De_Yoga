@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Newsletter!{% endblock %}
+
+{% block body %}
+<div class="container ">
+<h1 class="text-center"> Inscription a la newsletter de Om Nada Brahma </h1>
+	{{ form_start(formNewsletter) }}
+	{{ form_errors(formNewsletter) }}
+		<div class="row d-flex justify-content-center align-content-center ">
+			<div class="col-6 mb-4 mt-4">
+				{{ form_row(formNewsletter.email, { 'label': 'Email' }) }}
+			</div>
+			<div class="row d-flex justify-content-center align-content-center">
+				<div class="col-6 mt-4">
+					{{ form_row(formNewsletter.submit, { 'label': 'Envoyer' }) }}
+				</div>
+			</div>
+		</div>
+{{ form_end(formNewsletter) }}
+</div>
+
+{% endblock %}

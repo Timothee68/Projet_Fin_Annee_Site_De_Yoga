@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}redirection accueil{% endblock %}
+
+{% block body %}
+<div class="container">
+        <p>un mail de comfiramtion vous a été envoyer a votre adresse mail cliquer sur le bouton pour revenir à la page d'acceuil</p>
+
+        <p>Merci d'avoir souscirs a la newsletter</p> 
+        <a type="button" class=" btn-res btn btn-secondary mb-5" href="{{path('app_home')}}">Accueil</a>
+</div>
+{% endblock %}

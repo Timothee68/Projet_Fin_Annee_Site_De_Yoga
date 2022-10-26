@@ -11,6 +11,7 @@ use App\Form\StageType;
 use App\Entity\Category;
 use App\Form\SessionType;
 use App\Entity\Reservation;
+use App\Form\ReservationType;
 use Symfony\Component\Mime\Address;
 use App\Repository\SessionRepository;
 use App\Repository\CategoryRepository;
@@ -166,19 +167,26 @@ class SessionController extends AbstractController
     {
             if(isset($_POST['submit']))
             {
+                //on récupère les info du formulaire avec la méthode request
                 $nbPlaceMax = $request->request->get("nbPlaceMax");
-         
+                $name = $request->request->get("name");
+                $firstName = $request->request->get("firstName");
+                $telephone = $request->request->get("telephone");
+                // on set les informations 
                 $reservation = new Reservation();
                 $reservation->setSession($session);
                 $reservation->setUser($user);
                 $reservation->setNbPlaces($nbPlaceMax);
-
+                $reservation->setFirstName($firstName);
+                $reservation->setName($name);
+                $reservation->setTelephone($telephone);
+                //on les rentre en base de donnée
                 $entityManager = $doctrine->getManager();
                 $entityManager->persist($reservation);
                 $entityManager->flush();
             
             }
-            $this->addFlash("success" , $reservation->getSession()->getBenefit()->getTitle(),  " à été reserver avec succès");
+            $this->addFlash("success" , $reservation->getSession()->getBenefit()->getTitle()." à été reserver avec succès");
         return $this->redirectToRoute('app_showReservation', ['id' => $user->getId()]); 
     }
     
@@ -194,12 +202,18 @@ class SessionController extends AbstractController
             if(isset($_POST['submit']))
             {
                 $nbPlaceMax = $request->request->get("nbPlaceMax");
-         
+                $name = $request->request->get("name");
+                $firstName = $request->request->get("firstName");
+                $telephone = $request->request->get("telephone");
+                // on set les informations 
                 $reservation = new Reservation();
                 $reservation->setstage($stage);
                 $reservation->setUser($user);
                 $reservation->setNbPlaces($nbPlaceMax);
-
+                $reservation->setFirstName($firstName);
+                $reservation->setName($name);
+                $reservation->setTelephone($telephone);
+                //on les rentre en base de donnée
                 $entityManager = $doctrine->getManager();
                 $entityManager->persist($reservation);
                 $entityManager->flush();
@@ -328,6 +342,41 @@ class SessionController extends AbstractController
         return $this->render('session/add.html.twig', [
             'formAddSession' =>  $form->createView(),
             'edit' => $session->getId(),
+        ]); 
+    }
+
+    /**
+     * fonction pour ajouter une session d'une préstation
+     * @Route("/reservation/edit/{id}/{id_user}" , name="edit_reservation" )
+     * @ParamConverter("reservation", options={"id" = "id"})
+     * @ParamConverter("user", options={"id" = "id_user"})
+     */
+    public function editReservation(ManagerRegistry $doctrine,Reservation $reservation = null, Request $request , User $user=null): Response
+    {
+
+        // si le film existe pas on crée un nouvelle objet sinon on modifie 
+        if(!$reservation)
+        {
+            $reservation =new Reservation();
+        }
+        // crée le formulaire de type reservation 
+        $form = $this->createForm(ReservationType::class , $reservation );
+        $form->handleRequest($request);
+        // si envoye et sanitise avec les filter etc protection faille xss puis on execute le tout 
+        if($form->isSubmitted() && $form->isValid())
+        {
+            $reservation = $form->getData();           
+            $entityManager = $doctrine->getManager();
+            // hydrate et protection faille sql 
+            $entityManager->persist($reservation);
+            $entityManager->flush();
+            $this->addFlash("success" , "la réservation à été Modifié avec succès");
+            return $this->redirectToRoute('app_showReservation', ['id' => $user->getId()]); 
+        }
+        return $this->render('user/editReservation.html.twig', [
+            'formEditReservation' =>  $form->createView(),
+            'edit' => $reservation->getId(),
+            "reservation" => $reservation,
         ]); 
     }
 

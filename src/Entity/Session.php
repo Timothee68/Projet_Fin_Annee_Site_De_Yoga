@@ -56,6 +56,7 @@ class Session
      */
     private $backgroundColor;
 
+
     public function __construct()
     {
         $this->reservations = new ArrayCollection();
@@ -192,4 +193,5 @@ class Session
 
         return $this;
     }
+
 }

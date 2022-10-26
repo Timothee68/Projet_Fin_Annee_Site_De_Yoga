@@ -59,35 +59,21 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $reservations;
 
-    /**
-     * @ORM\Column(type="string", length=100)
-     */
-    private $name;
-
-    /**
-     * @ORM\Column(type="string", length=100)
-     */
-    private $firstName;
+    
 
     /**
      * @ORM\Column(type="boolean")
      */
     private $isVerified = false;
 
-    /**
-     * @ORM\Column(type="string", length=20, nullable=true)
-     */
-    private $telephone;
+    
 
     /**
      * @ORM\Column(type="datetime")
      */
     private $registrationDate ;
 
-  /**
-     * @ORM\Column(type="datetime")
-     */
-    private $dateOfBirth;
+ 
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -98,6 +84,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\OneToMany(targetEntity=Reply::class, mappedBy="sender")
      */
     private $replies;
+
+    /**
+     * @ORM\Column(type="string", length=100)
+     */
+    private $pseudo;
 
     public function __construct()
     {
@@ -329,29 +320,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     
-    public function getName(): ?string
-    {
-        return $this->name;
-    }
-
-    public function setName(string $name): self
-    {
-        $this->name = $name;
-
-        return $this;
-    }
-
-    public function getFirstName(): ?string
-    {
-        return $this->firstName;
-    }
-
-    public function setFirstName(string $firstName): self
-    {
-        $this->firstName = $firstName;
-
-        return $this;
-    }
+   
 
     public function isVerified(): bool
     {
@@ -365,17 +334,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getTelephone(): ?string
-    {
-        return $this->telephone;
-    }
-
-    public function setTelephone(?string $telephone): self
-    {
-        $this->telephone = $telephone;
-
-        return $this;
-    }
+   
 
     public function getRegistrationDate(): ?\DateTimeInterface
     {
@@ -388,25 +347,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getDateOfBirth(): ?\DateTimeInterface
-    {
-        return $this->dateOfBirth;
-    }
-
-    public function setDateOfBirth(\DateTimeInterface $dateOfBirth): self
-    {
-        $this->dateOfBirth = $dateOfBirth;
-
-        return $this;
-    }
-        // fonction pour afficher l'age d'un utilisateur
-        public function getAge(){
-
-            $now = new \DateTime();
-            $interval = date_diff($this->dateOfBirth, $now);
-    
-            return $interval->format("%Y");
-        }
         public function getImg(): ?string
         {
             return $this->img;
@@ -418,11 +358,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     
             return $this;
         }
-
-    public function __toString()
-    {
-        return $this->name.' '.$this->firstName;
-    }
 
     /**
      * @return Collection<int, Reply>
@@ -452,6 +387,23 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         }
 
         return $this;
+    }
+
+    public function getPseudo(): ?string
+    {
+        return $this->pseudo;
+    }
+
+    public function setPseudo(string $pseudo): self
+    {
+        $this->pseudo = $pseudo;
+
+        return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->pseudo;
     }
 
 }

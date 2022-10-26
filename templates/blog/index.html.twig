@@ -25,6 +25,12 @@
 							<tr>
 								<td class="td-light">
 									<div class="card mt-5 mb-3">
+											<h5 class=" card-title text-center mt-3 fs-2 ">
+												<a class="" href="{{path('detail_blog' , {'id': blog.id})}}"><strong class="hover-title-blog">{{blog.title}}</strong></a>
+											</h5>
+											<p class="card-text text-center fs-5">
+												<small class="text-muted">Par {{blog.user.pseudo}} le {{blog.publicationDate | date('d/m/Y H:m')}}</small>
+											</p>
 										{% if blog.image %}
 											<img src="/{{blog.image}}" class="blog-image-index-detail card-img-top" alt="image corresondant a l'article de blog {{blog.title}}">
 										{% elseif blog.urlVideo %}
@@ -41,15 +47,7 @@
 										{% endif %}
 
 										<div class="card-body">
-											<h5 class=" card-title fs-2">
-												<a class="hover-title-blog" href="{{path('detail_blog' , {'id': blog.id})}}">{{blog.title}}</a>
-											</h5>
 											<p class="scroller card-text fs-5">{{ blog.contents}}</p>
-											<p class="card-text fs-5">
-												<small class="text-muted">
-													Éditer le :
-													{{blog.publicationDate | date('d/m/Y H:m')}}</small>
-											</p>
 											{% if is_granted('ROLE_ADMIN') %}
 												<button type="button" class="btn btn-lg bg-secondary mt-2 ">
 													<a href="{{path('edit_blog' , {'id': blog.id , 'id_user' : app.user.id}) }}">Editer</a>

@@ -22,11 +22,14 @@
 							<p class="card-text fs-2 text-center mt-4">{{ app.user}}</p>
 							<p class="card-text fs-2 text-center mt-4">Email :
 								{{ app.user.email}}</p>
-							<p class="card-text fs-4 text-center mt-4">Age :
-								{{ app.user.age }}
-								ans</p>
-							<p class="card-text fs-4 text-center mt-4">Téléphone :
-								{{ app.user.telephone}}</p>
+								{# {% if app.user.reservation %}
+									<p class="card-text fs-4 text-center mt-4">Age :
+										{{ app.user.reseravtion.age }}
+										ans
+									</p>
+								{% endif %} #}
+							{# <p class="card-text fs-4 text-center mt-4">Téléphone :
+								{{ app.user.telephone}}</p> #}
 							<p class="card-text fs-4 text-center mt-4">Compte crée le :{{ app.user.registrationDate | date('d/m/Y')}}</p>
 						</div>
 					</div>
@@ -64,4 +67,5 @@
 			</div>
 		</div>
 	</div>
-</article>{% endblock %}
+</article>
+{% endblock %}

@@ -70,9 +70,15 @@
             <h5 class="text-end mb-5"><i class="fa-solid fa-circle color-green"></i>DISPONILBE<i class="fa-solid fa-circle color-red"></i>PLEIN/DATE PASSER</h5>
             {# si on a un id d'une categorie et d'une préstation précise #}
             {% if idCategory is defined and idCategory is not empty %}
-                {% for session in sessionsById  %}
-                        {% include "session/_showSession.html.twig" %}
-                {% endfor %}
+                {% set dateNow = date() %}
+                    {% for session in sessionsById  %}
+                        {% if dateNow < session.startTime %}
+                            {% include "session/_showSession.html.twig" %}
+                        {% else %}
+                        {% endif %}
+                    {% else %}
+                        <h3>Aucune Session disponible</h3>
+                    {% endfor %}
             {% else %}
                 {# sinon affichage de all session #}
                 {% for session in sessions  %}
