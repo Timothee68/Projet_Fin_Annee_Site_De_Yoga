@@ -5,6 +5,20 @@
         <script src="https://tarteaucitron.io/load.js?domain=127.0.0.1%2Fhome&uuid=daf144c9bc05780c9795c92d794cc241b7da33fb"></script>  
         <meta charset="UTF-8">
         <title>{% block title %}Om Nada bramha!{% endblock %}</title>
+        <meta name="title" content="Om nada braham soin et au bien-être du corps et de l'esprit">
+        <meta name="description" content="Om nada braham une entreprise qui propose des massages ess séances de yoga et d'autres activités liées au soin et au bien-être">
+        <!-- Open Graph / Facebook, Linkedin -->
+        <meta property="og:type" content="">
+        <meta property="og:url" content="https://www.facebookMaPAge.fr ">
+        <meta property="og:title" content="Om nada braham soin et au bien-être du corps et de l'esprit">
+        <meta property="og:description" content="Om nada braham une entreprise qui propose des massages ess séances de yoga et d'autres activités liées au soin et au bien-être">
+        <meta property="og:image" content="">
+        <!-- Twitter -->
+        <meta property="twitter:card" content="">
+        <meta property="twitter:url" content="https://www.twiterMaPAge.fr">
+        <meta property="twitter:title" content="Om nada braham soin et au bien-être du corps et de l'esprit">
+        <meta property="twitter:description" content="Om nada braham une entreprise qui propose des massages ess séances de yoga et d'autres activités liées au soin et au bien-être">
+        <meta property="twitter:image" content="">
         {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css" integrity="sha256-5veQuRbWaECuYxwap/IOE/DAwNxgm4ikX7nrgsqYp88=" crossorigin="anonymous">
         {# <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>"> #}
@@ -44,6 +58,7 @@
                             <li><a href="#" >Ajouter une vidéo</a></li>
                             <li><hr class="dropdown-divider"></li>
                             <li><a href="{{ path('app_reply') }}" >Répondre aux messages</a></li>
+                            <li><a href="{{ path('prepare') }}" >Envoyer newsletter</a></li>
                             <li><a href="{{ path('app_gestion_reservation') }}" >Gestion réservation</a></li>
                         </ul>
                     </li>
@@ -55,15 +70,15 @@
                             <li><a class="dropdown-item" href="{{path('app_stage')}}">Stage</a></li>
                             <li><hr class="dropdown-divider"></li>
                             <li><a class="dropdown-item" href="{{ path('show_blog') }}">Blog</a></li>
-                            <li><a class="dropdown-item" href="#">Vidéo</a></li>
+                            <li><a class="dropdown-item" href="{{ path('video') }}">Vidéo</a></li>
                         </ul>
                     </li>
                     <li class="nav-item dropdown mt-5">
                         <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">About</a>
                         <ul class="dropdown-menu fs-4">
                             <li><a class="dropdown-item" href="{{ path('app_presentation')}}">A propos de moi</a></li>
-                            <li><a class="dropdown-item" href="#">Newsletter</a></li>
                             <li><a class="dropdown-item" href="{{ path('app_contact') }}">Contacts</a></li>                
+                            <li><a class="dropdown-item" href="#newsletter">Newsletter</a></li>
                         </ul>
                     </li>
                     <li class="nav mt-5">
@@ -152,7 +167,7 @@
                             <a href="#"><i class="fa-brands fa-instagram-square"></i></a>     
                         </div>
                     </div>
-                    <div class="col-4">
+                    <div id="newsletter" class="col-4">
                         <h3>Sign up <br>Newsletter</h3>
                         <p><a class="inscrir" href="{{ path('app_newsletter')}}">S'inscrire</a></p>
                         <p><a class="desinscrir" href="{{ path('delete_newsletter')}}">Se désinscrire</a></p>

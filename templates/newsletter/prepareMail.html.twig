@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Préparation de mail{% endblock %}
+
+{% block body %}
+	{{ form_start(formAddMailNewsletter) }}
+	{{ form_errors(formAddMailNewsletter) }}
+	<div class="container">
+        <h2>Préparation du mail a envoyer</h2>
+		<div class="row">
+			<div class="col-12 mb-4 mt-4">
+				{{ form_row(formAddMailNewsletter.name, { 'label': 'Titre' }) }}
+			</div>
+			<div class="col-12 mb-4 mt-4">
+				{{ form_row(formAddMailNewsletter.content) }}
+			</div>
+			<div class="row">
+				<div class="col-4 mt-4">
+					{{ form_row(formAddMailNewsletter.submit, { 'label': 'Envoyer' }) }}
+				</div>
+			</div>
+		</div>
+	</div>
+	{{ form_end(formAddMailNewsletter) }}
+
+	  <p class="text-center" ><button type="button" class="btn btn-lg bg-secondary mt-2 "><a href="{{path('list')}}">Accès lists</a></button></p>
+
+{% endblock %}

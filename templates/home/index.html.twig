@@ -175,10 +175,8 @@
 										{{blog.publicationDate | date('d/m/Y H:m')}}</p>
 								</div>
 							</li>
-						    <button type="button" class="btn-res btn btn-secondary"><a href="#">Voir plus</a></button>
 						{% endfor %}
 					</ul>
-
 				</section>
 				<section>
 
@@ -210,6 +208,8 @@
 						{% for post in posts %}
 							{% include "home/_postUser.html.twig" %}
 						{% endfor %}
+    					<button type="button" class="btn-res btn btn-secondary"><a href="#">Voir plus</a></button>
+
 					</div>
 				</section>
 		{% elseif edit == 'edit' %}

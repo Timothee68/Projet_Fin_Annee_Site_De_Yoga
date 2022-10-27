@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des mailNewsletter{% endblock %}
+
+{% block body %}
+<div class="container">
+        <h1>Listes des Mails de newsletters a envoyer </h1>
+                <a type="button" class="btn btn-secondary mb-5" href="{{path('prepare')}}">Crée newsletter</a>
+
+          <table id="table_id" class="table table-striped mt-4 display">
+            <thead>
+            <tr class="bg-secondary">
+                <th scope="col">A été envoyer</th>
+                <th scope="col">Crée le</th>
+                <th scope="col ">Name</th>
+                <th scope="col">Contenue</th>
+                <th scope="col">Inscrits</th>
+                <th scope="col">Envoyer</th>
+                <th scope="col">Éditer</th>
+                <th scope="col">supprimer</th>
+            </tr>
+            </thead>
+
+            <tbody>
+                {% for news in newsletters %}
+                <tr>
+                    <td>{% if news.isIsSent %}
+                            <i class="fa-solid fa-circle color-green"></i>OUI
+                        {% else %}
+                            <i class="fa-solid fa-circle color-red"></i>NON
+                        {% endif %}
+                    </td>
+                    <td>{{ news.createdAt | date("d-m-Y") }}</td>
+                    <td>{{ news.name }}</td>
+                    <td>{{ news.content }}</td>
+                    <td>{{ users | length  }}</td>
+                    <td><button type="button" class="btn btn-lg bg-secondary mt-2 "><a href="{{path('send', {'id': news.id } ) }}">Envoyer</a></button></td>
+                    <td><button type="button" class="btn btn-lg bg-secondary mt-2 "><a href="{{path('edit_prepare' , {'id': news.id } ) }}">Editer</a></button></td>
+                    <td>
+                        <button type="button" class="btn btn-lg bg-secondary mt-2 " data-bs-toggle="modal" data-bs-target="#exampleModal{{news.id}}">supprimer</i></button>                 
+                        <!-- Modal -->
+                        <div class="modal fade" id="exampleModal{{news.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Confirmer vous la supréssion de : <br>{{news.name}} ? </h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                    la suppression est définitif êtes vous certain de votre déscicions ? 
+                                    </div>
+                                    <div class="modal-footer">
+                                    <button type="button" class="btn btn-lg bg-secondary mt-2 " data-bs-dismiss="modal" > X annuler</button>
+                                    <button type="button" class="btn btn-lg bg-secondary mt-2 "><a href="{{path('delete_news', {'id': news.id })}}">supprimer</a></button>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+</div>
+{% endblock %}

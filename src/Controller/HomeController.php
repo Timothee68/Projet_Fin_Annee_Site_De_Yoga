@@ -164,6 +164,16 @@ class HomeController extends AbstractController
     }
 
     /**
+     * fonction pour afficher le detail d'un blog
+    * @Route("/home/video/", name="video")
+    */
+    public function video() : Response
+    {
+        return $this->render('video/index.html.twig');
+    }
+
+
+    /**
     * @Route("/home/delete_post/{id}", name="delete_post")
     */
     public function deleteblog(ManagerRegistry $doctrine, Post $post) :Response
