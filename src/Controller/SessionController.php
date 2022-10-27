@@ -274,14 +274,14 @@ class SessionController extends AbstractController
     }
 
     /**
-     * fonction pour ajouter une session d'une préstation
+     * fonction pour afficher une session d'une préstation
      * @Route("session/stage" , name="app_stage" )
      */ 
     public function showStage(ManagerRegistry $doctrine, Stage $stage=null) :Response
-    {
+    {    
         $stages = $doctrine->getRepository(Stage::class)->findAll();
         return $this->render('stage/index.html.twig', [
-            "stages" => $stages,
+            "stages" => $stages,          
         ]);
     }
 

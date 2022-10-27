@@ -18,15 +18,14 @@
         <hr class="pink">
         <p class="fs-5">{{ post.contents}}</p>
         <span class="time-left fs-5">Posté le : {{ post.creationDate | date('d/m/Y H:i')}}</span>
-        {% if  is_granted('ROLE_ADMIN') or post.user.id is defined and app.user.id == post.user.id %}
+        {% if  is_granted('ROLE_ADMIN') or post.user.id is defined and app.user.id is defined and app.user.id == post.user.id %}
         <div class="card-footer">
             <hr class="pink">
             <button type="button" class="btn-res btn btn-secondary">
                 <a href="{{ path('edit_post', {'id': post.id }) }}">Éditer</a>
             </button>
             <!-- Modal suppresion -->
-            <button type="button" class="btn-res btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal{{post.id}}">supprimer</i>
-        </button>
+            <button type="button" class="btn-res btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal{{post.id}}">supprimer</i></button>
         </div>
         <div class="modal fade" id="exampleModal{{post.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
@@ -53,6 +52,10 @@
                     </div>
                 </div>
             </div>
+        </div>
+        {% else %}
+        <div class="card-footer">
+
         </div>
         {% endif %}
 

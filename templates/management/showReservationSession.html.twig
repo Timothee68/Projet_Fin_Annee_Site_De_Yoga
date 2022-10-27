@@ -52,18 +52,18 @@
                     <tr>
                         {% if reservation.session != null %}
                             <td><strong>{{ reservation.session.id }}</strong></td>
-                            <td><strong>{{ reservation.user.name }} {{ reservation.user.firstName }}</strong></td>
+                            <td><strong>{{ reservation.name }} {{ reservation.firstName }}</strong></td>
                             <td><strong>{{ reservation.user.email }} </strong></td>
-                            <td><strong>{{ reservation.user.telephone }} </strong></td>
+                            <td><strong>{{ reservation.telephone }} </strong></td>
                             <td><strong>{{ reservation.session.benefit}}:</strong></td>
                             <td>Le {{ reservation.session.startTime | date("d/m/Y")  }}  de {{ reservation.session.startTime | date("h:m")  }} à {{ reservation.session.endTime | date("h:m")  }}.</td>
                             <td>Place reserver : {{reservation.nbPlace}} place(s)</td>
                             <td>Place restante : {{reservation.session.remainingPlaces}} place(s) /  {{reservation.session.nbPlaceMax}}</td> 
                         {% elseif reservation.stage != null %}
                             <td><strong>{{ reservation.stage.id }}</strong></td>
-                            <td><strong>{{ reservation.user.name }} {{ reservation.user.firstName }}</strong></td>
+                            <td><strong>{{ reservation.name }} {{ reservation.firstName }}</strong></td>
                             <td><strong>{{ reservation.user.email }} </strong></td>
-                            <td><strong>{{ reservation.user.telephone }} </strong></td>
+                            <td><strong>{{ reservation.telephone }} </strong></td>
                             <td><strong>{{ reservation.stage.title}}:</strong></td>
                             <td>Le {{ reservation.stage.startTime | date("d/m/Y")  }}  de {{ reservation.stage.startTime | date("h:m")  }} à {{ reservation.stage.endTime | date("h:m")  }}.</td>
                             <td>Place reserver : {{reservation.nbPlace}} place(s)</td>

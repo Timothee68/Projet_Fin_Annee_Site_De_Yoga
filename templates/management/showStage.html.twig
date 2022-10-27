@@ -25,7 +25,7 @@
                         <tr>
                             <td><strong>{{ stage.id }} </strong></td>
                             <td><strong>{{ stage.title}}</strong></td>
-                            <td>Le {{ stage.startTime | date("d/m/Y")  }}  de {{ stage.startTime | date("h:m")  }} à {{ stage.endTime | date("h:m")  }}.</td>
+                            <td>Le {{ stage.startTime | date("d/m/Y h:m")  }} au {{ stage.endTime | date("d/m/Y h:m")  }}.</td>
                             <td>Place reserver : {{stage.nbPlaceMax}} place(s)</td>
                             <td>Place reserver : {{stage.nbPlaceReserved}} place(s)</td>
                             <td>Place restante : {{stage.remainingPlaces}} place(s)</td>

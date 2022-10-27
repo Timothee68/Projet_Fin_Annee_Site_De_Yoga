@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Stage;
 use Symfony\Component\Form\AbstractType;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -20,8 +21,9 @@ class StageType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('content', TextareaType::class ,[
-                "attr" => [ 'class' => "form-control"]
+            ->add('content', CKEditorType::class, [
+                'config' => array('toolbar' => 'full'),
+                "attr" => ['class' => "form-control"]
                 ])
             ->add('title', TextType::class ,[
                 "attr" => [ 'class' => "form-control"]

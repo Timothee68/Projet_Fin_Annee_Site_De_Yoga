@@ -180,7 +180,7 @@
 				</section>
 				<section>
 
-					<div id="livredor">
+					<div id="livredor" class="col-12">
 						<h2  class="mt-5 ">Le livre d'or</h2>
 						<hr class="pink">
 						<p class="fs-4 text-center mt-3 mb-5">Si vous souhaiter laisser un commentaire vous pouvez le déposer ici</p>
@@ -188,7 +188,7 @@
 							{{ form_start(formAddPost) }}
 							{{ form_errors(formAddPost) }}
 							<div class="col d-flex justify-content-center">
-								<div class="col-sm-6  mb-2 mt-4">
+								<div class="col-sm-7  mb-2 mt-4">
 									{{ form_row(formAddPost.contents, { 'label': 'Laisser un commentaire' }) }}
 								</div>
 							</div>
@@ -209,7 +209,6 @@
 							{% include "home/_postUser.html.twig" %}
 						{% endfor %}
     					<button type="button" class="btn-res btn btn-secondary"><a href="#">Voir plus</a></button>
-
 					</div>
 				</section>
 		{% elseif edit == 'edit' %}

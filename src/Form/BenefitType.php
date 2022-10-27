@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\Benefit;
 use App\Form\ImgCollectionBenefitType;
 use Symfony\Component\Form\AbstractType;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -23,8 +24,9 @@ class BenefitType extends AbstractType
             ->add('title', TextType::class, [
                 "attr" => ['class' => "form-control"]
                 ])
-            ->add('description', TextareaType::class ,[
-                "attr" => [ 'class' => "form-control"]
+            ->add('description', CKEditorType::class, [
+                'config' => array('toolbar' => 'full'),
+                "attr" => ['class' => "form-control"]
                 ])
             ->add('price', IntegerType::class, [
                 "attr" => ['class' => "form-control"],

@@ -21,7 +21,7 @@
 						<h5>Compte supprimé</h5>
 					{% else %}
 						<h5>
-							Écrit par :{{post.user.name }}</h5>
+							Écrit par :{{post.user.pseudo }}</h5>
 					{% endif %}
 					<hr class="pink">
 					<p>{{ post.contents}}</p>
@@ -38,7 +38,7 @@
 				{{ form_errors(formAddReply) }}
 				<div class="container">
 					<div class="row">
-						<div class="col-4 mb-4 mt-4">
+						<div class="col-12 mb-4 mt-4">
 							{{ form_row(formAddReply.content, { 'label': 'Répondre au commentaire' }) }}
 						</div>
 						<div class="row">

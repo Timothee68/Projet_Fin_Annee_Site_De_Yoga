@@ -60,7 +60,7 @@
 				<div class="modal-dialog modal-dialog-centered">
 					<div class="modal-content">
 						<div class="modal-header">
-						{% if app.user is defined %}
+						{% if app.user.id is defined %}
 								<h5 class="modal-title" id="exampleModalToggleLabel2">Veuillez remplir le formulaire de réservation et le valider</h5>
 								<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 							</div>
@@ -109,12 +109,15 @@
 								</div>
 							</form>
 						{% else %}
-							<div class="modal-header">
-								<h5 class="modal-title" id="exampleModalToggleLabel2">Il faut avoir un compte ou être connecter pour pouvoir réservez une séance</h5>
-								<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 							</div>
-							<button type="button" class=" btn-res btn btn-secondary" href="{{path('app_login')}}">Connexion</button>
-							<button type="button" class=" btn-res btn btn-secondary" href="{{path('app_register')}}">Crée un compte</button>
+							<div class="modal-body">
+								<h5 class="modal-title" id="exampleModalToggleLabel2">Il faut avoir un compte ou être connecter pour pouvoir réservez une séance</h5>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+								<button type="button" class=" btn-res btn btn-secondary" href="{{path('app_login')}}">Connexion</button>
+								<button type="button" class=" btn-res btn btn-secondary" href="{{path('app_register')}}">Crée un compte</button>
+							</div>
 						{% endif %}
 					</div>
 				</div>

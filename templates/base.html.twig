@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <script script src="https://tarteaucitron.io/load.js?domain=127.0.0.1&uuid=daf144c9bc05780c9795c92d794cc241b7da33fb"></script>
         <link rel="icon" href="{{ asset('img/favicon.ico') }}" />
         <script src="https://tarteaucitron.io/load.js?domain=127.0.0.1%2Fhome&uuid=daf144c9bc05780c9795c92d794cc241b7da33fb"></script>  
         <meta charset="UTF-8">
@@ -64,11 +65,15 @@
                     </li>
                     {% endif %}
                     <li class="nav-item dropdown mt-5">
-                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Contenues</a>
+                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Réservations</a>
                         <ul class="dropdown-menu fs-4">
                             <li><a class="dropdown-item" href="{{ path('app_session')}}">Réserver une séance</a></li>
                             <li><a class="dropdown-item" href="{{path('app_stage')}}">Stage</a></li>
-                            <li><hr class="dropdown-divider"></li>
+                        </ul>
+                    </li>
+                     <li class="nav-item dropdown mt-5">
+                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Contenues</a>
+                        <ul class="dropdown-menu fs-4">
                             <li><a class="dropdown-item" href="{{ path('show_blog') }}">Blog</a></li>
                             <li><a class="dropdown-item" href="{{ path('video') }}">Vidéo</a></li>
                         </ul>

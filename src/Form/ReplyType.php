@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Reply;
 use Symfony\Component\Form\AbstractType;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -16,8 +17,9 @@ class ReplyType extends AbstractType
         $builder
             // ->add('sender')
             // ->add('recipient')
-            ->add('content', TextareaType::class ,[
-                "attr" => [ 'class' => "form-control"]
+            ->add('content', CKEditorType::class, [
+                'config' => array('toolbar' => 'full'),
+                "attr" => ['class' => "form-control"]
                 ])
             ->add('submit',SubmitType::class, [
                 "attr" => ['class' => "form-control bg-primary"]

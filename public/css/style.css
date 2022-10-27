@@ -24,7 +24,9 @@ img{
 }
 
 .card{
-  border:#783897 solid 1px !important;
+  /* border:#783897 solid 1px !important; */
+  border:none !important; 
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
 .width-swiper{
