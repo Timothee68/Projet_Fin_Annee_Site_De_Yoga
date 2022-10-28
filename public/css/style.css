@@ -890,8 +890,10 @@ footer a{
   font-size: 25px;
   color:white;
 }
+
 .inscrir:hover , .desinscrir:hover {
   font-size: 24px;
   color:#783897 !important;
   transition: 0.8s;
 }
+
