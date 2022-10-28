@@ -32,7 +32,7 @@
                     </td>
                     <td>{{ news.createdAt | date("d-m-Y") }}</td>
                     <td>{{ news.name }}</td>
-                    <td>{{ news.content }}</td>
+                    <td>{{ news.content | raw }}</td>
                     <td>{{ users | length  }}</td>
                     <td><button type="button" class="btn btn-lg bg-secondary mt-2 "><a href="{{path('send', {'id': news.id } ) }}">Envoyer</a></button></td>
                     <td><button type="button" class="btn btn-lg bg-secondary mt-2 "><a href="{{path('edit_prepare' , {'id': news.id } ) }}">Editer</a></button></td>
